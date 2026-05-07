@@ -1,0 +1,82 @@
+# SOC Guide for Operational Excellence
+
+A lightweight, web-based operational reference for SOC analysts using Microsoft Defender XDR across:
+
+- Microsoft Defender for Office 365 (MDO)
+- Microsoft Defender for Endpoint (MDE)
+- Microsoft Defender for Identity (MDI)
+- Microsoft Defender for Cloud Apps (MDA)
+
+The guide organizes routine SOC activities by workload, cadence, and operating pattern to help analysts quickly understand what to review, where to go, and what output each task should leave behind.
+
+## Live site
+
+[Open the SOC Guide for Operational Excellence](https://luiblu.github.io/soc-guide-operational-excellence/)
+
+## Purpose
+
+This guide is designed to make Microsoft Learn SOC operations guidance easier to use in day-to-day analyst workflows.
+
+Instead of presenting the guidance as long-form documentation, the site organizes tasks around how SOC teams operate:
+
+- Daily triage
+- Weekly tuning and trend review
+- Monthly posture and coverage review
+- Ad-hoc response, hunting, and configuration work
+
+Each task includes:
+
+- Workload
+- Cadence
+- SOC pattern
+- Owner
+- Access needed
+- Expected output
+- Defender portal link
+- Microsoft Learn documentation link
+
+## SOC operating patterns
+
+The guide uses six recurring SOC patterns:
+
+| Pattern | Meaning |
+|---|---|
+| Triage | Investigate and respond to active incidents or alerts |
+| Tune | Reduce false positives, false negatives, and recurring alert noise |
+| Hunt | Proactively search for suspicious or malicious activity |
+| Intel | Review threat intelligence, product updates, and emerging risks |
+| Detect | Validate telemetry, sensor health, connector status, and coverage |
+| Config | Review or adjust security posture, policies, controls, and exclusions |
+
+## Why this matters
+
+Routine SOC tasks are not administrative overhead. They help analysts:
+
+- Triage with less friction
+- Reduce repeat noise
+- Protect investigation visibility
+- Connect signals across workloads
+
+A consistent operating rhythm helps analysts move from signal to action more quickly and reduces the risk of missing important context across Defender XDR workloads.
+
+## Source and framing
+
+The task content, portal destinations, and documentation links are based on Microsoft Learn guidance for Microsoft Defender XDR and related Defender workloads.
+
+The following elements are editorial framing added to improve usability:
+
+- SOC pattern taxonomy
+- Priority models
+- Anchor-task highlighting
+- Expected outputs
+- Analyst workflow language
+- Card and table views
+
+For authoritative product guidance, use the Microsoft Learn links included in each task.
+
+## How to update the site
+
+This GitHub Pages site is published from:
+
+```text
+main / root
