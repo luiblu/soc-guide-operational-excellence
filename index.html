@@ -23,10 +23,10 @@
   --mda: #60a5fa; --mda-soft: #eff6ff;
 
   --p-triage: #dc2626;
-  --p-detect: #d97706;
-  --p-tune:   #0f766e;
-  --p-hunt:   #6d28d9;
-  --p-intel:  #0891b2;
+  --p-tune:   #d97706;
+  --p-hunt:   #be185d;
+  --p-intel:  #7c3aed;
+  --p-detect: #059669;
   --p-config: #475569;
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,.04);
@@ -599,10 +599,6 @@ footer {
 <main class="layout">
   <aside class="sidebar">
     <div class="side-card">
-      <h4 id="priorityTitle">Priority model</h4>
-      <ol class="priority-list" id="priorityList"></ol>
-    </div>
-    <div class="side-card">
       <h4>Pattern legend</h4>
       <div id="legend"></div>
     </div>
@@ -1024,10 +1020,6 @@ function render() {
     ? "Cards are optimized for learning and guided execution."
     : "Table view is optimized for operational checklists and comparison.";
   $("resultCount").textContent = `${filtered.length} task${filtered.length===1?"":"s"}`;
-
-  // Sidebar priority
-  $("priorityTitle").textContent = state.wl === "all" ? "Priority model (cross-workload)" : `${w.short} priority model`;
-  $("priorityList").innerHTML = PRIORITIES[state.wl].map(p => `<li>${esc(p)}</li>`).join("");
 
   // View show/hide
   $("cardsView").style.display = state.view === "cards" ? "block" : "none";
