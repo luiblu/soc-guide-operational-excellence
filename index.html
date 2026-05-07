@@ -17,16 +17,16 @@
   --text-subtle: #6b7280;
   --text-faint: #9ca3af;
 
-  --mdo: #2563eb; --mdo-soft: #eff6ff;
-  --mde: #7c3aed; --mde-soft: #f5f3ff;
-  --mdi: #0891b2; --mdi-soft: #ecfeff;
-  --mda: #ea580c; --mda-soft: #fff7ed;
+  --mdo: #1e3a8a; --mdo-soft: #eef2ff;
+  --mde: #2563eb; --mde-soft: #eff6ff;
+  --mdi: #0ea5e9; --mdi-soft: #f0f9ff;
+  --mda: #60a5fa; --mda-soft: #eff6ff;
 
   --p-triage: #dc2626;
   --p-tune:   #d97706;
-  --p-hunt:   #0891b2;
+  --p-hunt:   #0d9488;
   --p-intel:  #7c3aed;
-  --p-detect: #2563eb;
+  --p-detect: #059669;
   --p-config: #475569;
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,.04);
@@ -90,6 +90,44 @@ h1 .accent {
 }
 .intro-card p { font-size: 13px; color: var(--text); margin: 0; line-height: 1.5; }
 
+/* ===== Why this matters band ===== */
+.value-bar {
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.value-inner {
+  max-width: 1240px; margin: 0 auto;
+  padding: 28px;
+}
+.value-head {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .14em; color: var(--text-subtle);
+  margin: 0 0 18px 0;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.value-head::before {
+  content: ""; width: 28px; height: 2px;
+  background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 50%, #60a5fa 100%);
+  border-radius: 2px;
+}
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.value-pillar {
+  border-left: 3px solid var(--pillar-color, #2563eb);
+  padding: 4px 0 4px 14px;
+}
+.value-pillar h5 {
+  font-size: 14px; font-weight: 600; margin: 0 0 6px 0;
+  color: var(--text); letter-spacing: -0.005em;
+}
+.value-pillar p {
+  font-size: 12.5px; color: var(--text-muted);
+  margin: 0; line-height: 1.55;
+}
+
 /* ===== Sticky workload + view bar ===== */
 .workload-bar {
   position: sticky; top: 0; z-index: 10;
@@ -104,14 +142,18 @@ h1 .accent {
 }
 .workload-tabs { display: flex; gap: 0; }
 .wl-tab {
-  padding: 14px 18px; font-size: 13.5px; font-weight: 500;
+  padding: 14px 18px; font-size: 13.5px; font-weight: 600;
   color: var(--text-subtle); cursor: pointer;
   border: 0; background: transparent;
   border-bottom: 2px solid transparent;
   transition: color .15s ease, border-color .15s ease;
 }
 .wl-tab:hover { color: var(--text); }
-.wl-tab .tag { font-size: 10.5px; font-weight: 600; color: var(--text-faint); margin-left: 6px; letter-spacing: .03em; }
+.wl-tab .tag { font-size: 11px; font-weight: 800; margin-left: 8px; letter-spacing: .04em; }
+.wl-tab[data-wl="mdo"] .tag { color: var(--mdo); }
+.wl-tab[data-wl="mde"] .tag { color: var(--mde); }
+.wl-tab[data-wl="mdi"] .tag { color: var(--mdi); }
+.wl-tab[data-wl="mda"] .tag { color: var(--mda); }
 .wl-tab.active[data-wl="all"] { color: var(--text); border-bottom-color: var(--text); }
 .wl-tab.active[data-wl="mdo"] { color: var(--mdo); border-bottom-color: var(--mdo); }
 .wl-tab.active[data-wl="mde"] { color: var(--mde); border-bottom-color: var(--mde); }
@@ -158,8 +200,8 @@ h1 .accent {
 .legend-row:first-of-type { border-top: 0; padding-top: 4px; }
 .priority-list { margin: 0; padding-left: 18px; color: var(--text-muted); font-size: 12.5px; }
 .priority-list li { padding: 4px 0; }
-.metrics-list { margin: 0; padding-left: 18px; color: var(--text-muted); font-size: 12.5px; }
-.metrics-list li { padding: 3px 0; }
+.anchor-desc { margin: 0; color: var(--text-muted); font-size: 12.5px; line-height: 1.55; }
+.anchor-desc strong { color: var(--text); font-weight: 600; }
 
 /* ===== Content ===== */
 .results-head {
@@ -168,6 +210,16 @@ h1 .accent {
 }
 .results-head h2 { font-size: 22px; font-weight: 700; margin: 0; letter-spacing: -0.015em; }
 .results-head .sub { font-size: 13px; color: var(--text-muted); margin: 2px 0 0; }
+.workflow-cue {
+  display: flex; align-items: center; gap: 10px;
+  margin: 14px 0 0 0; padding: 10px 14px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-left: 3px solid var(--mde);
+  border-radius: 8px;
+  font-size: 12.5px; color: var(--text-muted); line-height: 1.5;
+}
+.workflow-cue strong { color: var(--text); font-weight: 600; }
+.workflow-cue svg { flex-shrink: 0; color: var(--mde); }
 .count-pill {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 999px; padding: 4px 10px;
@@ -177,16 +229,24 @@ h1 .accent {
 /* ===== Filter row ===== */
 .filters {
   display: grid;
-  grid-template-columns: 1fr auto auto auto;
-  gap: 10px; margin: 14px 0 18px;
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: 12px; margin: 14px 0 18px;
+}
+.search-wrap { position: relative; }
+.search-icon {
+  position: absolute; left: 14px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-faint); pointer-events: none;
 }
 .search-input {
-  height: 38px; border: 1px solid var(--border-strong);
-  border-radius: 8px; padding: 0 12px; font-size: 13px;
+  height: 46px; border: 1px solid var(--border-strong);
+  border-radius: 10px; padding: 0 14px 0 42px; font-size: 14px;
   background: var(--surface); color: var(--text); width: 100%;
 }
 .search-input:focus { outline: 2px solid rgba(37,99,235,.2); border-color: #93c5fd; }
+.filter-controls {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+}
 .chip-select { display: flex; gap: 4px; padding: 3px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; }
 .chip {
   border: 0; background: transparent; padding: 6px 10px;
@@ -198,6 +258,7 @@ h1 .accent {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 12px; font-weight: 600; color: var(--text-muted);
   white-space: nowrap;
+  margin-left: auto;
 }
 
 /* ===== Cards ===== */
@@ -276,6 +337,15 @@ h1 .accent {
   font-size: 10.5px; font-weight: 600; color: var(--text-faint);
   text-transform: uppercase; letter-spacing: .06em;
 }
+.tbadge {
+  display: inline-block; font-size: 10.5px; padding: 2px 8px;
+  border-radius: 4px; font-weight: 600; letter-spacing: .02em;
+  border: 1px solid var(--border-strong);
+  background: var(--surface); color: var(--text-muted);
+}
+.tbadge.tb-Analyst { color: #1e3a8a; border-color: #c7d2fe; background: #eef2ff; }
+.tbadge.tb-Admin   { color: #475569; border-color: #cbd5e1; background: #f1f5f9; }
+.tbadge.tb-Shared  { color: #0c4a6e; border-color: #bae6fd; background: #f0f9ff; }
 
 .card-footer {
   display: flex; align-items: center; justify-content: space-between;
@@ -284,33 +354,43 @@ h1 .accent {
 }
 .portal-link, .docs-link {
   display: inline-flex; align-items: center; gap: 4px;
-  text-decoration: none; font-weight: 500;
+  text-decoration: none;
 }
-.portal-link { font-size: 12px; color: var(--text-subtle); }
-.portal-link:hover { color: var(--text); }
-.docs-link { font-size: 11.5px; color: var(--text-faint); }
+.portal-link {
+  font-size: 12px; font-weight: 600;
+  background: var(--surface-2); color: var(--text);
+  padding: 7px 12px; border-radius: 6px;
+  letter-spacing: .005em;
+  transition: background .15s ease, color .15s ease;
+}
+.portal-link:hover { background: var(--surface-3); color: var(--text); }
+.docs-link { font-size: 11.5px; color: var(--text-faint); font-weight: 500; }
 .docs-link:hover { color: var(--text-subtle); }
-.ext { font-size: 10px; opacity: .7; }
+.ext { font-size: 10px; opacity: .6; }
 
 /* ===== Table ===== */
 .table-wrap {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); overflow: auto; box-shadow: var(--shadow-sm);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
 }
-table { width: 100%; border-collapse: collapse; min-width: 1100px; }
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 th {
   text-align: left; background: var(--surface-2);
-  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
-  color: var(--text-subtle); padding: 12px; border-bottom: 1px solid var(--border);
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--text-subtle); padding: 10px 10px; border-bottom: 1px solid var(--border);
   font-weight: 700;
 }
 td {
-  font-size: 12.5px; padding: 12px;
+  font-size: 12px; padding: 10px 10px;
   border-bottom: 1px solid var(--border);
   vertical-align: top; color: var(--text-muted);
+  word-wrap: break-word; overflow-wrap: anywhere;
+  line-height: 1.45;
 }
-td strong { color: var(--text); font-weight: 600; }
-.table-link { font-weight: 600; color: var(--mdo); text-decoration: none; }
+td strong { color: var(--text); font-weight: 600; display: block; margin-bottom: 3px; font-size: 12.5px; }
+th:last-child, td:last-child { text-align: right; padding-right: 14px; }
+.table-link { font-weight: 600; color: var(--mdo); text-decoration: none; white-space: nowrap; }
+.table-wrap-outer { overflow-x: auto; }
 
 /* ===== Triage precedence staircase ===== */
 .precedence {
@@ -390,8 +470,8 @@ footer {
   border-top: 1px solid var(--border); margin-top: 32px;
   padding: 24px 28px; background: var(--surface);
 }
-.footer-inner {
-  max-width: 1240px; margin: 0 auto;
+.footer-inner { max-width: 1240px; margin: 0 auto; }
+.footer-row {
   display: flex; flex-wrap: wrap; justify-content: space-between;
   align-items: center; gap: 12px;
   font-size: 12.5px; color: var(--text-subtle);
@@ -399,21 +479,62 @@ footer {
 .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
 .footer-links a { color: var(--text-subtle); text-decoration: none; }
 .footer-links a:hover { color: var(--text); text-decoration: underline; }
+.about-note { margin: 14px 0 0 0; font-size: 11.5px; color: var(--text-subtle); line-height: 1.55; max-width: 920px; }
+.about-note strong { color: var(--text); font-weight: 600; }
 
 /* ===== Responsive ===== */
 @media (max-width: 980px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; grid-template-columns: 1fr 1fr; display: grid; }
   .filters { grid-template-columns: 1fr; }
+  .value-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 720px) {
+@media (max-width: 760px) {
   .workload-inner { padding: 0 16px; }
-  .layout { padding: 24px 16px 48px; }
-  h1 { font-size: 28px; }
-  .brand-bar { padding: 32px 20px 24px; }
-  .intro-grid { grid-template-columns: 1fr; }
-  .sidebar { grid-template-columns: 1fr; }
+  .layout {
+    padding: 20px 16px 40px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  h1 { font-size: 26px; }
+  .brand-bar { padding: 28px 18px 20px; }
+  .lede { font-size: 14.5px; }
+  .intro-grid { display: none; }
+  .sidebar {
+    order: 2;
+    position: static;
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+  section { order: 1; }
   .cards-grid { grid-template-columns: 1fr; }
+  .value-inner { padding: 22px 18px; }
+  .value-grid { grid-template-columns: 1fr; gap: 14px; }
+  .view-toggle { display: none; }
+  #tableView { display: none !important; }
+  .wl-tab { padding: 12px 12px; font-size: 12.5px; }
+  .wl-tab .tag { display: none; }
+  .results-head h2 { font-size: 19px; }
+  .task-card { padding: 14px 14px 12px 18px; }
+  .task-card.anchor { padding: 16px 14px 12px 20px; }
+  .card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .portal-link {
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+  .docs-link {
+    justify-content: center;
+    padding: 6px 0;
+  }
+  .filter-controls { gap: 8px; }
+  .chip-select { flex-wrap: wrap; }
+  .toggle-anchor { margin-left: 0; }
 }
 </style>
 </head>
@@ -423,7 +544,7 @@ footer {
   <div class="brand-bar">
     <div class="kicker">Microsoft Defender XDR · Operational Playbook</div>
     <h1>SOC Guide for <span class="accent">Operational Excellence</span></h1>
-    <p class="lede">A unified operational reference for Microsoft Defender XDR — MDO, MDE, MDI, and MDA — organized the way mature SOCs actually run: by cadence, anchored to common patterns, and grounded in the portals where the work happens.</p>
+    <p class="lede">A unified operational reference for Microsoft Defender XDR — MDO, MDE, MDI, and MDA — organized around the routines analysts use to triage, tune, hunt, validate coverage, and respond across Defender XDR.</p>
     <div class="intro-grid">
       <div class="intro-card">
         <h4>What this is</h4>
@@ -431,7 +552,7 @@ footer {
       </div>
       <div class="intro-card">
         <h4>Why cadence matters</h4>
-        <p>Mature SOCs operate on rhythms. Daily triage, weekly tuning, monthly posture audits. Structuring the work this way reveals coverage gaps and makes handoffs explicit.</p>
+        <p>SOC work is easier to execute when routine tasks follow a clear rhythm: daily triage, weekly tuning, and periodic posture review. Structuring the work this way reveals coverage gaps and makes handoffs explicit.</p>
       </div>
       <div class="intro-card">
         <h4>Why patterns matter</h4>
@@ -440,6 +561,30 @@ footer {
     </div>
   </div>
 </header>
+
+<section class="value-bar">
+  <div class="value-inner">
+    <p class="value-head">Why this matters</p>
+    <div class="value-grid">
+      <div class="value-pillar" style="--pillar-color: var(--mdo)">
+        <h5>Triage with less friction</h5>
+        <p>Daily routines help analysts identify what is urgent, who owns it, what evidence matters, and what action comes next.</p>
+      </div>
+      <div class="value-pillar" style="--pillar-color: var(--mde)">
+        <h5>Reduce repeat noise</h5>
+        <p>False-positive review, false-negative review, alert classification, tuning, and Microsoft submissions help keep recurring low-value alerts from returning to the queue.</p>
+      </div>
+      <div class="value-pillar" style="--pillar-color: var(--mdi)">
+        <h5>Protect investigation visibility</h5>
+        <p>Sensor health, connector status, exclusions, and policy posture determine whether analysts can trust the data in front of them. Routine checks reduce the risk of investigating with missing or stale telemetry.</p>
+      </div>
+      <div class="value-pillar" style="--pillar-color: var(--mda)">
+        <h5>Connect signals across workloads</h5>
+        <p>A phish, endpoint alert, identity anomaly, and SaaS event may be part of the same attack. Shared SOC patterns help analysts connect related activity instead of treating each alert in isolation.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <nav class="workload-bar">
   <div class="workload-inner">
@@ -462,15 +607,8 @@ footer {
       <div id="legend"></div>
     </div>
     <div class="side-card">
-      <h4>Operational health metrics</h4>
-      <ul class="metrics-list">
-        <li>High-severity incidents older than 24 hours</li>
-        <li>Mean time to acknowledge and remediate</li>
-        <li>Incident classification completion rate</li>
-        <li>Sensor, connector, and telemetry coverage</li>
-        <li>Stale exclusions, overrides, and allow/block entries</li>
-        <li>Hunts converted into incidents or detections</li>
-      </ul>
+      <h4>Anchor tasks</h4>
+      <p class="anchor-desc">Anchor tasks are the first tasks listed for each workload and cadence in the published Defender SOC ops guides. They are useful starting points when analysts are new to a workload or need a default operating path.</p>
     </div>
   </aside>
 
@@ -483,11 +621,21 @@ footer {
       <div class="count-pill" id="resultCount">0 tasks</div>
     </div>
 
+    <div class="workflow-cue">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span><strong>How to work each task:</strong> review signal → decide action → document outcome → escalate or tune if needed.</span>
+    </div>
+
     <div class="filters">
-      <input id="search" class="search-input" type="search" placeholder="Search tasks, portals, owners…" />
-      <div class="chip-select" id="cadenceChips"></div>
-      <div class="chip-select" id="patternChips"></div>
-      <label class="toggle-anchor"><input type="checkbox" id="anchorOnly" /> Anchor only</label>
+      <div class="search-wrap">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="search" class="search-input" type="search" placeholder="Search tasks, portals, owners…" />
+      </div>
+      <div class="filter-controls">
+        <div class="chip-select" id="cadenceChips"></div>
+        <div class="chip-select" id="patternChips"></div>
+        <label class="toggle-anchor"><input type="checkbox" id="anchorOnly" /> Anchor tasks only</label>
+      </div>
     </div>
 
     <div id="cardsView">
@@ -496,8 +644,8 @@ footer {
         <div class="ico-wrap">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         </div>
-        <h3>No monthly cadence in the MDO sec-ops baseline</h3>
-        <p>Microsoft's <a href="https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide" target="_blank" rel="noopener">Defender for Office 365 SecOps guide</a> doesn't define a monthly task set — periodic posture work for email security is captured under <strong>Ad-hoc</strong>.</p>
+        <h3>No standalone MDO monthly section in the source guide</h3>
+        <p>Microsoft Learn does not present MDO monthly activities as a separate section in the published <a href="https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide" target="_blank" rel="noopener">SecOps guide</a>. This view is intentionally empty to preserve source fidelity. Periodic MDO posture work is captured under <strong>Ad-hoc</strong> where applicable.</p>
       </div>
       <div class="empty-state" id="emptyResults" style="display:none;">
         <div class="ico-wrap">
@@ -512,7 +660,17 @@ footer {
     <div id="tableView" style="display:none;">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Task</th><th>Workload</th><th>Cadence</th><th>Pattern</th><th>Owner</th><th>Required role</th><th>Expected output</th><th>Portal</th></tr></thead>
+          <colgroup>
+            <col style="width:26%">
+            <col style="width:9%">
+            <col style="width:9%">
+            <col style="width:9%">
+            <col style="width:9%">
+            <col style="width:11%">
+            <col style="width:19%">
+            <col style="width:8%">
+          </colgroup>
+          <thead><tr><th>Task</th><th>Workload</th><th>Cadence</th><th>Pattern</th><th>Owner</th><th>Access needed</th><th>Expected output</th><th>Portal</th></tr></thead>
           <tbody id="tableBody"></tbody>
         </table>
       </div>
@@ -522,129 +680,132 @@ footer {
 
 <footer>
   <div class="footer-inner">
-    <div>Microsoft Defender XDR · SOC Guide for Operational Excellence</div>
-    <div class="footer-links">
-      <a href="https://learn.microsoft.com/defender-office-365/" target="_blank" rel="noopener">MDO docs</a>
-      <a href="https://learn.microsoft.com/defender-endpoint/" target="_blank" rel="noopener">MDE docs</a>
-      <a href="https://learn.microsoft.com/defender-for-identity/" target="_blank" rel="noopener">MDI docs</a>
-      <a href="https://learn.microsoft.com/defender-cloud-apps/" target="_blank" rel="noopener">MDA docs</a>
+    <div class="footer-row">
+      <div>Microsoft Defender XDR · SOC Guide for Operational Excellence</div>
+      <div class="footer-links">
+        <a href="https://learn.microsoft.com/defender-office-365/" target="_blank" rel="noopener">MDO docs</a>
+        <a href="https://learn.microsoft.com/defender-endpoint/" target="_blank" rel="noopener">MDE docs</a>
+        <a href="https://learn.microsoft.com/defender-for-identity/" target="_blank" rel="noopener">MDI docs</a>
+        <a href="https://learn.microsoft.com/defender-cloud-apps/" target="_blank" rel="noopener">MDA docs</a>
+      </div>
     </div>
+    <p class="about-note"><strong>About this guide.</strong> Tasks, portals, and docs trace to Microsoft's published Defender XDR SOC ops guides. The categorization framework (patterns, priority models, lead-task highlighting) is editorial framing to aid navigation. For authoritative guidance, follow the Learn links on each task.</p>
   </div>
 </footer>
 
 <script>
 const TASKS = [
   // ===== MDO Daily =====
-  {wl:"mdo",cadence:"Daily",pattern:"Triage",anchor:true,title:"Triage incidents in the queue",desc:"Work the email-related incidents queue. Sort by severity, claim ownership, and ensure all user-reported phish is acknowledged.",output:"Acknowledged queue, claimed ownership, and severity-sorted incidents.",owner:"SecOps",role:"As required by portal action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
-  {wl:"mdo",cadence:"Daily",pattern:"Triage",title:"Investigate and take response actions",desc:"Pivot through email cluster, recipient impact, and AIR evidence. Approve pending actions in the Action Center.",output:"Approved/rejected response actions and updated AIR investigation notes.",owner:"SecOps",role:"As required by portal action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
-  {wl:"mdo",cadence:"Daily",pattern:"Triage",title:"Resolve incidents",desc:"Confirm remediation completed, document findings, and close the incident with the appropriate disposition.",output:"Closed incident with documented disposition and remediation summary.",owner:"SecOps",role:"As required by portal action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
-  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Classify incidents",desc:"Tag each incident as true positive, false positive, or benign true positive. This drives detection-quality metrics.",output:"Classification tag (TP / FP / BTP) recorded on every closed incident.",owner:"SecOps",role:"As required by portal action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
-  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Submit FPs / FNs to Microsoft",desc:"Submit messages, URLs, and attachments where the verdict was wrong. Microsoft re-detonates and updates verdicts tenant-wide.",output:"Submission filed with Microsoft and tracking note added to the incident.",owner:"SecOps",role:"As required by portal action",portal:"Open Submissions",portalHref:"https://security.microsoft.com/reportsubmission",docsHref:"https://learn.microsoft.com/defender-office-365/submissions-admin"},
-  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Analyze admin submission details",desc:"Review verdict rationale, detonation results, and recommended actions for items submitted by admins.",output:"Verdict review notes and any follow-up policy / allow-block change.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Submissions",portalHref:"https://security.microsoft.com/reportsubmission",docsHref:"https://learn.microsoft.com/defender-office-365/submissions-admin"},
-  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Add block entries to Tenant Allow/Block List",desc:"Block confirmed-malicious senders, domains, URLs, and file hashes that bypassed policy.",output:"New TABL entries with expiration date and source incident reference.",owner:"SecAdmin",role:"Sec Admin",portal:"Open Tenant Allow/Block List",portalHref:"https://security.microsoft.com/tenantAllowBlockList",docsHref:"https://learn.microsoft.com/defender-office-365/tenant-allow-block-list-about"},
-  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Release false positives from quarantine",desc:"Scan quarantine for business-critical mail. Release safely and capture the sender to refine policy.",output:"Released messages logged and any policy refinement filed for review.",owner:"Messaging",role:"As required by portal action",portal:"Open Quarantine",portalHref:"https://security.microsoft.com/quarantine",docsHref:"https://learn.microsoft.com/defender-office-365/quarantine-admin-manage-messages-files"},
-  {wl:"mdo",cadence:"Daily",pattern:"Hunt",title:"Review email campaigns",desc:"Walk active campaigns. Note targeted users, payloads, and themes. Trigger tenant-wide remediation if needed.",output:"Campaign summary, targeted user list, and remediation action taken.",owner:"Hunting",role:"As required by portal action",portal:"Open Campaigns",portalHref:"https://security.microsoft.com/campaigns",docsHref:"https://learn.microsoft.com/defender-office-365/campaigns"},
+  {wl:"mdo",cadence:"Daily",pattern:"Triage",anchor:true,title:"Triage incidents in the queue",desc:"Work the email-related incidents queue. Sort by severity, claim ownership, and ensure all user-reported phish is acknowledged.",output:"Acknowledged queue, claimed ownership, and severity-sorted incidents.",owner:"SecOps",role:"Access varies by action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
+  {wl:"mdo",cadence:"Daily",pattern:"Triage",title:"Investigate and take response actions",desc:"Pivot through email cluster, recipient impact, and AIR evidence. Approve pending actions in the Action Center.",output:"Approved/rejected response actions and updated AIR investigation notes.",owner:"SecOps",role:"Access varies by action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
+  {wl:"mdo",cadence:"Daily",pattern:"Triage",title:"Resolve incidents",desc:"Confirm remediation completed, document findings, and close the incident with the appropriate disposition.",output:"Closed incident with documented disposition and remediation summary.",owner:"SecOps",role:"Access varies by action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
+  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Classify incidents",desc:"Tag each incident as true positive, false positive, or benign true positive. This drives detection-quality metrics.",output:"Classification tag (TP / FP / BTP) recorded on every closed incident.",owner:"SecOps",role:"Access varies by action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
+  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Submit FPs / FNs to Microsoft",desc:"Submit messages, URLs, and attachments where the verdict was wrong. Microsoft re-detonates and updates verdicts tenant-wide.",output:"Submission filed with Microsoft and tracking note added to the incident.",owner:"SecOps",role:"Access varies by action",portal:"Open Submissions",portalHref:"https://security.microsoft.com/reportsubmission",docsHref:"https://learn.microsoft.com/defender-office-365/submissions-admin"},
+  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Analyze admin submission details",desc:"Review verdict rationale, detonation results, and recommended actions for items submitted by admins.",output:"Verdict review notes and any follow-up policy / allow-block change.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Submissions",portalHref:"https://security.microsoft.com/reportsubmission",docsHref:"https://learn.microsoft.com/defender-office-365/submissions-admin"},
+  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Add block entries to Tenant Allow/Block List",desc:"Block confirmed-malicious senders, domains, URLs, and file hashes that bypassed policy.",output:"New TABL entries with expiration date and source incident reference.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Tenant Allow/Block List",portalHref:"https://security.microsoft.com/tenantAllowBlockList",docsHref:"https://learn.microsoft.com/defender-office-365/tenant-allow-block-list-about"},
+  {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Release false positives from quarantine",desc:"Scan quarantine for business-critical mail. Release safely and capture the sender to refine policy.",output:"Released messages logged and any policy refinement filed for review.",owner:"Messaging",role:"Access varies by action",portal:"Open Quarantine",portalHref:"https://security.microsoft.com/quarantine",docsHref:"https://learn.microsoft.com/defender-office-365/quarantine-admin-manage-messages-files"},
+  {wl:"mdo",cadence:"Daily",pattern:"Hunt",title:"Review email campaigns",desc:"Walk active campaigns. Note targeted users, payloads, and themes. Trigger tenant-wide remediation if needed.",output:"Campaign summary, targeted user list, and remediation action taken.",owner:"Hunting",role:"Access varies by action",portal:"Open Campaigns",portalHref:"https://security.microsoft.com/campaigns",docsHref:"https://learn.microsoft.com/defender-office-365/campaigns"},
 
   // ===== MDO Weekly =====
-  {wl:"mdo",cadence:"Weekly",pattern:"Hunt",anchor:true,title:"Review email detection trends",desc:"Pivot Threat Explorer on top targeted users, top sender domains, and top campaigns. Note shifts week-over-week.",output:"Week-over-week trend report with notable shifts and follow-up hunts.",owner:"Hunting",role:"As required by portal action",portal:"Open Threat Explorer",portalHref:"https://security.microsoft.com/threatexplorerv3",docsHref:"https://learn.microsoft.com/defender-office-365/threat-explorer-real-time-detections-about"},
-  {wl:"mdo",cadence:"Weekly",pattern:"Intel",title:"Review threats in Threat analytics",desc:"Walk new and trending Threat analytics reports relevant to email vectors. Check tenant exposure and recommended actions.",output:"Tenant exposure assessment and assigned mitigation owner.",owner:"Hunting",role:"As required by portal action",portal:"Open Threat Analytics",portalHref:"https://security.microsoft.com/threatanalytics3",docsHref:"https://learn.microsoft.com/defender-xdr/threat-analytics"},
-  {wl:"mdo",cadence:"Weekly",pattern:"Detect",title:"Review top targeted users",desc:"Identify users repeatedly targeted by phish. Coordinate with IT to apply Strict preset and add to priority accounts.",output:"Updated priority-account list and applied Strict preset assignments.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Threat Explorer",portalHref:"https://security.microsoft.com/threatexplorerv3",docsHref:"https://learn.microsoft.com/defender-office-365/threat-explorer-real-time-detections-about"},
-  {wl:"mdo",cadence:"Weekly",pattern:"Hunt",title:"Use Campaign Views",desc:"Inspect grouped phish/malware campaigns. Confirm scope, validate ZAP/automated remediation, and act on stragglers.",output:"Confirmed campaign scope and remediation gap closure.",owner:"Hunting",role:"As required by portal action",portal:"Open Campaigns",portalHref:"https://security.microsoft.com/campaigns",docsHref:"https://learn.microsoft.com/defender-office-365/campaigns"},
+  {wl:"mdo",cadence:"Weekly",pattern:"Hunt",anchor:true,title:"Review email detection trends",desc:"Pivot Threat Explorer on top targeted users, top sender domains, and top campaigns. Note shifts week-over-week.",output:"Week-over-week trend report with notable shifts and follow-up hunts.",owner:"Hunting",role:"Access varies by action",portal:"Open Threat Explorer",portalHref:"https://security.microsoft.com/threatexplorerv3",docsHref:"https://learn.microsoft.com/defender-office-365/threat-explorer-real-time-detections-about"},
+  {wl:"mdo",cadence:"Weekly",pattern:"Intel",title:"Review threats in Threat analytics",desc:"Walk new and trending Threat analytics reports relevant to email vectors. Check tenant exposure and recommended actions.",output:"Tenant exposure assessment and assigned mitigation owner.",owner:"Hunting",role:"Access varies by action",portal:"Open Threat Analytics",portalHref:"https://security.microsoft.com/threatanalytics3",docsHref:"https://learn.microsoft.com/defender-xdr/threat-analytics"},
+  {wl:"mdo",cadence:"Weekly",pattern:"Detect",title:"Review top targeted users",desc:"Identify users repeatedly targeted by phish. Coordinate with IT to apply Strict preset and add to priority accounts.",output:"Updated priority-account list and applied Strict preset assignments.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Threat Explorer",portalHref:"https://security.microsoft.com/threatexplorerv3",docsHref:"https://learn.microsoft.com/defender-office-365/threat-explorer-real-time-detections-about"},
+  {wl:"mdo",cadence:"Weekly",pattern:"Hunt",title:"Use Campaign Views",desc:"Inspect grouped phish/malware campaigns. Confirm scope, validate ZAP/automated remediation, and act on stragglers.",output:"Confirmed campaign scope and remediation gap closure.",owner:"Hunting",role:"Access varies by action",portal:"Open Campaigns",portalHref:"https://security.microsoft.com/campaigns",docsHref:"https://learn.microsoft.com/defender-office-365/campaigns"},
 
   // ===== MDO Monthly: intentionally empty (per Microsoft SecOps guide) =====
 
   // ===== MDO Ad-hoc =====
-  {wl:"mdo",cadence:"Ad-hoc",pattern:"Hunt",anchor:true,title:"Hunt for active campaigns",desc:"On threat-intel signal, sweep Email Explorer and Advanced Hunting for indicators across the tenant.",output:"Indicator sweep results and any incident or detection follow-up.",owner:"Hunting",role:"As required by portal action",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-xdr/advanced-hunting-overview"},
-  {wl:"mdo",cadence:"Ad-hoc",pattern:"Tune",title:"Submit miss / false positive",desc:"Submit samples with admin context so Microsoft detonates and updates verdicts tenant-wide.",output:"Admin submission filed with context and tracking ID logged.",owner:"SecOps",role:"As required by portal action",portal:"Open Submissions",portalHref:"https://security.microsoft.com/reportsubmission",docsHref:"https://learn.microsoft.com/defender-office-365/submissions-admin"},
-  {wl:"mdo",cadence:"Ad-hoc",pattern:"Config",title:"Run Attack Simulation",desc:"Stand up a phishing simulation against a target group. Use results to drive training assignments.",output:"Simulation results, click-rate report, and training assignments issued.",owner:"SecAdmin",role:"Sim Admin",portal:"Open Attack Simulator",portalHref:"https://security.microsoft.com/attacksimulator",docsHref:"https://learn.microsoft.com/defender-office-365/attack-simulation-training-get-started"},
+  {wl:"mdo",cadence:"Ad-hoc",pattern:"Hunt",anchor:true,title:"Hunt for active campaigns",desc:"On threat-intel signal, sweep Email Explorer and Advanced Hunting for indicators across the tenant.",output:"Indicator sweep results and any incident or detection follow-up.",owner:"Hunting",role:"Access varies by action",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-xdr/advanced-hunting-overview"},
+  {wl:"mdo",cadence:"Ad-hoc",pattern:"Tune",title:"Submit miss / false positive",desc:"Submit samples with admin context so Microsoft detonates and updates verdicts tenant-wide.",output:"Admin submission filed with context and tracking ID logged.",owner:"SecOps",role:"Access varies by action",portal:"Open Submissions",portalHref:"https://security.microsoft.com/reportsubmission",docsHref:"https://learn.microsoft.com/defender-office-365/submissions-admin"},
+  {wl:"mdo",cadence:"Ad-hoc",pattern:"Config",title:"Run Attack Simulation",desc:"Stand up a phishing simulation against a target group. Use results to drive training assignments.",output:"Simulation results, click-rate report, and training assignments issued.",owner:"SecAdmin",role:"Attack Simulation Administrator",portal:"Open Attack Simulator",portalHref:"https://security.microsoft.com/attacksimulator",docsHref:"https://learn.microsoft.com/defender-office-365/attack-simulation-training-get-started"},
 
   // ===== MDE Daily =====
-  {wl:"mde",cadence:"Daily",pattern:"Triage",anchor:true,title:"Review actions in the Action center",desc:"Approve or reject pending isolation, file quarantine, and live-response actions. Confirm completed remediations.",output:"Approved/rejected actions logged and completed remediations confirmed.",owner:"SecOps",role:"As required by portal action",portal:"Open Action Center",portalHref:"https://security.microsoft.com/action-center/pending",docsHref:"https://learn.microsoft.com/defender-xdr/m365d-action-center"},
-  {wl:"mde",cadence:"Daily",pattern:"Triage",title:"Monitor the Incidents queue",desc:"Work the device-related incidents queue. Validate process trees, isolate confirmed compromise.",output:"Disposition recorded and isolation applied where confirmed.",owner:"SecOps",role:"As required by portal action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
-  {wl:"mde",cadence:"Daily",pattern:"Tune",title:"Manage false positives and false negatives",desc:"Classify alerts to drive detection-quality metrics. Submit indicators that should be allowed or blocked.",output:"Classification tag on each alert and any allow/block indicator filed.",owner:"SecOps",role:"As required by portal action",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts"},
-  {wl:"mde",cadence:"Daily",pattern:"Intel",title:"Review threat analytics",desc:"Walk endpoint-relevant Threat analytics reports. Identify exposed devices, vulnerable software, and active malware families.",output:"Exposed device list and assigned mitigation owner.",owner:"Hunting",role:"As required by portal action",portal:"Open Threat Analytics",portalHref:"https://security.microsoft.com/threatanalytics3",docsHref:"https://learn.microsoft.com/defender-xdr/threat-analytics"},
-  {wl:"mde",cadence:"Daily",pattern:"Detect",title:"Review health reports",desc:"Inspect device health, sensor health, and onboarding state. Push fixes to Intune / config owners.",output:"Coverage gap list with owner and ETA pushed to IT.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Device Health",portalHref:"https://security.microsoft.com/reports/device-health",docsHref:"https://learn.microsoft.com/defender-endpoint/device-health-sensor-health-os"},
-  {wl:"mde",cadence:"Daily",pattern:"Detect",title:"Check EDR sensor health",desc:"Confirm EDR sensors are reporting. Investigate inactive, misconfigured, or impaired devices.",output:"Inactive sensor list with remediation action assigned.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Device Inventory",portalHref:"https://security.microsoft.com/machines",docsHref:"https://learn.microsoft.com/defender-endpoint/machines-view-overview"},
-  {wl:"mde",cadence:"Daily",pattern:"Detect",title:"Check Microsoft Defender Antivirus health",desc:"Verify signature freshness, real-time protection state, and EDR-block-mode coverage. Chase stale endpoints.",output:"Stale endpoint list with assigned IT owner.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Device Inventory",portalHref:"https://security.microsoft.com/machines",docsHref:"https://learn.microsoft.com/defender-endpoint/machines-view-overview"},
+  {wl:"mde",cadence:"Daily",pattern:"Triage",anchor:true,title:"Review actions in the Action center",desc:"Approve or reject pending isolation, file quarantine, and live-response actions. Confirm completed remediations.",output:"Approved/rejected actions logged and completed remediations confirmed.",owner:"SecOps",role:"Access varies by action",portal:"Open Action Center",portalHref:"https://security.microsoft.com/action-center/pending",docsHref:"https://learn.microsoft.com/defender-xdr/m365d-action-center"},
+  {wl:"mde",cadence:"Daily",pattern:"Triage",title:"Monitor the Incidents queue",desc:"Work the device-related incidents queue. Validate process trees, isolate confirmed compromise.",output:"Disposition recorded and isolation applied where confirmed.",owner:"SecOps",role:"Access varies by action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
+  {wl:"mde",cadence:"Daily",pattern:"Tune",title:"Manage false positives and false negatives",desc:"Classify alerts to drive detection-quality metrics. Submit indicators that should be allowed or blocked.",output:"Classification tag on each alert and any allow/block indicator filed.",owner:"SecOps",role:"Access varies by action",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts"},
+  {wl:"mde",cadence:"Daily",pattern:"Intel",title:"Review threat analytics",desc:"Walk endpoint-relevant Threat analytics reports. Identify exposed devices, vulnerable software, and active malware families.",output:"Exposed device list and assigned mitigation owner.",owner:"Hunting",role:"Access varies by action",portal:"Open Threat Analytics",portalHref:"https://security.microsoft.com/threatanalytics3",docsHref:"https://learn.microsoft.com/defender-xdr/threat-analytics"},
+  {wl:"mde",cadence:"Daily",pattern:"Detect",title:"Review health reports",desc:"Inspect device health, sensor health, and onboarding state. Push fixes to Intune / config owners.",output:"Coverage gap list with owner and ETA pushed to IT.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Device Health",portalHref:"https://security.microsoft.com/reports/device-health",docsHref:"https://learn.microsoft.com/defender-endpoint/device-health-sensor-health-os"},
+  {wl:"mde",cadence:"Daily",pattern:"Detect",title:"Check EDR sensor health",desc:"Confirm EDR sensors are reporting. Investigate inactive, misconfigured, or impaired devices.",output:"Inactive sensor list with remediation action assigned.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Device Inventory",portalHref:"https://security.microsoft.com/machines",docsHref:"https://learn.microsoft.com/defender-endpoint/machines-view-overview"},
+  {wl:"mde",cadence:"Daily",pattern:"Detect",title:"Check Microsoft Defender Antivirus health",desc:"Verify signature freshness, real-time protection state, and EDR-block-mode coverage. Chase stale endpoints.",output:"Stale endpoint list with assigned IT owner.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Device Inventory",portalHref:"https://security.microsoft.com/machines",docsHref:"https://learn.microsoft.com/defender-endpoint/machines-view-overview"},
 
   // ===== MDE Weekly =====
-  {wl:"mde",cadence:"Weekly",pattern:"Config",anchor:true,title:"Review TVM exposure score",desc:"Top remediation opportunities and recommendations. Open tickets with IT for high-impact fixes.",output:"Prioritized fix list with tickets opened against IT.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Exposure Score",portalHref:"https://security.microsoft.com/exposure-score",docsHref:"https://learn.microsoft.com/defender-vulnerability-management/tvm-exposure-score"},
-  {wl:"mde",cadence:"Weekly",pattern:"Intel",title:"Review Message Center",desc:"Track product changes, deprecations, and rollouts that affect MDE configuration or behavior.",output:"Adoption note and any planned configuration change.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Message Center",portalHref:"https://admin.microsoft.com/AdminPortal/Home#/MessageCenter",docsHref:"https://learn.microsoft.com/microsoft-365/admin/manage/message-center"},
-  {wl:"mde",cadence:"Weekly",pattern:"Detect",title:"Review threat reporting",desc:"Walk endpoint threat trend reports. Identify recurring detections and prioritize hardening or tuning.",output:"Recurring-detection list and hardening/tuning recommendation.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Reports",portalHref:"https://security.microsoft.com/threatreports",docsHref:"https://learn.microsoft.com/defender-endpoint/threat-protection-reports"},
-  {wl:"mde",cadence:"Weekly",pattern:"Intel",title:"Review threat analytics",desc:"Run a deeper weekly endpoint threat review. Convert relevant reports into hunts, custom detections, or remediation tickets.",output:"Hunt or detection backlog item created from each relevant report.",owner:"Hunting",role:"As required by portal action",portal:"Open Threat Analytics",portalHref:"https://security.microsoft.com/threatanalytics3",docsHref:"https://learn.microsoft.com/defender-xdr/threat-analytics"},
-  {wl:"mde",cadence:"Weekly",pattern:"Tune",title:"Review ASR rule reporting",desc:"Surface rules in audit mode. Promote stable rules to block, refine noisy ones.",output:"Promoted rules list and noisy-rule tuning notes.",owner:"SecAdmin",role:"Sec Admin",portal:"Open ASR",portalHref:"https://security.microsoft.com/asr",docsHref:"https://learn.microsoft.com/defender-endpoint/attack-surface-reduction"},
-  {wl:"mde",cadence:"Weekly",pattern:"Detect",title:"Review web protection events",desc:"Inspect Web Content Filtering and SmartScreen blocks. Validate categories and tune URL allow/block lists.",output:"Category validation notes and updated URL allow/block lists.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Web Protection",portalHref:"https://security.microsoft.com/reports/web-protection",docsHref:"https://learn.microsoft.com/defender-endpoint/web-protection-overview"},
+  {wl:"mde",cadence:"Weekly",pattern:"Config",anchor:true,title:"Review TVM exposure score",desc:"Top remediation opportunities and recommendations. Open tickets with IT for high-impact fixes.",output:"Prioritized fix list with tickets opened against IT.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Exposure Score",portalHref:"https://security.microsoft.com/exposure-score",docsHref:"https://learn.microsoft.com/defender-vulnerability-management/tvm-exposure-score"},
+  {wl:"mde",cadence:"Weekly",pattern:"Intel",title:"Review Message Center",desc:"Track product changes, deprecations, and rollouts that affect MDE configuration or behavior.",output:"Adoption note and any planned configuration change.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Message Center",portalHref:"https://admin.microsoft.com/AdminPortal/Home#/MessageCenter",docsHref:"https://learn.microsoft.com/microsoft-365/admin/manage/message-center"},
+  {wl:"mde",cadence:"Weekly",pattern:"Detect",title:"Review threat reporting",desc:"Walk endpoint threat trend reports. Identify recurring detections and prioritize hardening or tuning.",output:"Recurring-detection list and hardening/tuning recommendation.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Reports",portalHref:"https://security.microsoft.com/threatreports",docsHref:"https://learn.microsoft.com/defender-endpoint/threat-protection-reports"},
+  {wl:"mde",cadence:"Weekly",pattern:"Intel",title:"Review threat analytics",desc:"Run a deeper weekly endpoint threat review. Convert relevant reports into hunts, custom detections, or remediation tickets.",output:"Hunt or detection backlog item created from each relevant report.",owner:"Hunting",role:"Access varies by action",portal:"Open Threat Analytics",portalHref:"https://security.microsoft.com/threatanalytics3",docsHref:"https://learn.microsoft.com/defender-xdr/threat-analytics"},
+  {wl:"mde",cadence:"Weekly",pattern:"Tune",title:"Review ASR rule reporting",desc:"Surface rules in audit mode. Promote stable rules to block, refine noisy ones.",output:"Promoted rules list and noisy-rule tuning notes.",owner:"SecAdmin",role:"Security Administrator",portal:"Open ASR",portalHref:"https://security.microsoft.com/asr",docsHref:"https://learn.microsoft.com/defender-endpoint/attack-surface-reduction"},
+  {wl:"mde",cadence:"Weekly",pattern:"Detect",title:"Review web protection events",desc:"Inspect Web Content Filtering and SmartScreen blocks. Validate categories and tune URL allow/block lists.",output:"Category validation notes and updated URL allow/block lists.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Web Protection",portalHref:"https://security.microsoft.com/reports/web-protection",docsHref:"https://learn.microsoft.com/defender-endpoint/web-protection-overview"},
 
   // ===== MDE Monthly =====
-  {wl:"mde",cadence:"Monthly",pattern:"Intel",anchor:true,title:"Review What's new",desc:"Scan MDE release notes for new capabilities and behavior changes. Plan adoption work where relevant.",output:"Adoption plan with owners and target dates.",owner:"SecAdmin",role:"As required by portal action",portal:"Open MDE What's New",portalHref:"https://learn.microsoft.com/defender-endpoint/whats-new-in-microsoft-defender-endpoint",docsHref:"https://learn.microsoft.com/defender-endpoint/microsoft-defender-endpoint"},
-  {wl:"mde",cadence:"Monthly",pattern:"Config",title:"Review devices excluded from policy",desc:"Audit devices that have policy exclusions. Confirm exclusions are still justified and time-bound.",output:"Exclusion audit log with justified, expired, and removed entries.",owner:"SecAdmin",role:"Sec Admin",portal:"Open Device Groups",portalHref:"https://security.microsoft.com/preferences2/machine_groups",docsHref:"https://learn.microsoft.com/defender-endpoint/machine-groups"},
+  {wl:"mde",cadence:"Monthly",pattern:"Intel",anchor:true,title:"Review What's new",desc:"Scan MDE release notes for new capabilities and behavior changes. Plan adoption work where relevant.",output:"Adoption plan with owners and target dates.",owner:"SecAdmin",role:"Access varies by action",portal:"Open MDE What's New",portalHref:"https://learn.microsoft.com/defender-endpoint/whats-new-in-microsoft-defender-endpoint",docsHref:"https://learn.microsoft.com/defender-endpoint/microsoft-defender-endpoint"},
+  {wl:"mde",cadence:"Monthly",pattern:"Config",title:"Review devices excluded from policy",desc:"Audit devices that have policy exclusions. Confirm exclusions are still justified and time-bound.",output:"Exclusion audit log with justified, expired, and removed entries.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Device Groups",portalHref:"https://security.microsoft.com/preferences2/machine_groups",docsHref:"https://learn.microsoft.com/defender-endpoint/machine-groups"},
 
   // ===== MDE Ad-hoc =====
-  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",anchor:true,title:"Review exclusions",desc:"Audit AV and EDR exclusions. Remove stale entries; ensure remaining ones are documented and justified.",output:"Stale-entry removals and refreshed exclusion documentation.",owner:"SecAdmin",role:"Sec Admin",portal:"Open Recommendations",portalHref:"https://security.microsoft.com/securityrecommendations",docsHref:"https://learn.microsoft.com/defender-vulnerability-management/tvm-security-recommendation"},
-  {wl:"mde",cadence:"Ad-hoc",pattern:"Config",title:"Review policy configurations",desc:"Compare device-group policy against the baseline. Reconcile policy drift in Intune / Configuration Manager.",output:"Drift report with reconciliation actions filed in Intune.",owner:"SecAdmin",role:"Sec Admin",portal:"Open Device Groups",portalHref:"https://security.microsoft.com/preferences2/machine_groups",docsHref:"https://learn.microsoft.com/defender-endpoint/machine-groups"},
-  {wl:"mde",cadence:"Ad-hoc",pattern:"Config",title:"Review automation levels",desc:"Confirm AIR automation level (semi/full) is appropriate for each device group's analyst tier.",output:"Per-group automation level confirmation or change request.",owner:"SecAdmin",role:"Sec Admin",portal:"Open Device Groups",portalHref:"https://security.microsoft.com/preferences2/machine_groups",docsHref:"https://learn.microsoft.com/defender-endpoint/machine-groups"},
-  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Review custom detections",desc:"Audit custom detections for true-positive rate. Retire detections producing only noise.",output:"TP-rate report with retire/keep/refine decision per detection.",owner:"Hunting",role:"As required by portal action",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detections-overview"},
-  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Review alert suppression rules",desc:"Sweep suppression rules. Remove overly broad rules that may be hiding real activity.",output:"Removed broad rules and refined suppression scope.",owner:"SecOps",role:"As required by portal action",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts"},
+  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",anchor:true,title:"Review exclusions",desc:"Audit AV and EDR exclusions. Remove stale entries; ensure remaining ones are documented and justified.",output:"Stale-entry removals and refreshed exclusion documentation.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Recommendations",portalHref:"https://security.microsoft.com/securityrecommendations",docsHref:"https://learn.microsoft.com/defender-vulnerability-management/tvm-security-recommendation"},
+  {wl:"mde",cadence:"Ad-hoc",pattern:"Config",title:"Review policy configurations",desc:"Compare device-group policy against the baseline. Reconcile policy drift in Intune / Configuration Manager.",output:"Drift report with reconciliation actions filed in Intune.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Device Groups",portalHref:"https://security.microsoft.com/preferences2/machine_groups",docsHref:"https://learn.microsoft.com/defender-endpoint/machine-groups"},
+  {wl:"mde",cadence:"Ad-hoc",pattern:"Config",title:"Review automation levels",desc:"Confirm AIR automation level (semi/full) is appropriate for each device group's analyst tier.",output:"Per-group automation level confirmation or change request.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Device Groups",portalHref:"https://security.microsoft.com/preferences2/machine_groups",docsHref:"https://learn.microsoft.com/defender-endpoint/machine-groups"},
+  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Review custom detections",desc:"Audit custom detections for true-positive rate. Retire detections producing only noise.",output:"TP-rate report with retire/keep/refine decision per detection.",owner:"Hunting",role:"Access varies by action",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detections-overview"},
+  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Review alert suppression rules",desc:"Sweep suppression rules. Remove overly broad rules that may be hiding real activity.",output:"Removed broad rules and refined suppression scope.",owner:"SecOps",role:"Access varies by action",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts"},
 
   // ===== MDI Daily =====
-  {wl:"mdi",cadence:"Daily",pattern:"Detect",anchor:true,title:"Review the ITDR dashboard",desc:"Start the day on the Identity Threat Detection & Response dashboard. Note posture changes and unresolved alerts.",output:"Posture-change notes and unresolved alert ownership.",owner:"Identity",role:"As required by portal action",portal:"Open ITDR Dashboard",portalHref:"https://security.microsoft.com/identities/dashboard",docsHref:"https://learn.microsoft.com/defender-for-identity/dashboard"},
-  {wl:"mdi",cadence:"Daily",pattern:"Triage",title:"Triage incidents by priority",desc:"Work credential theft, recon, lateral movement, and domain dominance alerts in priority order.",output:"Disposition and next action on each priority alert.",owner:"Identity",role:"As required by portal action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
-  {wl:"mdi",cadence:"Daily",pattern:"Tune",title:"Configure tuning rules for benign TPs / FPs",desc:"Create or refine MDI tuning rules to suppress known-benign activity without losing real signal.",output:"New or refined tuning rule with scope and justification.",owner:"Identity",role:"MDI Admin",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts"},
-  {wl:"mdi",cadence:"Daily",pattern:"Hunt",title:"Proactively hunt",desc:"Run KQL across IdentityLogonEvents and IdentityDirectoryEvents for anomalous patterns.",output:"Hunt query result summary and any incident follow-up.",owner:"Hunting",role:"As required by portal action",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-xdr/advanced-hunting-overview"},
-  {wl:"mdi",cadence:"Daily",pattern:"Detect",title:"Review Defender for Identity health issues",desc:"Confirm domain-controller and AD FS sensors are reporting. Investigate any health alert end-to-end.",output:"Sensor health status with remediation owner on any gap.",owner:"SecAdmin",role:"MDI Admin",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/sensors-overview"},
+  {wl:"mdi",cadence:"Daily",pattern:"Detect",anchor:true,title:"Review the ITDR dashboard",desc:"Start the day on the Identity Threat Detection & Response dashboard. Note posture changes and unresolved alerts.",output:"Posture-change notes and unresolved alert ownership.",owner:"Identity",role:"Access varies by action",portal:"Open ITDR Dashboard",portalHref:"https://security.microsoft.com/identities/dashboard",docsHref:"https://learn.microsoft.com/defender-for-identity/dashboard"},
+  {wl:"mdi",cadence:"Daily",pattern:"Triage",title:"Triage incidents by priority",desc:"Work credential theft, recon, lateral movement, and domain dominance alerts in priority order.",output:"Disposition and next action on each priority alert.",owner:"Identity",role:"Access varies by action",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/incidents-overview"},
+  {wl:"mdi",cadence:"Daily",pattern:"Tune",title:"Configure tuning rules for benign TPs / FPs",desc:"Create or refine MDI tuning rules to suppress known-benign activity without losing real signal.",output:"New or refined tuning rule with scope and justification.",owner:"Identity",role:"Defender for Identity Administrator",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts"},
+  {wl:"mdi",cadence:"Daily",pattern:"Hunt",title:"Proactively hunt",desc:"Run KQL across IdentityLogonEvents and IdentityDirectoryEvents for anomalous patterns.",output:"Hunt query result summary and any incident follow-up.",owner:"Hunting",role:"Access varies by action",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-xdr/advanced-hunting-overview"},
+  {wl:"mdi",cadence:"Daily",pattern:"Detect",title:"Review Defender for Identity health issues",desc:"Confirm domain-controller and AD FS sensors are reporting. Investigate any health alert end-to-end.",output:"Sensor health status with remediation owner on any gap.",owner:"SecAdmin",role:"Defender for Identity Administrator",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/sensors-overview"},
 
   // ===== MDI Weekly =====
-  {wl:"mdi",cadence:"Weekly",pattern:"Config",anchor:true,title:"Review Secure Score recommendations",desc:"Walk MDI ITDR posture recommendations. Prioritize high-impact issues with IAM owners.",output:"Prioritized posture-fix list with IAM owner assignments.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Secure Score",portalHref:"https://security.microsoft.com/securescore",docsHref:"https://learn.microsoft.com/defender/secure-score"},
-  {wl:"mdi",cadence:"Weekly",pattern:"Intel",title:"Review and respond to emerging threats",desc:"Walk new Threat analytics reports relevant to identity vectors. Check tenant exposure and run targeted hunts.",output:"Tenant exposure assessment and any hunt or mitigation filed.",owner:"Hunting",role:"As required by portal action",portal:"Open Threat Analytics",portalHref:"https://security.microsoft.com/threatanalytics3",docsHref:"https://learn.microsoft.com/defender-xdr/threat-analytics"},
-  {wl:"mdi",cadence:"Weekly",pattern:"Hunt",title:"Proactively hunt",desc:"Deeper weekly hunts: impossible travel, off-hours admin access, and service-account misuse.",output:"Hunt findings summary with scoped users / accounts.",owner:"Hunting",role:"As required by portal action",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-xdr/advanced-hunting-overview"},
+  {wl:"mdi",cadence:"Weekly",pattern:"Config",anchor:true,title:"Review Secure Score recommendations",desc:"Walk MDI ITDR posture recommendations. Prioritize high-impact issues with IAM owners.",output:"Prioritized posture-fix list with IAM owner assignments.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Secure Score",portalHref:"https://security.microsoft.com/securescore",docsHref:"https://learn.microsoft.com/defender/secure-score"},
+  {wl:"mdi",cadence:"Weekly",pattern:"Intel",title:"Review and respond to emerging threats",desc:"Walk new Threat analytics reports relevant to identity vectors. Check tenant exposure and run targeted hunts.",output:"Tenant exposure assessment and any hunt or mitigation filed.",owner:"Hunting",role:"Access varies by action",portal:"Open Threat Analytics",portalHref:"https://security.microsoft.com/threatanalytics3",docsHref:"https://learn.microsoft.com/defender-xdr/threat-analytics"},
+  {wl:"mdi",cadence:"Weekly",pattern:"Hunt",title:"Proactively hunt",desc:"Deeper weekly hunts: impossible travel, off-hours admin access, and service-account misuse.",output:"Hunt findings summary with scoped users / accounts.",owner:"Hunting",role:"Access varies by action",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-xdr/advanced-hunting-overview"},
 
   // ===== MDI Monthly =====
-  {wl:"mdi",cadence:"Monthly",pattern:"Tune",anchor:true,title:"Review tuned alerts and adjust tuning",desc:"Audit MDI tuning rules. Confirm they still match current activity and adjust as benign patterns shift.",output:"Audit results with adjusted, retired, or extended tuning rules.",owner:"Identity",role:"MDI Admin",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts"},
-  {wl:"mdi",cadence:"Monthly",pattern:"Intel",title:"Track new changes in Defender XDR and MDI",desc:"Scan release notes for new MDI detections, dashboards, and product changes. Plan adoption work.",output:"Adoption plan with owners and target dates.",owner:"SecAdmin",role:"As required by portal action",portal:"Open MDI What's New",portalHref:"https://learn.microsoft.com/defender-for-identity/whats-new",docsHref:"https://learn.microsoft.com/defender-for-identity/what-is"},
+  {wl:"mdi",cadence:"Monthly",pattern:"Tune",anchor:true,title:"Review tuned alerts and adjust tuning",desc:"Audit MDI tuning rules. Confirm they still match current activity and adjust as benign patterns shift.",output:"Audit results with adjusted, retired, or extended tuning rules.",owner:"Identity",role:"Defender for Identity Administrator",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts"},
+  {wl:"mdi",cadence:"Monthly",pattern:"Intel",title:"Track new changes in Defender XDR and MDI",desc:"Scan release notes for new MDI detections, dashboards, and product changes. Plan adoption work.",output:"Adoption plan with owners and target dates.",owner:"SecAdmin",role:"Access varies by action",portal:"Open MDI What's New",portalHref:"https://learn.microsoft.com/defender-for-identity/whats-new",docsHref:"https://learn.microsoft.com/defender-for-identity/what-is"},
 
   // ===== MDI Ad-hoc =====
-  {wl:"mdi",cadence:"Ad-hoc",pattern:"Detect",anchor:true,title:"Review Microsoft service health",desc:"On unexplained gap in signal, check service health for Defender for Identity incidents and advisories.",output:"Service incident review and any analyst-impact note.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Service Health",portalHref:"https://admin.microsoft.com/AdminPortal/Home#/servicehealth",docsHref:"https://learn.microsoft.com/microsoft-365/enterprise/view-service-health"},
-  {wl:"mdi",cadence:"Ad-hoc",pattern:"Config",title:"Review server setup process to include sensors",desc:"Refresh DC / AD FS sensor onboarding runbook. Validate new servers are picked up automatically.",output:"Updated runbook and validated automatic onboarding flow.",owner:"SecAdmin",role:"MDI Admin",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/sensors-overview"},
-  {wl:"mdi",cadence:"Ad-hoc",pattern:"Config",title:"Check domain configuration via PowerShell",desc:"Run validation scripts to confirm domain auditing, sensor permissions, and trust prerequisites are in place.",output:"Validation script output and any remediation filed.",owner:"Identity",role:"MDI Admin",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/sensors-overview"},
+  {wl:"mdi",cadence:"Ad-hoc",pattern:"Detect",anchor:true,title:"Review Microsoft service health",desc:"On unexplained gap in signal, check service health for Defender for Identity incidents and advisories.",output:"Service incident review and any analyst-impact note.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Service Health",portalHref:"https://admin.microsoft.com/AdminPortal/Home#/servicehealth",docsHref:"https://learn.microsoft.com/microsoft-365/enterprise/view-service-health"},
+  {wl:"mdi",cadence:"Ad-hoc",pattern:"Config",title:"Review server setup process to include sensors",desc:"Refresh DC / AD FS sensor onboarding runbook. Validate new servers are picked up automatically.",output:"Updated runbook and validated automatic onboarding flow.",owner:"SecAdmin",role:"Defender for Identity Administrator",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/sensors-overview"},
+  {wl:"mdi",cadence:"Ad-hoc",pattern:"Config",title:"Check domain configuration via PowerShell",desc:"Run validation scripts to confirm domain auditing, sensor permissions, and trust prerequisites are in place.",output:"Validation script output and any remediation filed.",owner:"Identity",role:"Defender for Identity Administrator",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/sensors-overview"},
 
   // ===== MDA Daily =====
-  {wl:"mda",cadence:"Daily",pattern:"Triage",anchor:true,title:"Review alerts and incidents",desc:"Work impossible travel, mass download, and unusual admin activity alerts. Confirm or dismiss with rationale.",output:"Confirm/dismiss decision with rationale on each alert.",owner:"SecOps",role:"As required by portal action",portal:"Open MDA Alerts",portalHref:"https://security.microsoft.com/cloudapps/alerts",docsHref:"https://learn.microsoft.com/defender-cloud-apps/managing-alerts"},
-  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review threat detection data",desc:"Pivot the activity log on detection signals: anonymous proxy, infrequent country, suspicious user agent.",output:"Pivoted activity findings and any user/session governance action.",owner:"SecOps",role:"As required by portal action",portal:"Open Activity Log",portalHref:"https://security.microsoft.com/cloudapps/activity-log",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters"},
-  {wl:"mda",cadence:"Daily",pattern:"Config",title:"Review application governance",desc:"Walk app governance alerts and risky OAuth apps. Investigate, ban, or monitor as warranted.",output:"App disposition (investigate / ban / monitor) on each risky app.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open App Governance",portalHref:"https://security.microsoft.com/cloudapps/app-governance",docsHref:"https://learn.microsoft.com/defender-cloud-apps/app-governance-manage-app-governance"},
-  {wl:"mda",cadence:"Daily",pattern:"Detect",title:"Review Conditional Access App Control",desc:"Confirm CAAC sessions are flowing. Investigate session blocks and unexpected policy hits.",output:"Session-flow confirmation and investigation notes on unexpected blocks.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Activity Log",portalHref:"https://security.microsoft.com/cloudapps/activity-log",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters"},
-  {wl:"mda",cadence:"Daily",pattern:"Detect",title:"Review shadow IT — Cloud Discovery",desc:"Spot-check discovered apps. Engage app owners or block at proxy if a high-risk app gains traction.",output:"Engaged app owner or filed proxy-block change request.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
-  {wl:"mda",cadence:"Daily",pattern:"Detect",title:"Review the Cloud Discovery dashboard",desc:"Check daily traffic volume, top apps, and top users. Investigate sudden spikes in unsanctioned-app usage.",output:"Spike investigation notes and any sanction/monitor change.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
-  {wl:"mda",cadence:"Daily",pattern:"Detect",title:"Review information protection",desc:"Walk file policy hits and Purview-label exposure across SharePoint, OneDrive, and connected apps.",output:"File-policy hit summary and any owner notification or quarantine.",owner:"SecOps",role:"As required by portal action",portal:"Open Files",portalHref:"https://security.microsoft.com/cloudapps/files",docsHref:"https://learn.microsoft.com/defender-cloud-apps/file-filters"},
+  {wl:"mda",cadence:"Daily",pattern:"Triage",anchor:true,title:"Review alerts and incidents",desc:"Work impossible travel, mass download, and unusual admin activity alerts. Confirm or dismiss with rationale.",output:"Confirm/dismiss decision with rationale on each alert.",owner:"SecOps",role:"Access varies by action",portal:"Open MDA Alerts",portalHref:"https://security.microsoft.com/cloudapps/alerts",docsHref:"https://learn.microsoft.com/defender-cloud-apps/managing-alerts"},
+  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review threat detection data",desc:"Pivot the activity log on detection signals: anonymous proxy, infrequent country, suspicious user agent.",output:"Pivoted activity findings and any user/session governance action.",owner:"SecOps",role:"Access varies by action",portal:"Open Activity Log",portalHref:"https://security.microsoft.com/cloudapps/activity-log",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters"},
+  {wl:"mda",cadence:"Daily",pattern:"Config",title:"Review application governance",desc:"Walk app governance alerts and risky OAuth apps. Investigate, ban, or monitor as warranted.",output:"App disposition (investigate / ban / monitor) on each risky app.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open App Governance",portalHref:"https://security.microsoft.com/cloudapps/app-governance",docsHref:"https://learn.microsoft.com/defender-cloud-apps/app-governance-manage-app-governance"},
+  {wl:"mda",cadence:"Daily",pattern:"Detect",title:"Review Conditional Access App Control",desc:"Confirm CAAC sessions are flowing. Investigate session blocks and unexpected policy hits.",output:"Session-flow confirmation and investigation notes on unexpected blocks.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Activity Log",portalHref:"https://security.microsoft.com/cloudapps/activity-log",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters"},
+  {wl:"mda",cadence:"Daily",pattern:"Detect",title:"Review shadow IT — Cloud Discovery",desc:"Spot-check discovered apps. Engage app owners or block at proxy if a high-risk app gains traction.",output:"Engaged app owner or filed proxy-block change request.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
+  {wl:"mda",cadence:"Daily",pattern:"Detect",title:"Review the Cloud Discovery dashboard",desc:"Check daily traffic volume, top apps, and top users. Investigate sudden spikes in unsanctioned-app usage.",output:"Spike investigation notes and any sanction/monitor change.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
+  {wl:"mda",cadence:"Daily",pattern:"Detect",title:"Review information protection",desc:"Walk file policy hits and Purview-label exposure across SharePoint, OneDrive, and connected apps.",output:"File-policy hit summary and any owner notification or quarantine.",owner:"SecOps",role:"Access varies by action",portal:"Open Files",portalHref:"https://security.microsoft.com/cloudapps/files",docsHref:"https://learn.microsoft.com/defender-cloud-apps/file-filters"},
 
   // ===== MDA Weekly =====
-  {wl:"mda",cadence:"Weekly",pattern:"Config",anchor:true,title:"Review SaaS Security Posture Management",desc:"Walk SSPM recommendations across connected SaaS apps. Prioritize high-impact misconfigurations with app owners.",output:"Prioritized SSPM fix list with app-owner assignments.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open SSPM",portalHref:"https://security.microsoft.com/cloudapps/sspm",docsHref:"https://learn.microsoft.com/defender-cloud-apps/security-saas"},
-  {wl:"mda",cadence:"Weekly",pattern:"Detect",title:"Check connector / log collector / SIEM agent health",desc:"Confirm app connectors, log collectors, and SIEM agents are healthy. Investigate any sync gap.",output:"Connector health report and remediation owner on any gap.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Connected Apps",portalHref:"https://security.microsoft.com/cloudapps/services",docsHref:"https://learn.microsoft.com/defender-cloud-apps/enable-instant-visibility-protection-and-governance-actions-for-your-apps"},
-  {wl:"mda",cadence:"Weekly",pattern:"Intel",title:"Track new changes in Microsoft Defender XDR",desc:"Review Message Center and MDA release notes. Plan adoption of new policies, connectors, or detections.",output:"Adoption plan with owners and target dates.",owner:"SecAdmin",role:"As required by portal action",portal:"Open MDA What's New",portalHref:"https://learn.microsoft.com/defender-cloud-apps/release-notes",docsHref:"https://learn.microsoft.com/defender-cloud-apps/what-is-defender-for-cloud-apps"},
-  {wl:"mda",cadence:"Weekly",pattern:"Tune",title:"Review the governance log",desc:"Audit automated suspend / notify / quarantine outcomes. Validate appropriateness and revert mistakes.",output:"Audit log of governance outcomes with reversions where needed.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Governance Log",portalHref:"https://security.microsoft.com/cloudapps/governance-log",docsHref:"https://learn.microsoft.com/defender-cloud-apps/governance-actions"},
+  {wl:"mda",cadence:"Weekly",pattern:"Config",anchor:true,title:"Review SaaS Security Posture Management",desc:"Walk SSPM recommendations across connected SaaS apps. Prioritize high-impact misconfigurations with app owners.",output:"Prioritized SSPM fix list with app-owner assignments.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open SSPM",portalHref:"https://security.microsoft.com/cloudapps/sspm",docsHref:"https://learn.microsoft.com/defender-cloud-apps/security-saas"},
+  {wl:"mda",cadence:"Weekly",pattern:"Detect",title:"Check connector / log collector / SIEM agent health",desc:"Confirm app connectors, log collectors, and SIEM agents are healthy. Investigate any sync gap.",output:"Connector health report and remediation owner on any gap.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Connected Apps",portalHref:"https://security.microsoft.com/cloudapps/services",docsHref:"https://learn.microsoft.com/defender-cloud-apps/enable-instant-visibility-protection-and-governance-actions-for-your-apps"},
+  {wl:"mda",cadence:"Weekly",pattern:"Intel",title:"Track new changes in Microsoft Defender XDR",desc:"Review Message Center and MDA release notes. Plan adoption of new policies, connectors, or detections.",output:"Adoption plan with owners and target dates.",owner:"SecAdmin",role:"Access varies by action",portal:"Open MDA What's New",portalHref:"https://learn.microsoft.com/defender-cloud-apps/release-notes",docsHref:"https://learn.microsoft.com/defender-cloud-apps/what-is-defender-for-cloud-apps"},
+  {wl:"mda",cadence:"Weekly",pattern:"Tune",title:"Review the governance log",desc:"Audit automated suspend / notify / quarantine outcomes. Validate appropriateness and revert mistakes.",output:"Audit log of governance outcomes with reversions where needed.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Governance Log",portalHref:"https://security.microsoft.com/cloudapps/governance-log",docsHref:"https://learn.microsoft.com/defender-cloud-apps/governance-actions"},
 
   // ===== MDA Monthly =====
-  {wl:"mda",cadence:"Monthly",pattern:"Tune",anchor:true,title:"Review policy assessments",desc:"Audit anomaly, activity, file, and OAuth policies. Retire low-value, refine noisy ones.",output:"Per-policy retire/refine/keep decision with rationale.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Policies",portalHref:"https://security.microsoft.com/cloudapps/policies",docsHref:"https://learn.microsoft.com/defender-cloud-apps/control-cloud-apps-with-policies"},
-  {wl:"mda",cadence:"Monthly",pattern:"Hunt",title:"Review activity logs",desc:"Trend-level review of activity logs across sanctioned apps. Identify recurring risk patterns.",output:"Recurring-pattern report with proposed policy or hunt follow-up.",owner:"SecOps",role:"As required by portal action",portal:"Open Activity Log",portalHref:"https://security.microsoft.com/cloudapps/activity-log",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters"},
+  {wl:"mda",cadence:"Monthly",pattern:"Tune",anchor:true,title:"Review policy assessments",desc:"Audit anomaly, activity, file, and OAuth policies. Retire low-value, refine noisy ones.",output:"Per-policy retire/refine/keep decision with rationale.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Policies",portalHref:"https://security.microsoft.com/cloudapps/policies",docsHref:"https://learn.microsoft.com/defender-cloud-apps/control-cloud-apps-with-policies"},
+  {wl:"mda",cadence:"Monthly",pattern:"Hunt",title:"Review activity logs",desc:"Trend-level review of activity logs across sanctioned apps. Identify recurring risk patterns.",output:"Recurring-pattern report with proposed policy or hunt follow-up.",owner:"SecOps",role:"Access varies by action",portal:"Open Activity Log",portalHref:"https://security.microsoft.com/cloudapps/activity-log",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters"},
 
   // ===== MDA Ad-hoc =====
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Hunt",anchor:true,title:"Run advanced hunting queries",desc:"Sweep CloudAppEvents on threat-intel triggers. Govern affected sessions and review user impact.",output:"Sweep results with session governance and user-impact summary.",owner:"Hunting",role:"As required by portal action",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-xdr/advanced-hunting-overview"},
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Review Microsoft service health",desc:"On unexplained gap in MDA signal, check service health for Defender for Cloud Apps incidents and advisories.",output:"Service incident review and any analyst-impact note.",owner:"SecAdmin",role:"As required by portal action",portal:"Open Service Health",portalHref:"https://admin.microsoft.com/AdminPortal/Home#/servicehealth",docsHref:"https://learn.microsoft.com/microsoft-365/enterprise/view-service-health"},
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Triage",title:"Review file quarantines",desc:"Inspect files held by file policies. Release legitimate matches and confirm verdicts on malicious ones.",output:"Per-file release/confirm decision with rationale.",owner:"SecOps",role:"As required by portal action",portal:"Open Files",portalHref:"https://security.microsoft.com/cloudapps/files",docsHref:"https://learn.microsoft.com/defender-cloud-apps/file-filters"},
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Review app risk scores",desc:"Review risk scores for newly cataloged apps. Adjust risk tolerance and trigger sanction / monitor / ban.",output:"Per-app sanction / monitor / ban decision.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Config",title:"Delete cloud discovery data",desc:"Purge Cloud Discovery data when retention boundaries shift or after onboarding mistakes. Coordinate with privacy.",output:"Privacy-coordinated purge confirmation with audit reference.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Generate a Cloud Discovery executive report",desc:"Produce executive-ready PDF on shadow IT, top categories, and risk distribution for stakeholders.",output:"Executive PDF distributed to named stakeholders.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Generate a Cloud Discovery snapshot report",desc:"Build a one-time snapshot from a log file (firewall / proxy). Useful for evaluations and ad-hoc audits.",output:"Snapshot report attached to the audit or evaluation record.",owner:"SecAdmin",role:"Cloud Apps Admin",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Hunt",anchor:true,title:"Run advanced hunting queries",desc:"Sweep CloudAppEvents on threat-intel triggers. Govern affected sessions and review user impact.",output:"Sweep results with session governance and user-impact summary.",owner:"Hunting",role:"Access varies by action",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-xdr/advanced-hunting-overview"},
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Review Microsoft service health",desc:"On unexplained gap in MDA signal, check service health for Defender for Cloud Apps incidents and advisories.",output:"Service incident review and any analyst-impact note.",owner:"SecAdmin",role:"Access varies by action",portal:"Open Service Health",portalHref:"https://admin.microsoft.com/AdminPortal/Home#/servicehealth",docsHref:"https://learn.microsoft.com/microsoft-365/enterprise/view-service-health"},
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Triage",title:"Review file quarantines",desc:"Inspect files held by file policies. Release legitimate matches and confirm verdicts on malicious ones.",output:"Per-file release/confirm decision with rationale.",owner:"SecOps",role:"Access varies by action",portal:"Open Files",portalHref:"https://security.microsoft.com/cloudapps/files",docsHref:"https://learn.microsoft.com/defender-cloud-apps/file-filters"},
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Review app risk scores",desc:"Review risk scores for newly cataloged apps. Adjust risk tolerance and trigger sanction / monitor / ban.",output:"Per-app sanction / monitor / ban decision.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Config",title:"Delete cloud discovery data",desc:"Purge Cloud Discovery data when retention boundaries shift or after onboarding mistakes. Coordinate with privacy.",output:"Privacy-coordinated purge confirmation with audit reference.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Generate a Cloud Discovery executive report",desc:"Produce executive-ready PDF on shadow IT, top categories, and risk distribution for stakeholders.",output:"Executive PDF distributed to named stakeholders.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Generate a Cloud Discovery snapshot report",desc:"Build a one-time snapshot from a log file (firewall / proxy). Useful for evaluations and ad-hoc audits.",output:"Snapshot report attached to the audit or evaluation record.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery"},
 ];
 
 const WORKLOADS = {
   all: { name: "All Defender XDR tasks", short: "ALL", color: "#0b1220" },
-  mdo: { name: "Defender for Office 365", short: "MDO", color: "#2563eb",
+  mdo: { name: "Defender for Office 365", short: "MDO", color: "#1e3a8a",
          sub: "Email and collaboration threat operations: triage user-reported phishing, tune anti-spoofing, and hunt across Email Explorer." },
-  mde: { name: "Defender for Endpoint", short: "MDE", color: "#7c3aed",
+  mde: { name: "Defender for Endpoint", short: "MDE", color: "#2563eb",
          sub: "Endpoint detection, response, and posture: triage device alerts, manage live response, and reduce attack surface." },
-  mdi: { name: "Defender for Identity", short: "MDI", color: "#0891b2",
+  mdi: { name: "Defender for Identity", short: "MDI", color: "#0ea5e9",
          sub: "Identity threat protection across on-prem AD and Entra ID: triage identity alerts, monitor sensitive accounts, and reduce identity attack surface." },
-  mda: { name: "Defender for Cloud Apps", short: "MDA", color: "#ea580c",
+  mda: { name: "Defender for Cloud Apps", short: "MDA", color: "#60a5fa",
          sub: "SaaS app security: triage anomaly alerts, govern OAuth apps, and monitor sanctioned and shadow IT activity." },
 };
 
@@ -729,10 +890,22 @@ function init() {
 
   // View toggle
   document.querySelectorAll(".view-btn").forEach(b => b.addEventListener("click", () => {
+    if (window.innerWidth <= 760) return; // force cards on mobile
     state.view = b.dataset.view;
     document.querySelectorAll(".view-btn").forEach(x => x.classList.toggle("active", x === b));
     render();
   }));
+
+  // Force cards view on narrow screens
+  const enforceMobileView = () => {
+    if (window.innerWidth <= 760 && state.view === "table") {
+      state.view = "cards";
+      document.querySelectorAll(".view-btn").forEach(x => x.classList.toggle("active", x.dataset.view === "cards"));
+      render();
+    }
+  };
+  window.addEventListener("resize", enforceMobileView);
+  enforceMobileView();
 
   // Cadence chips
   $("cadenceChips").innerHTML = CADENCES.map(c =>
@@ -784,6 +957,12 @@ function matches(t) {
 
 function colorFor(wl) { return WORKLOADS[wl]?.color || "#0b1220"; }
 
+function taskTypeFor(owner) {
+  if (owner === "SecAdmin") return "Admin";
+  if (owner === "Identity" || owner === "Messaging") return "Shared";
+  return "Analyst"; // SecOps, Hunting
+}
+
 function cardHTML(t) {
   return `<article class="task-card ${t.anchor?"anchor":""}" data-wl="${t.wl}" style="--wl-color:${colorFor(t.wl)}">
     <span class="stripe"></span>
@@ -792,26 +971,28 @@ function cardHTML(t) {
     <p class="desc">${esc(t.desc)}</p>
     <div class="output"><strong>Expected output:</strong> ${esc(t.output)}</div>
     <div class="meta">
+      <span class="tbadge tb-${taskTypeFor(t.owner)}">${taskTypeFor(t.owner)} action</span>
       <span class="badge">${esc(t.owner)}</span>
-      ${t.role && t.role !== "As required by portal action" ? `<span class="badge perm">${esc(t.role)}</span>` : ""}
+      ${t.role && t.role !== "Access varies by action" ? `<span class="badge perm">Access: ${esc(t.role)}</span>` : ""}
       <span class="pbadge pb-${t.pattern}">${t.pattern}</span>
       <span class="cadence-tag">${t.cadence} · ${WORKLOADS[t.wl].short}</span>
     </div>
     <div class="card-footer">
-      <a class="portal-link" href="${esc(t.portalHref)}" target="_blank" rel="noopener">${esc(t.portal)} <span class="ext">↗</span></a>
-      <a class="docs-link" href="${esc(t.docsHref)}" target="_blank" rel="noopener">Docs <span class="ext">↗</span></a>
+      <a class="portal-link" href="${esc(t.portalHref)}" target="_blank" rel="noopener">Open portal <span class="ext">↗</span></a>
+      <a class="docs-link" href="${esc(t.docsHref)}" target="_blank" rel="noopener">View docs <span class="ext">↗</span></a>
     </div>
   </article>`;
 }
 
 function rowHTML(t) {
+  const role = t.role === "Access varies by action" ? "Varies by action" : t.role;
   return `<tr>
-    <td><strong>${esc(t.title)}</strong><br>${esc(t.desc)}</td>
+    <td><strong>${esc(t.title)}</strong>${esc(t.desc)}</td>
     <td>${WORKLOADS[t.wl].short}</td>
     <td>${t.cadence}</td>
     <td><span class="pbadge pb-${t.pattern}">${t.pattern}</span></td>
     <td>${esc(t.owner)}</td>
-    <td>${esc(t.role)}</td>
+    <td>${esc(role)}</td>
     <td>${esc(t.output)}</td>
     <td><a class="table-link" href="${esc(t.portalHref)}" target="_blank" rel="noopener">Open</a></td>
   </tr>`;
