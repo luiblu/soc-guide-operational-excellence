@@ -161,7 +161,7 @@ h1 .accent {
   display: flex; align-items: center; justify-content: space-between;
   gap: 16px; flex-wrap: wrap;
 }
-.workload-tabs { display: flex; gap: 0; }
+.workload-tabs { display: flex; flex-wrap: wrap; gap: 0; min-width: 0; }
 .wl-tab {
   padding: 14px 18px; font-size: 13.5px; font-weight: 600;
   color: var(--text-subtle); cursor: pointer;
@@ -328,11 +328,15 @@ main.layout > section { min-width: 0; }
 .task-card {
   position: relative; background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 16px 16px 12px 20px; box-shadow: var(--shadow-sm);
+  padding: 16px 16px 12px 20px;
+  box-shadow: var(--shadow-sm), inset 3px 0 0 var(--wl-color, #2563eb);
   display: flex; flex-direction: column;
   min-height: 320px;
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   overflow: hidden;
+}
+.task-card.anchor {
+  box-shadow: var(--shadow-sm), inset 4px 0 0 var(--wl-color, #2563eb);
 }
 .task-card.is-expanded {
   border-color: var(--wl-color, #2563eb);
@@ -347,19 +351,7 @@ main.layout > section { min-width: 0; }
   transform: translateY(-2px);
   border-color: var(--wl-color, #2563eb);
 }
-.task-card .stripe {
-  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  background: var(--wl-color, #2563eb);
-}
-.task-card.anchor .stripe { width: 4px; }
 
-.anchor-tag {
-  position: absolute; top: 18px; left: 20px;
-  font-size: 9.5px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .08em;
-  color: var(--wl-color, var(--text-subtle));
-  line-height: 1.2;
-}
 .corner-meta {
   position: absolute; top: 18px; right: 16px;
   font-size: 10.5px; font-weight: 600;
@@ -371,8 +363,8 @@ main.layout > section { min-width: 0; }
   letter-spacing: -0.005em; overflow-wrap: break-word;
   padding-right: 130px;
 }
-.task-card.anchor h3 { padding-top: 18px; }
 .task-card p.desc { font-size: 13px; color: var(--text-muted); margin: 0 0 10px 0; }
+.task-card .row-anchor-icon { margin-right: 5px; transform: translateY(-1px); }
 .output {
   background: var(--surface-2); border: 1px solid var(--border);
   border-radius: 8px; padding: 8px 10px;
@@ -858,7 +850,8 @@ footer {
   h1 { font-size: 26px; }
   .brand-bar { padding: 28px 18px 20px; }
   .lede { font-size: 14.5px; }
-  .intro-grid { display: none; }
+  .intro-grid { grid-template-columns: 1fr; gap: 10px; }
+  .intro-card { padding: 12px 14px; }
   .left-rail { position: static; }
   .filter-card { padding: 12px 14px 14px; }
   .sidebar {
@@ -875,12 +868,10 @@ footer {
   .wl-tab .tag { display: none; }
   .results-head h2 { font-size: 19px; }
   .task-card { padding: 14px 14px 12px 18px; }
-  .anchor-tag, .corner-meta {
-    position: static; display: block; margin: 0 0 4px 0;
+  .corner-meta {
+    position: static; display: block; margin: 0 0 4px 0; text-align: left;
   }
-  .corner-meta { text-align: left; }
   .task-card h3 { padding-right: 0; }
-  .task-card.anchor h3 { padding-top: 0; }
   .card-footer {
     flex-direction: column;
     align-items: stretch;
@@ -1384,7 +1375,7 @@ const TASKS = [
       goodLooksLike:"Inactive and misconfigured devices have named owners, ETAs, and a tracked weekly trendline that's flat or declining.",
       pitfalls:"Don't fixate on the count without checking which devices are affected. Ten inactive workstations is a hygiene issue; one inactive domain controller is a P1 visibility outage."
     }},
-  {wl:"mde",cadence:"Daily",pattern:"Config",title:"Check EDR sensor health",desc:"Confirm EDR sensors are reporting. Investigate inactive, misconfigured, or impaired devices.",output:"Inactive sensor list with remediation action assigned.",owner:"SecAdmin",role:"Security Reader",portal:"Open Device Inventory",portalHref:"https://security.microsoft.com/machines",docsHref:"https://learn.microsoft.com/defender-endpoint/machines-view-overview",
+  {wl:"mde",cadence:"Daily",pattern:"Config",title:"Check EDR sensor health",desc:"Confirm EDR sensors are reporting. Investigate inactive, misconfigured, or impaired devices.",output:"Inactive sensor list with remediation action assigned.",owner:"SecAdmin",role:"Security Reader",portal:"Open Device Health",portalHref:"https://security.microsoft.com/reports/device-health",docsHref:"https://learn.microsoft.com/defender-endpoint/machines-view-overview",
     deepDive:{
       steps:[
         "Open Device inventory and filter to sensors with Impaired communications or Inactive state. These are the devices the EDR can't see, regardless of what other tooling shows.",
@@ -1395,7 +1386,7 @@ const TASKS = [
       goodLooksLike:"Impaired sensors get triaged within 24 hours, fixes are validated by observed check-in, and persistent offenders are tracked as remediation tickets, not silent gaps.",
       pitfalls:"Air-gapped or rarely-online devices (field laptops, kiosks) generate persistent inactive states that aren't real coverage gaps. Tag them so they don't drown out the actionable signal."
     }},
-  {wl:"mde",cadence:"Daily",pattern:"Config",title:"Check Microsoft Defender Antivirus health",desc:"Verify signature freshness, real-time protection state, and EDR-block-mode coverage. Chase stale endpoints.",output:"Stale endpoint list with assigned IT owner.",owner:"SecAdmin",role:"Security Reader",portal:"Open Device Inventory",portalHref:"https://security.microsoft.com/machines",docsHref:"https://learn.microsoft.com/defender-endpoint/machines-view-overview",
+  {wl:"mde",cadence:"Daily",pattern:"Config",title:"Check Microsoft Defender Antivirus health",desc:"Verify signature freshness, real-time protection state, and EDR-block-mode coverage. Chase stale endpoints.",output:"Stale endpoint list with assigned IT owner.",owner:"SecAdmin",role:"Security Reader",portal:"Open Device Health",portalHref:"https://security.microsoft.com/reports/device-health",docsHref:"https://learn.microsoft.com/defender-endpoint/machines-view-overview",
     deepDive:{
       steps:[
         "Filter Device inventory to AV-related fields: signature freshness > 7 days, real-time protection disabled, EDR-block-mode off. Each is a separate fix path.",
@@ -1463,7 +1454,7 @@ const TASKS = [
       goodLooksLike:"SmartScreen and WCF blocks are reviewed separately, top-blocked URLs have explicit allow/block decisions, and any category miscategorization is filed with Microsoft.",
       pitfalls:"Allowing a parent domain (example.com) doesn't always cover the subdomain users actually visit (cdn.example.com). Confirm the URL the user hit, not just the domain in the alert."
     }},
-  {wl:"mde",cadence:"Weekly",pattern:"Hunt",title:"Hunt for exposed devices (Advanced Hunting + Defender Vulnerability Management)",desc:"Run Advanced Hunting queries across DeviceTvmSoftwareVulnerabilities and related tables to find devices exposed to high-severity CVEs. Use the Defender Vulnerability Management hunt-exposed-devices flow to cross-reference active threats with vulnerable software.",output:"Exposed-device list with prioritized remediation tickets to IT.",owner:"SecOps",role:"Security Reader",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-vulnerability-management/tvm-hunt-exposed-devices",
+  {wl:"mde",cadence:"Weekly",pattern:"Hunt",title:"Hunt for exposed devices",desc:"Use Advanced Hunting and Defender Vulnerability Management together to find devices exposed to high-severity CVEs. Query DeviceTvmSoftwareVulnerabilities and related tables, and cross-reference active threats with vulnerable software.",output:"Exposed-device list with prioritized remediation tickets to IT.",owner:"SecOps",role:"Security Reader",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/defender-vulnerability-management/tvm-hunt-exposed-devices",
     deepDive:{
       steps:[
         "Start from a current threat trigger — a Threat analytics report, a CISA KEV addition, or vendor advisory. Hunting without a trigger produces lists no one acts on.",
@@ -1473,6 +1464,17 @@ const TASKS = [
       ],
       goodLooksLike:"Hunts trace to a current threat trigger, exposed-device lists are scoped to the highest-leverage device groups, and remediation tickets land with named owners on per-team cadences.",
       pitfalls:"DeviceTvmSoftwareVulnerabilities lags real-time inventory by hours to a day. Cross-check against device last-seen and recently-installed patches before treating an entry as live exposure."
+    }},
+  {wl:"mde",cadence:"Weekly",pattern:"Config",title:"Review Security Baselines compliance",desc:"Walk Security Baselines profiles in Defender Vulnerability Management. Identify low-compliance configurations and route deviations to the right policy owner.",output:"Per-profile compliance status with deviation owners and remediation tickets filed.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Baselines",portalHref:"https://security.microsoft.com/baselines-assessment-profiles",docsHref:"https://learn.microsoft.com/defender-vulnerability-management/tvm-security-baselines",
+    deepDive:{
+      steps:[
+        "Open the Baselines assessment surface and walk the profiles you've configured. If no profile is set up yet, the first run is the configuration — pick CIS, STIG, or a Microsoft benchmark and target it at a scoped device group, not the whole estate.",
+        "Sort configurations by compliance percentage and cross-reference each one's severity weight. The lowest-compliance items aren't always the highest-impact — a 40%-compliant low-severity setting matters less than a 90%-compliant Tier-0 control.",
+        "For each top deviation, open the configuration to see affected devices and the recommended setting. Some deviations resolve through Intune policy; others need ad-hoc remediation in Configuration Manager or Group Policy. Route the ticket to the owner of the underlying enforcement system.",
+        "Track compliance trend, not just point-in-time numbers. A baseline that drifts week over week means policy isn't sticking — that's an Intune/CM enforcement issue, not a baseline content issue."
+      ],
+      goodLooksLike:"Each profile has a named owner, lowest-compliance configurations have scoped tickets, and overall compliance percentage trends up week over week.",
+      pitfalls:"Profiles created without device-group scope evaluate against every onboarded device, including ones the baseline doesn't apply to. Scope each profile narrowly so the compliance number reflects reality, not noise."
     }},
 
   // ===== Defender for Endpoint Monthly =====
@@ -1486,6 +1488,17 @@ const TASKS = [
       ],
       goodLooksLike:"Each remaining exclusion has a current owner, valid business reason, and an expiration date within 90 days. Stale and orphaned exclusions are removed.",
       pitfalls:"Removing an exclusion without coordinating with the owner team can break legitimate workflows that grew up around it. Notify the owner with a sunset date, then remove — don't surprise."
+    }},
+  {wl:"mde",cadence:"Monthly",pattern:"Detect",title:"Audit installed software inventory",desc:"Walk Software inventory in Defender Vulnerability Management. Surface high-prevalence software with weaknesses, threats, exposed devices, and exposure-score impact. Drive removal, upgrade, or compensating-control decisions.",output:"Top-impact software list with retire / upgrade / accept-with-controls decisions filed.",owner:"SecAdmin",role:"Security Reader",portal:"Open Software Inventory",portalHref:"https://security.microsoft.com/vulnerability-management-inventories/applications",docsHref:"https://learn.microsoft.com/defender-vulnerability-management/tvm-software-inventory",
+    deepDive:{
+      steps:[
+        "Open Software inventory and sort by exposure-score contribution. The biggest reductions usually come from removing or upgrading a small number of high-prevalence packages — start there, not at the longest CVE lists.",
+        "Walk the top entries and capture three signals: weaknesses (open CVEs), active threats (exploits in the wild), exposed devices (how broadly the software is deployed). Software with all three is the priority queue for the month.",
+        "For end-of-life or end-of-support entries, file a removal or upgrade backlog item with the application owner. The fix isn't a patch — it's either retirement, replacement, or vendor-supported re-platforming.",
+        "For business-critical software with no upgrade path, document the compensating controls (network segmentation, application control, EDR coverage) so the residual risk is owned, not silently accepted."
+      ],
+      goodLooksLike:"Top exposure-contributing software has named owners with remediation paths, end-of-life entries get retirement plans (not just \"we'll patch later\"), and the inventory shrinks over the quarter as redundant software is removed.",
+      pitfalls:"Software inventory shows what's installed, not what's in use. Removing low-usage software isn't always safe — confirm with application owners or usage telemetry before retiring something assumed to be redundant."
     }},
 
   // ===== Defender for Endpoint Ad-hoc =====
@@ -1533,7 +1546,7 @@ const TASKS = [
       goodLooksLike:"Each custom detection has a documented TP rate, a current owner, and a retire/keep/refine decision. Dead and noise-only detections are pruned.",
       pitfalls:"Retiring a low-TP detection that catches a rare-but-critical event is worse than living with the noise. Sample the TPs first to confirm they're not the high-impact catches that justify the rule."
     }},
-  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Review alert suppression rules",desc:"Sweep suppression rules. Remove overly broad rules that may be hiding real activity.",output:"Removed broad rules and refined suppression scope.",owner:"SecOps",role:"Security Administrator",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts",
+  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Review alert suppression rules",desc:"Sweep suppression rules. Remove overly broad rules that may be hiding real activity.",output:"Removed broad rules and refined suppression scope.",owner:"SecOps",role:"Security Administrator",portal:"Open Alert Tuning",portalHref:"https://security.microsoft.com/alert-tuning",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts",
     deepDive:{
       steps:[
         "Pull the suppression rule list with creation date, scope (device / device group / tenant), and the rule author. Tenant-wide suppressions are the highest-risk entries — start there.",
@@ -1585,7 +1598,7 @@ const TASKS = [
       goodLooksLike:"Every high/medium Defender for Identity incident has a classification, an assigned owner, and a documented next action by end of shift. Domain-dominance alerts (Golden Ticket, DCSync) escalate within the hour, not by end of day.",
       pitfalls:"Don't classify recon-stage alerts as Informational expected just because nothing has fired yet. Recon is the early-kill window — dismissing it loses the chance to interrupt before lateral movement or credential theft."
     }},
-  {wl:"mdi",cadence:"Daily",pattern:"Tune",title:"Configure tuning rules for benign TPs / FPs",desc:"Create or refine Defender for Identity tuning rules to suppress known-benign activity without losing real signal.",output:"New or refined tuning rule with scope and justification.",owner:"SecOps",role:"Security Administrator",portal:"Open Alerts",portalHref:"https://security.microsoft.com/alerts",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts",
+  {wl:"mdi",cadence:"Daily",pattern:"Tune",title:"Configure tuning rules for benign TPs / FPs",desc:"Create or refine Defender for Identity tuning rules to suppress known-benign activity without losing real signal.",output:"New or refined tuning rule with scope and justification.",owner:"SecOps",role:"Security Administrator",portal:"Open Alert Tuning",portalHref:"https://security.microsoft.com/alert-tuning",docsHref:"https://learn.microsoft.com/defender-xdr/investigate-alerts",
     deepDive:{
       steps:[
         "Identify the candidate from the closed-alerts queue — a recurring benign true positive (vulnerability scanner, IT admin script, monitoring tool) or a clear false positive on a specific source.",
@@ -1618,16 +1631,16 @@ const TASKS = [
       goodLooksLike:"Sensor health is green across all DCs, AD FS, and AD CS servers. Persistent issues have named owners on the IAM/AD side and a tracked ETA, not just \"in progress.\"",
       pitfalls:"A sensor reporting healthy doesn't mean it's seeing everything — domain audit policy gaps cause silent telemetry loss the sensor can't detect. Pair this routine with the quarterly Test-MDIConfiguration check."
     }},
-  {wl:"mdi",cadence:"Daily",pattern:"Triage",title:"Investigate users with a high investigation score",desc:"Work the prioritized list of users surfaced by Defender for Identity's investigation score. Confirm risk, escalate, or dismiss with rationale.",output:"Per-user disposition (escalate / monitor / dismiss) with rationale.",owner:"SecOps",role:"Security Operator",portal:"Open Identities Inventory",portalHref:"https://security.microsoft.com/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/investigate-assets",
+  {wl:"mdi",cadence:"Daily",pattern:"Triage",title:"Investigate sensitive accounts and high-priority users",desc:"Work the Identities inventory through two pivots — the investigation-priority queue (signal-driven) and the sensitive-accounts list (structural). Confirm risk, escalate, or dismiss with rationale.",output:"Per-user disposition (escalate / monitor / dismiss) with rationale, against both pivots.",owner:"SecOps",role:"Security Operator",portal:"Open Identities Inventory",portalHref:"https://security.microsoft.com/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/identity-inventory",
     deepDive:{
       steps:[
-        "Open the Identities inventory and sort by Investigation priority score. The score blends recent alert activity, sensitive-account flags, and behavioral signals — top-of-list is where to spend time, not random sampling.",
+        "Open the Identities inventory and walk two pivots. First, sort by Investigation priority score — signal-driven prioritization that catches in-progress activity. Then filter by Sensitive accounts — structural prioritization that catches accounts needing scrutiny regardless of whether they have alerts today.",
         "For each high-score user, walk the timeline tab. Look for clustered behavior across short windows (rapid auth attempts, lateral patterns) versus long-tail noise (occasional anomalies that don't connect).",
-        "Cross-check the user's group membership and sensitive-account status. A high score on a regular user is a different story than a high score on a Tier-0 account — escalation paths differ.",
-        "Disposition each user as Escalate (active investigation), Monitor (suspicious but not actionable), or Dismiss (score driven by benign behavior). Document the rationale; investigation scores rebuild and the next analyst needs to know what was already cleared."
+        "On the sensitive-accounts pivot, verify that every account on the list still needs its elevated privileges. Tier-0 admins, service accounts with broad rights, and historically-privileged accounts that no one has reviewed in months are the highest-leverage cleanup targets.",
+        "Disposition each user as Escalate (active investigation), Monitor (suspicious but not actionable), or Dismiss (score driven by benign behavior). For sensitive-account reviews, the disposition is keep / right-size / remove. Document the rationale either way — the next analyst needs to know what was already cleared."
       ],
-      goodLooksLike:"Top-priority users have explicit dispositions with rationale, sensitive-account hits escalate immediately, and dismissed users carry notes that prevent the same review next day.",
-      pitfalls:"Investigation score isn't a verdict — it's a prioritization signal. Dismissing without a timeline walk misses slow-burn attacks where individual signals are quiet but the cluster is loud."
+      goodLooksLike:"Top-priority users have explicit dispositions with rationale, sensitive-account hits escalate immediately, and the sensitive-accounts list shrinks over the quarter as unnecessary privileges get removed.",
+      pitfalls:"Investigation score isn't a verdict — it's a prioritization signal. Dismissing without a timeline walk misses slow-burn attacks where individual signals are quiet but the cluster is loud. Likewise, leaving sensitive accounts unreviewed because they're \"quiet\" is how privilege creep becomes the breach path."
     }},
 
   // ===== Defender for Identity Weekly =====
@@ -1742,7 +1755,7 @@ const TASKS = [
       goodLooksLike:"Every high/medium Defender for Cloud Apps alert has an owner, a classification, and a documented next action by end of shift. Confirmed compromise gets session governance applied immediately.",
       pitfalls:"Impossible travel against frequent travelers and Citrix/VDI users generates persistent false positives. Tune the policy with travel-pattern context rather than dismissing each alert one at a time."
     }},
-  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review threat detection data",desc:"Pivot the activity log on detection signals: anonymous proxy, infrequent country, suspicious user agent.",output:"Pivoted activity findings and any user/session governance action.",owner:"SecOps",role:"Security Reader",portal:"Open Activity Log",portalHref:"https://security.microsoft.com/cloudapps/activity-log",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters",
+  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review threat detection data",desc:"Pivot the activity log on detection signals: anonymous proxy, infrequent country, suspicious user agent.",output:"Pivoted activity findings and any user/session governance action.",owner:"SecOps",role:"Security Reader",portal:"Open Cloud Apps Alerts",portalHref:"https://security.microsoft.com/cloudapps/alerts",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters",
     deepDive:{
       steps:[
         "Open the activity log and filter on detection signals: anonymous proxy, infrequent country, Tor exit node, suspicious user agent. These flags are the noise floor — most are benign, the patterns matter.",
@@ -2207,10 +2220,8 @@ function cardHTML(t, idx) {
     titleHTML = esc(t.title);
   }
   return `<article class="task-card ${t.anchor?"anchor":""} ${hasDeep?"has-deep-dive":""} ${isExpanded?"is-expanded":""}" data-wl="${t.wl}" ${hasDeep?`data-task-idx="${idx}" tabindex="0" role="button" aria-expanded="${isExpanded}" aria-label="${isExpanded?"Collapse":"Expand"} deep dive for ${esc(t.title)}"`:""} style="--wl-color:${colorFor(t.wl)}">
-    <span class="stripe"></span>
-    ${t.anchor ? `<span class="anchor-tag">Anchor task</span>` : ""}
     <span class="corner-meta">${t.cadence} · ${WORKLOADS[t.wl].short}</span>
-    <h3>${titleHTML}</h3>
+    <h3>${t.anchor ? `<span class="row-anchor-icon" aria-label="Anchor task" title="Anchor task"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></span>` : ""}${titleHTML}</h3>
     <p class="desc">${esc(t.desc)}</p>
     <div class="output"><strong>Expected output:</strong> ${esc(t.output)}</div>
     <div class="meta">
