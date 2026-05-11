@@ -1,82 +1,52 @@
 # SOC Guide for Operational Excellence
 
-A lightweight, web-based operational reference for SOC analysts using Microsoft Defender XDR across:
+A single-page reference of recurring SOC routines for **Microsoft Defender XDR** — covering Defender for Office 365, Defender for Endpoint, Defender for Identity, and Defender for Cloud Apps.
 
-- Microsoft Defender for Office 365 (MDO)
-- Microsoft Defender for Endpoint (MDE)
-- Microsoft Defender for Identity (MDI)
-- Microsoft Defender for Cloud Apps (MDA)
+**[→ Open the guide](./index.html)**
 
-The guide organizes routine SOC activities by workload, cadence, and operating pattern to help analysts quickly understand what to review, where to go, and what output each task should leave behind.
+---
 
-## Live site
+## What this is
 
-[Open the SOC Guide for Operational Excellence](https://luiblu.github.io/soc-guide-operational-excellence/)
+80 routine tasks every SOC executes across the four Defender workloads, organized by:
 
-## Purpose
+- **Cadence** — Daily, Weekly, Monthly, Ad-hoc
+- **Pattern** — Triage, Tune, Hunt, Intel, Detect, Config
+- **Owner** — SecOps or SecAdmin
+- **Access needed** — minimum Microsoft Entra built-in role per task
 
-This guide is designed to make Microsoft Learn SOC operations guidance easier to use in day-to-day analyst workflows.
+Tasks marked **Anchor** are the ones to start with for each workload and cadence — the "if you only do one thing today, do this" task.
 
-Instead of presenting the guidance as long-form documentation, the site organizes tasks around how SOC teams operate:
+## How to use it
 
-- Daily triage
-- Weekly tuning and trend review
-- Monthly posture and coverage review
-- Ad-hoc response, hunting, and configuration work
+- **Cards view** — scan a workload at a glance, expand any task for the deeper run-book.
+- **Table view** — dense view for triaging across many tasks, with the same expandable detail.
+- **Filter rail** — narrow by cadence, pattern, or owner. Combine with full-text search across task names, portals, and roles.
+- **Workload tabs** — switch between Defender for Office 365, Endpoint, Identity, Cloud Apps, or All.
 
-Each task includes:
+Every task links directly to the relevant Microsoft Defender portal page and the matching Microsoft Learn article.
 
-- Workload
-- Cadence
-- SOC pattern
-- Owner
-- Access needed
-- Expected output
-- Defender portal link
-- Microsoft Learn documentation link
+## Sourcing
 
-## SOC operating patterns
+Task lists, portal links, and role assignments are derived from the **Microsoft SecOps guides** on Microsoft Learn:
 
-The guide uses six recurring SOC patterns:
+- [Defender for Office 365 SecOps guide](https://learn.microsoft.com/defender-office-365/mdo-sec-ops-guide)
+- [Defender for Endpoint daily operations](https://learn.microsoft.com/defender-endpoint/daily-operations)
+- [Defender for Identity SecOps guide](https://learn.microsoft.com/defender-for-identity/sec-ops-guide)
+- [Defender for Cloud Apps daily activities](https://learn.microsoft.com/defender-cloud-apps/daily-activities-to-secure-your-cloud-app-environment)
 
-| Pattern | Meaning |
-|---|---|
-| Triage | Investigate and respond to active incidents or alerts |
-| Tune | Reduce false positives, false negatives, and recurring alert noise |
-| Hunt | Proactively search for suspicious or malicious activity |
-| Intel | Review threat intelligence, product updates, and emerging risks |
-| Detect | Validate telemetry, sensor health, connector status, and coverage |
-| Config | Review or adjust security posture, policies, controls, and exclusions |
+The deeper run-books on each task (steps, pitfalls, "good looks like") are author-written from those sources and from operational experience working with Defender XDR.
 
-## Why this matters
+## A note on roles
 
-Routine SOC tasks are not administrative overhead. They help analysts:
+The **Access needed** label shows the minimum Microsoft Entra built-in role required to execute the task in the Defender portal. Where a tenant has activated **Microsoft Defender XDR Unified RBAC (URBAC)**, those custom roles override Entra permissions inside the portal — see the [Defender unified RBAC permissions reference](https://learn.microsoft.com/defender-xdr/custom-permissions-details) for the equivalent mapping.
 
-- Triage with less friction
-- Reduce repeat noise
-- Protect investigation visibility
-- Connect signals across workloads
+## Technical
 
-A consistent operating rhythm helps analysts move from signal to action more quickly and reduces the risk of missing important context across Defender XDR workloads.
+- Single self-contained HTML file. No build step, no dependencies, no analytics.
+- Works offline once loaded.
+- Open `index.html` in any modern browser.
 
-## Source and framing
+## Disclaimer
 
-The task content, portal destinations, and documentation links are based on Microsoft Learn guidance for Microsoft Defender XDR and related Defender workloads.
-
-The following elements are editorial framing added to improve usability:
-
-- SOC pattern taxonomy
-- Priority models
-- Anchor-task highlighting
-- Expected outputs
-- Analyst workflow language
-- Card and table views
-
-For authoritative product guidance, use the Microsoft Learn links included in each task.
-
-## How to update the site
-
-This GitHub Pages site is published from:
-
-```text
-main / root
+This is a personal compilation intended as a practitioner's reference. It is **not an official Microsoft asset** and is not a substitute for the canonical Microsoft Learn documentation linked above. Always validate against current Microsoft guidance for production decisions.
