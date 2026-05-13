@@ -1387,7 +1387,7 @@ const TASKS = [
       goodLooksLike:"Override-driven phish delivery trends down week over week, with named ETR/allow rules retired or tightened.",
       pitfalls:"Some overrides exist for genuine business reasons (vendor mail flows, monitoring tools). Confirm with the rule owner before retiring — silent removals cause same-day escalations."
     }},
-  {wl:"mdo",cadence:"Ad-hoc",pattern:"Detect",title:"Create custom detection rules",desc:"Author Advanced Hunting queries that generate alerts on Defender for Office 365 patterns. Schedule and tune to drive proactive coverage of email-vector activity.",output:"New custom detection with tuned schedule, scope, and alert action.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detections-overview",
+  {wl:"mdo",cadence:"Ad-hoc",pattern:"Detect",title:"Create custom detection rules",desc:"Author Advanced Hunting queries that generate alerts on Defender for Office 365 patterns. Schedule and tune to drive proactive coverage of email-vector activity.",output:"New custom detection with tuned schedule, scope, and alert action.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detection-rules",
     deepDive:{
       steps:[
         "Start from a confirmed incident or campaign — custom detections built from speculation generate noise. The query should reproduce a finding you already trust.",
@@ -1437,7 +1437,7 @@ const TASKS = [
       goodLooksLike:"Top spoof-intelligence entries have explicit allow/block decisions, and impersonation protection covers all execs in the protected-users list.",
       pitfalls:"Spoof intelligence allow entries don't expire by default. Treat them like TABL — set a review cadence, or stale allows accumulate."
     }},
-  {wl:"mdo",cadence:"Ad-hoc",pattern:"Config",title:"Review priority account membership",desc:"Audit the Priority Accounts list. Add execs and high-risk roles missing from coverage; remove departures and stale entries.",output:"Updated Priority Accounts roster with rationale per change.",owner:"SecAdmin",role:"Security Administrator",portal:"Open User Tags",portalHref:"https://security.microsoft.com/securitysettings/userTags",docsHref:"https://learn.microsoft.com/defender-office-365/priority-accounts-security-recommendations",
+  {wl:"mdo",cadence:"Ad-hoc",pattern:"Config",title:"Review priority account membership",desc:"Audit the Priority Accounts list. Add execs and high-risk roles missing from coverage; remove departures and stale entries.",output:"Updated Priority Accounts roster with rationale per change.",owner:"SecAdmin",role:"Security Administrator",portal:"Open User Tags",portalHref:"https://security.microsoft.com/securitysettings/userTags",docsHref:"https://learn.microsoft.com/defender-office-365/user-tags",
     deepDive:{
       steps:[
         "Pull the current Priority Accounts roster and cross-check against HR's exec/leadership directory. Departures, role changes, and acquisitions all create stale entries.",
@@ -1505,7 +1505,7 @@ const TASKS = [
       goodLooksLike:"Inactive and misconfigured devices have named owners, ETAs, and a tracked weekly trendline that's flat or declining.",
       pitfalls:"Don't fixate on the count without checking which devices are affected. Ten inactive workstations is a hygiene issue; one inactive domain controller is a P1 visibility outage."
     }},
-  {wl:"mde",cadence:"Daily",pattern:"Config",title:"Check EDR sensor health",desc:"Confirm EDR sensors are reporting. Investigate inactive, misconfigured, or impaired devices.",output:"Inactive sensor list with remediation action assigned.",owner:"SecAdmin",role:"Security Reader",portal:"Open Device Health",portalHref:"https://security.microsoft.com/reports/device-health",docsHref:"https://learn.microsoft.com/defender-endpoint/machines-view-overview",
+  {wl:"mde",cadence:"Daily",pattern:"Config",title:"Check EDR sensor health",desc:"Confirm EDR sensors are reporting. Investigate inactive, misconfigured, or impaired devices.",output:"Inactive sensor list with remediation action assigned.",owner:"SecAdmin",role:"Security Reader",portal:"Open Device Health",portalHref:"https://security.microsoft.com/reports/device-health",docsHref:"https://learn.microsoft.com/defender-endpoint/device-health-sensor-health-os",
     deepDive:{
       steps:[
         "Open Device inventory and filter to sensors with Impaired communications or Inactive state. These are the devices the EDR can't see, regardless of what other tooling shows.",
@@ -1665,7 +1665,7 @@ const TASKS = [
       goodLooksLike:"Automation level matches the analyst tier monitoring the group, sampled outcomes confirm the level is calibrated, and critical-server groups have human-in-the-loop approval.",
       pitfalls:"Promoting a group to full automation without monitoring the AIR backlog first usually surfaces edge cases the platform handles wrong — and now they fire automatically. Pilot before you promote."
     }},
-  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Review custom detections",desc:"Audit custom detections for true-positive rate. Retire detections producing only noise.",output:"TP-rate report with retire/keep/refine decision per detection.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detections-overview",
+  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Review custom detections",desc:"Audit custom detections for true-positive rate. Retire detections producing only noise.",output:"TP-rate report with retire/keep/refine decision per detection.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detection-rules",
     deepDive:{
       steps:[
         "Pull each custom detection's alert volume and the TP/BTP/FP classification rates from the last 90 days. Detections with no alerts in 90 days are dead — keep, retire, or rewrite, but don't leave them silent.",
@@ -1687,7 +1687,7 @@ const TASKS = [
       goodLooksLike:"Suppression rules are scoped narrowly, sampled hunts confirm what each rule is hiding, and every entry has an expiration date and a documented owner.",
       pitfalls:"Tenant-wide suppressions on \"too noisy\" alert types are the classic way real attacks slip past the queue. If a tenant-wide rule exists, treat it as a tuning failure that needs a per-host or per-process replacement."
     }},
-  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Create custom detection rules from Advanced Hunting",desc:"Promote validated KQL queries from Advanced Hunting into scheduled custom detection rules. Closes endpoint coverage gaps where built-in detections miss recurring patterns.",output:"New custom detection with tuned schedule, scope, and alert action — referenced back to a source incident.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detections-overview",
+  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Create custom detection rules from Advanced Hunting",desc:"Promote validated KQL queries from Advanced Hunting into scheduled custom detection rules. Closes endpoint coverage gaps where built-in detections miss recurring patterns.",output:"New custom detection with tuned schedule, scope, and alert action — referenced back to a source incident.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detection-rules",
     deepDive:{
       steps:[
         "Start from a confirmed endpoint incident or a Threat analytics report with a published hunt query. Promoting speculation produces noise; promoting a query that already reproduces a known finding produces signal.",
@@ -1750,7 +1750,7 @@ const TASKS = [
       goodLooksLike:"Hunts trace to a hypothesis, produce a small high-precision result set, and either close clean or feed an incident. Reusable queries land in the Custom queries library.",
       pitfalls:"IdentityLogonEvents doesn't capture every auth path — federated auth and pass-through scenarios show up differently. Confirm which auth flow the signal lives in before assuming a quiet hunt means no activity."
     }},
-  {wl:"mdi",cadence:"Daily",pattern:"Config",title:"Review Defender for Identity health issues",desc:"Confirm domain-controller and AD FS sensors are reporting. Investigate any health alert end-to-end.",output:"Sensor health status with remediation owner on any gap.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/sensor-settings",
+  {wl:"mdi",cadence:"Daily",pattern:"Config",title:"Review Defender for Identity health issues",desc:"Confirm domain-controller and AD FS sensors are reporting. Investigate any health alert end-to-end.",output:"Sensor health status with remediation owner on any gap.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/defender-for-identity/health-alerts",
     deepDive:{
       steps:[
         "Open Identity Settings and walk both Global and Sensor health tabs. Global issues affect the whole workspace (license, configuration); Sensor issues affect specific DCs, AD FS, or AD CS servers — they route to different fix paths.",
@@ -1855,7 +1855,7 @@ const TASKS = [
       goodLooksLike:"Test-MDIConfiguration runs clean on every DC, audit policy gaps are remediated through GPO (not local config), and the validated baseline is timestamped for the next review.",
       pitfalls:"A clean Test-MDIConfiguration result doesn't guarantee event generation — local Group Policy can override audit settings on individual DCs. Spot-check the actual event log on a sample DC, not just the policy state."
     }},
-  {wl:"mdi",cadence:"Ad-hoc",pattern:"Tune",title:"Create custom detection rules from Advanced Hunting",desc:"Promote validated KQL queries from Advanced Hunting into scheduled custom detection rules. Closes identity coverage gaps where built-in detections miss recurring patterns.",output:"New custom detection with tuned schedule, scope, and alert action — referenced back to a source incident.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detections-overview",
+  {wl:"mdi",cadence:"Ad-hoc",pattern:"Tune",title:"Create custom detection rules from Advanced Hunting",desc:"Promote validated KQL queries from Advanced Hunting into scheduled custom detection rules. Closes identity coverage gaps where built-in detections miss recurring patterns.",output:"New custom detection with tuned schedule, scope, and alert action — referenced back to a source incident.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detection-rules",
     deepDive:{
       steps:[
         "Start from a confirmed identity incident or a Defender for Identity Threat analytics report with a published hunt query. A query that already reproduces a known finding is the only safe starting point — speculation produces noise.",
@@ -1885,7 +1885,7 @@ const TASKS = [
       goodLooksLike:"Every high/medium Defender for Cloud Apps alert has an owner, a classification, and a documented next action by end of shift. Confirmed compromise gets session governance applied immediately.",
       pitfalls:"Impossible travel against frequent travelers and Citrix/VDI users generates persistent false positives. Tune the policy with travel-pattern context rather than dismissing each alert one at a time."
     }},
-  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review threat detection data",desc:"Pivot the activity log on detection signals: anonymous proxy, infrequent country, suspicious user agent.",output:"Pivoted activity findings and any user/session governance action.",owner:"SecOps",role:"Security Reader",portal:"Open Cloud Apps Alerts",portalHref:"https://security.microsoft.com/cloudapps/alerts",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters",
+  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review threat detection data",desc:"Pivot the activity log on detection signals: anonymous proxy, infrequent country, suspicious user agent.",output:"Pivoted activity findings and any user/session governance action.",owner:"SecOps",role:"Security Reader",portal:"Open Cloud Apps Activity Log",portalHref:"https://security.microsoft.com/cloudapps/activities",docsHref:"https://learn.microsoft.com/defender-cloud-apps/activity-filters",
     deepDive:{
       steps:[
         "Open the activity log and filter on detection signals: anonymous proxy, infrequent country, Tor exit node, suspicious user agent. These flags are the noise floor — most are benign, the patterns matter.",
@@ -1918,7 +1918,7 @@ const TASKS = [
       goodLooksLike:"CAAC sessions flow at a stable baseline, session blocks match policy intent, and unexpected hits get root-caused (not just dismissed) within the same shift.",
       pitfalls:"CAAC token rotation occasionally causes intermittent session drops that look like attacks. Confirm against Microsoft service health before opening an incident on a sudden CAAC-traffic gap."
     }},
-  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review shadow IT — Cloud Discovery",desc:"Spot-check discovered apps. Engage app owners or block at proxy if a high-risk app gains traction.",output:"Engaged app owner or filed proxy-block change request.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery",
+  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review shadow IT — Cloud Discovery",desc:"Spot-check discovered apps. Engage app owners or block at proxy if a high-risk app gains traction.",output:"Engaged app owner or filed proxy-block change request.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/discovered-apps",
     deepDive:{
       steps:[
         "Open Cloud Discovery and filter to apps marked Unsanctioned or new in the last 7 days. Sort by user count and traffic volume — a single high-risk app picking up users fast is the case worth chasing today, not a long-tail of low-volume apps.",
@@ -1929,7 +1929,7 @@ const TASKS = [
       goodLooksLike:"High-risk discovered apps trend toward sanctioned alternatives or proxy blocks within the quarter, with business-team engagement documented on each disposition.",
       pitfalls:"Cloud Discovery risk scores reflect generic app posture, not your tenant's actual exposure. A high-risk score on an app used by two finance contractors with read-only data is different from the same app used by 200 engineers with code access."
     }},
-  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review the Cloud Discovery dashboard",desc:"Check daily traffic volume, top apps, and top users. Investigate sudden spikes in unsanctioned-app usage.",output:"Spike investigation notes and any sanction/monitor change.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery",
+  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review the Cloud Discovery dashboard",desc:"Check daily traffic volume, top apps, and top users. Investigate sudden spikes in unsanctioned-app usage.",output:"Spike investigation notes and any sanction/monitor change.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/discovered-apps",
     deepDive:{
       steps:[
         "Open the Cloud Discovery dashboard and read the daily traffic line. A sudden 24-hour spike against the trailing baseline is the signal worth chasing — flat traffic is healthy; gaps usually mean log-collector ingestion broke.",
@@ -2056,7 +2056,7 @@ const TASKS = [
       goodLooksLike:"Purges trace to a documented trigger, privacy sign-off is on file, and downstream impact is communicated to analysts before the deletion lands.",
       pitfalls:"Cloud Discovery purges aren't reversible. A purge executed at the wrong scope deletes baselines that take months to rebuild — measure twice, cut once, especially for tenant-wide deletions."
     }},
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Generate a Cloud Discovery executive report",desc:"Produce executive-ready PDF on shadow IT, top categories, and risk distribution for stakeholders.",output:"Executive PDF distributed to named stakeholders.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery",
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Generate a Cloud Discovery executive report",desc:"Produce executive-ready PDF on shadow IT, top categories, and risk distribution for stakeholders.",output:"Executive PDF distributed to named stakeholders.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/create-snapshot-cloud-discovery-reports",
     deepDive:{
       steps:[
         "Identify the audience and the question they're answering. \"Top shadow IT categories\" lands differently with a CISO (risk lens) than with a business unit lead (productivity lens) — frame the report around their question, not the dashboard layout.",
@@ -2067,7 +2067,7 @@ const TASKS = [
       goodLooksLike:"Executive reports answer a specific stakeholder question, include analyst annotation beyond the dashboard data, and end with a concrete follow-up — sanction, ban, or engagement task.",
       pitfalls:"Don't ship the raw Cloud Discovery export to executives. The default categorization includes apps that look alarming out of context (productivity tools, learning platforms) and erodes trust in the data set."
     }},
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Generate a Cloud Discovery snapshot report",desc:"Build a one-time snapshot from a log file (firewall / proxy). Useful for evaluations and ad-hoc audits.",output:"Snapshot report attached to the audit or evaluation record.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/set-up-cloud-discovery",
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Detect",title:"Generate a Cloud Discovery snapshot report",desc:"Build a one-time snapshot from a log file (firewall / proxy). Useful for evaluations and ad-hoc audits.",output:"Snapshot report attached to the audit or evaluation record.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Cloud Discovery",portalHref:"https://security.microsoft.com/cloudapps/discovery",docsHref:"https://learn.microsoft.com/defender-cloud-apps/create-snapshot-cloud-discovery-reports",
     deepDive:{
       steps:[
         "Confirm the log source and time window before upload. Firewall logs and proxy logs catalog different traffic — a snapshot from one source isn't comparable to the next, and audit reviewers will flag the inconsistency.",
@@ -2078,7 +2078,7 @@ const TASKS = [
       goodLooksLike:"Snapshots are reproducible from documented source logs, parsing errors are noted, and the audit/evaluation record includes enough context for a reviewer to validate without re-running the snapshot.",
       pitfalls:"Don't treat a one-time snapshot as ongoing visibility. Snapshots are point-in-time; for sustained shadow IT monitoring, switch to continuous log collection rather than re-running snapshots monthly."
     }},
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Tune",title:"Create custom detection rules from Advanced Hunting",desc:"Promote validated KQL queries from Advanced Hunting into scheduled custom detection rules. Closes SaaS coverage gaps where built-in detections miss recurring patterns.",output:"New custom detection with tuned schedule, scope, and alert action — referenced back to a source incident.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detections-overview",
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Tune",title:"Create custom detection rules from Advanced Hunting",desc:"Promote validated KQL queries from Advanced Hunting into scheduled custom detection rules. Closes SaaS coverage gaps where built-in detections miss recurring patterns.",output:"New custom detection with tuned schedule, scope, and alert action — referenced back to a source incident.",owner:"SecOps",role:"Security Administrator",portal:"Open Custom Detections",portalHref:"https://security.microsoft.com/custom_detection",docsHref:"https://learn.microsoft.com/defender-xdr/custom-detection-rules",
     deepDive:{
       steps:[
         "Start from a confirmed cloud-app incident or a known anomaly pattern (mass download, OAuth grant abuse, infrequent country) that built-in policies don't reliably catch. Promoting from a real finding keeps precision high.",
