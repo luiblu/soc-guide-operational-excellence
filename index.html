@@ -344,14 +344,22 @@ main.layout > section { min-width: 0; }
   column-gap: 14px; row-gap: 2px;
   margin-bottom: 10px;
 }
-.results-head > .count-pill { margin-top: 4px; }
 .results-head h2 { font-size: 22px; font-weight: 700; margin: 0; letter-spacing: -0.015em; grid-column: 1; grid-row: 1; }
 .results-head .sub {
   font-size: 13px; color: var(--text-muted); margin: 0;
   grid-column: 1; grid-row: 2;
   white-space: pre-line;
 }
-.results-head .count-pill { grid-column: 2; grid-row: 1; justify-self: end; }
+.head-actions {
+  display: flex; align-items: center; gap: 8px;
+  grid-column: 2; grid-row: 1;
+  justify-self: end;
+  margin-top: 2px;
+}
+@media (max-width: 760px) {
+  .head-actions .toolbar-btn .btn-label { display: none; }
+  .head-actions .toolbar-btn { padding: 6px 8px; }
+}
 .count-pill {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 999px; padding: 4px 10px;
@@ -445,7 +453,7 @@ main.layout > section { min-width: 0; }
   padding-right: 130px;
 }
 .task-card p.desc { font-size: 13px; color: var(--text-muted); margin: 0 0 10px 0; }
-.task-card .row-anchor-icon { margin-right: 5px; transform: translateY(-1px); }
+.task-card .row-anchor-icon { margin-right: 5px; transform: translateY(2px); }
 .output {
   background: var(--surface-2); border: 1px solid var(--border);
   border-radius: 8px; padding: 8px 10px;
@@ -1015,6 +1023,165 @@ footer {
   .filter-controls { gap: 8px; }
   .chip-select { flex-wrap: wrap; }
 }
+
+/* ===== Results head actions (Copy link + Export, next to count pill) ===== */
+.toolbar-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600;
+  padding: 6px 10px;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.toolbar-btn:hover { background: var(--surface-2); border-color: var(--border-strong); }
+.toolbar-btn svg { width: 13px; height: 13px; }
+.toolbar-btn.is-copied {
+  color: var(--p-detect);
+  border-color: color-mix(in srgb, var(--p-detect) 35%, var(--border));
+  background: color-mix(in srgb, var(--p-detect) 8%, var(--surface));
+}
+.export-wrap { position: relative; }
+.export-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  left: auto;
+  min-width: 140px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: var(--shadow-md);
+  padding: 4px;
+  display: none;
+  z-index: 50;
+}
+.export-menu.open { display: block; }
+.export-menu button {
+  display: block; width: 100%; text-align: left;
+  background: transparent; border: 0; cursor: pointer;
+  padding: 7px 10px; font-size: 12px; color: var(--text);
+  border-radius: 4px;
+  font-weight: 500;
+}
+.export-menu button:hover { background: var(--surface-2); }
+
+/* ===== Progress strip ===== */
+.progress-strip {
+  display: flex; align-items: center; gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 12px 0;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 12px;
+}
+.progress-strip-label {
+  font-weight: 700; text-transform: uppercase;
+  font-size: 10.5px; letter-spacing: .06em; color: var(--text-subtle);
+}
+.progress-cad {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text-muted);
+}
+.progress-cad strong { color: var(--text); font-weight: 600; }
+.progress-cad .reset {
+  border: 0; background: transparent;
+  font-size: 11px; color: var(--text-faint);
+  cursor: pointer; padding: 1px 6px; border-radius: 3px;
+}
+.progress-cad .reset:hover { color: var(--p-triage); background: var(--surface-2); }
+.progress-bar {
+  position: relative; height: 4px; width: 70px;
+  background: var(--surface-3);
+  border-radius: 2px; overflow: hidden;
+}
+.progress-bar .fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: var(--p-detect);
+  transition: width .2s ease;
+}
+
+/* ===== Task checkbox (cards + table) ===== */
+.task-check {
+  width: 15px; height: 15px;
+  margin: 2px 8px 0 0;
+  cursor: pointer;
+  accent-color: var(--p-detect);
+  vertical-align: -2px;
+  flex: 0 0 auto;
+}
+.task-card h3 { display: flex; align-items: flex-start; flex-wrap: nowrap; gap: 0; }
+.task-card h3 .title-text { flex: 1 1 auto; min-width: 0; }
+.task-card.is-done h3 .title-text {
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, var(--text) 65%, transparent);
+  text-decoration-thickness: 2px;
+  text-decoration-skip-ink: none;
+}
+.task-card.is-done { opacity: 0.72; }
+.task-card.is-done .desc, .task-card.is-done .output { opacity: 0.9; }
+.row-check {
+  width: 14px; height: 14px;
+  margin: 0 6px 0 0;
+  cursor: pointer;
+  accent-color: var(--p-detect);
+  vertical-align: -1px;
+}
+tr.is-done td:nth-child(1) strong {
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, var(--text) 65%, transparent);
+  text-decoration-thickness: 2px;
+  text-decoration-skip-ink: none;
+}
+tr.is-done { opacity: 0.72; }
+
+/* ===== KQL copy button ===== */
+.dd-query pre { position: relative; }
+.kql-copy {
+  position: absolute;
+  top: 6px; right: 6px;
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em;
+  padding: 3px 8px;
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: #e5e7eb;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.kql-copy:hover { background: #374151; }
+.kql-copy.is-copied {
+  background: var(--p-detect);
+  border-color: var(--p-detect);
+  color: #fff;
+}
+
+/* ===== Print stylesheet ===== */
+@media print {
+  body { background: #fff; color: #000; }
+  .workload-bar, .left-rail, .urbac-disclosure, .filter-summary,
+  .results-toolbar, .progress-strip, .view-toggle, .theme-btn,
+  #emptyMdoMonthly, #emptyResults, #precedenceWrap, footer,
+  .why-section, .brand-bar { display: none !important; }
+  main.layout { display: block; grid-template-columns: none; padding: 0; }
+  main.layout > section { width: 100%; max-width: none; }
+  #cardsView { display: none !important; }
+  #tableView { display: block !important; }
+  .table-wrap { border: 0; box-shadow: none; overflow: visible; }
+  table { font-size: 10.5px; page-break-inside: auto; width: 100%; }
+  tr { page-break-inside: avoid; }
+  th { background: #f3f4f6 !important; color: #000 !important; }
+  td { color: #000; }
+  .table-link, .table-docs-link { color: #000; text-decoration: underline; }
+  .row-check { display: none; }
+  .results-head h2 { font-size: 16px; }
+  .results-head .sub { font-size: 11px; }
+  .count-pill { font-size: 10.5px; color: #000; border-color: #999; }
+}
 </style>
 </head>
 <body>
@@ -1107,7 +1274,24 @@ footer {
         <h2 id="sectionTitle">All Defender XDR tasks</h2>
         <p class="sub" id="sectionSubtitle">Recurring SOC routines across Defender for Office 365, Endpoint, Identity, and Cloud Apps — sourced from Microsoft Learn ops guides.</p>
       </div>
-      <div class="count-pill" id="resultCount">0 tasks</div>
+      <div class="head-actions">
+        <div class="count-pill" id="resultCount">0 tasks</div>
+        <button class="toolbar-btn" id="btnCopyLink" type="button" title="Copy a link to this filtered view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span class="btn-label">Copy link</span>
+        </button>
+        <div class="export-wrap">
+          <button class="toolbar-btn" id="btnExport" type="button" aria-haspopup="menu" aria-expanded="false" title="Export the filtered view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span class="btn-label">Export</span>
+          </button>
+          <div class="export-menu" id="exportMenu" role="menu">
+            <button type="button" data-export="csv" role="menuitem">CSV</button>
+            <button type="button" data-export="json" role="menuitem">JSON</button>
+            <button type="button" data-export="print" role="menuitem">Print</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <details class="urbac-disclosure">
@@ -1127,6 +1311,8 @@ footer {
       </summary>
       <div class="urbac-content"><strong>Anchor tasks</strong> are the highest-leverage routines in each workload — the ones to adopt first if you're building a baseline cadence. Each workload has one anchor per cadence (Daily, Weekly, Monthly, Ad-hoc), marked with the <span class="row-anchor-icon" aria-hidden="true" style="display:inline-flex;vertical-align:-1px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></span> icon next to the task title. Use the <strong>Anchor</strong> filter in the rail to narrow the view to only these tasks — the fastest way to establish a working rhythm before layering in the rest.</div>
     </details>
+
+    <div class="progress-strip" id="progressStrip" style="display:none;"></div>
 
     <div class="filter-summary" id="filterSummary" style="display:none;">
       <span class="filter-summary-label">Active filters</span>
@@ -2270,7 +2456,178 @@ let filteredTasks = [];
 const $ = id => document.getElementById(id);
 const esc = s => String(s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
 
+// ===== Checklist persistence =====
+const PROGRESS_KEY = "socGuide.progress.v1";
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}"); } catch(e) { return {}; }
+}
+function saveProgress() {
+  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch(e) {}
+}
+const progress = loadProgress();
+
+function periodKey(cadence) {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  if (cadence === "Daily") return `${y}-${m}-${String(d.getDate()).padStart(2,"0")}`;
+  if (cadence === "Monthly") return `${y}-${m}`;
+  if (cadence === "Weekly") {
+    // ISO 8601 week number
+    const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    const dayNum = (t.getUTCDay() + 6) % 7;
+    t.setUTCDate(t.getUTCDate() - dayNum + 3);
+    const firstThursday = t.valueOf();
+    t.setUTCMonth(0, 1);
+    if (t.getUTCDay() !== 4) t.setUTCMonth(0, 1 + ((4 - t.getUTCDay()) + 7) % 7);
+    const week = 1 + Math.round((firstThursday - t.valueOf()) / 604800000);
+    return `${t.getUTCFullYear()}-W${String(week).padStart(2,"0")}`;
+  }
+  return "adhoc";
+}
+function taskKey(t) { return `${t.wl}|${t.cadence}|${t.title}`; }
+function isTaskDone(t) {
+  const v = progress[taskKey(t)];
+  if (!v) return false;
+  if (t.cadence === "Ad-hoc") return v === "adhoc" || v === true;
+  return v === periodKey(t.cadence);
+}
+function toggleTaskDone(t) {
+  const k = taskKey(t);
+  if (isTaskDone(t)) delete progress[k];
+  else progress[k] = t.cadence === "Ad-hoc" ? "adhoc" : periodKey(t.cadence);
+  saveProgress();
+}
+function resetCadence(cadence, tasks) {
+  tasks.forEach(t => { if (t.cadence === cadence) delete progress[taskKey(t)]; });
+  saveProgress();
+}
+function updateProgressStrip(tasks) {
+  const order = ["Daily","Weekly","Monthly","Ad-hoc"];
+  const groups = {};
+  order.forEach(c => groups[c] = []);
+  tasks.forEach(t => { if (groups[t.cadence]) groups[t.cadence].push(t); });
+  const segs = order
+    .filter(c => groups[c].length > 0)
+    .map(c => {
+      const total = groups[c].length;
+      const done = groups[c].filter(isTaskDone).length;
+      return { c, done, total, pct: total ? Math.round(done/total*100) : 0 };
+    });
+  const strip = $("progressStrip");
+  if (segs.length === 0 || tasks.length === 0) { strip.style.display = "none"; return; }
+  strip.style.display = "flex";
+  strip.innerHTML = `<span class="progress-strip-label">Progress</span>` +
+    segs.map(s => `<span class="progress-cad" data-cad="${s.c}">
+      <strong>${s.c}</strong>
+      <span>${s.done} of ${s.total}</span>
+      <span class="progress-bar"><span class="fill" style="width:${s.pct}%"></span></span>
+      ${s.done > 0 ? `<button class="reset" data-reset-cad="${s.c}" type="button" aria-label="Reset ${s.c} progress">reset</button>` : ""}
+    </span>`).join("");
+}
+
+// ===== URL deep-linking =====
+function serializeUrlQuery() {
+  const p = new URLSearchParams();
+  if (state.wl !== "all") p.set("w", state.wl);
+  if (state.cadence !== "all") p.set("c", state.cadence.toLowerCase());
+  if (state.pattern !== "all") p.set("p", state.pattern.toLowerCase());
+  if (state.tier !== "all") p.set("o", state.tier.toLowerCase());
+  if (state.anchor) p.set("a", "1");
+  if (state.q) p.set("q", state.q);
+  if (state.view === "table") p.set("v", "table");
+  return p.toString();
+}
+function pushUrl() {
+  try {
+    const q = serializeUrlQuery();
+    const url = q ? `${window.location.pathname}?${q}` : window.location.pathname;
+    history.replaceState(null, "", url);
+  } catch(e) {}
+}
+function hydrateFromUrl() {
+  try {
+    const p = new URLSearchParams(window.location.search);
+    if (p.has("w") && WORKLOADS[p.get("w")]) state.wl = p.get("w");
+    if (p.has("c")) {
+      const v = p.get("c").toLowerCase();
+      const m = CADENCES.find(c => c.toLowerCase() === v);
+      if (m) state.cadence = m;
+    }
+    if (p.has("p")) {
+      const v = p.get("p").toLowerCase();
+      const m = ["all", ...PATTERN_LIST].find(x => x.toLowerCase() === v);
+      if (m) state.pattern = m;
+    }
+    if (p.has("o")) {
+      const v = p.get("o").toLowerCase();
+      const m = TIERS.find(t => t.toLowerCase() === v);
+      if (m) state.tier = m;
+    }
+    if (p.get("a") === "1") state.anchor = true;
+    if (p.has("q")) state.q = p.get("q").toLowerCase();
+    if (p.get("v") === "table" && window.innerWidth > 760) state.view = "table";
+  } catch(e) {}
+}
+
+// ===== Export (CSV / JSON / Print) =====
+function todayStamp() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+function csvEscape(v) {
+  const s = String(v == null ? "" : v);
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+function downloadBlob(filename, mime, content) {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 100);
+}
+function exportCsv(tasks) {
+  const header = ["title","workload","cadence","pattern","owner","anchor","expected_output","access","portal_url","docs_url"];
+  const rows = tasks.map(t => [
+    t.title, WORKLOADS[t.wl].name, t.cadence, t.pattern, t.owner,
+    t.anchor ? "yes" : "", t.output, t.role || "",
+    t.portalHref || "", t.docsHref || ""
+  ]);
+  const body = [header, ...rows].map(r => r.map(csvEscape).join(",")).join("\r\n");
+  downloadBlob(`soc-guide-${todayStamp()}.csv`, "text/csv;charset=utf-8", body);
+}
+function exportJson(tasks) {
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    source: "Microsoft Defender XDR SOC Guide",
+    filters: {
+      workload: state.wl, cadence: state.cadence, pattern: state.pattern,
+      owner: state.tier, anchorOnly: state.anchor, search: state.q || null
+    },
+    count: tasks.length,
+    tasks: tasks.map(t => ({
+      title: t.title,
+      workload: WORKLOADS[t.wl].name,
+      workloadKey: t.wl,
+      cadence: t.cadence,
+      pattern: t.pattern,
+      owner: t.owner,
+      anchor: !!t.anchor,
+      description: t.desc,
+      expectedOutput: t.output,
+      access: t.role || null,
+      portalUrl: t.portalHref || null,
+      docsUrl: t.docsHref || null
+    }))
+  };
+  downloadBlob(`soc-guide-${todayStamp()}.json`, "application/json;charset=utf-8", JSON.stringify(payload, null, 2));
+}
+
 function init() {
+  // Hydrate filter state from URL before building any UI
+  hydrateFromUrl();
+
   // Workload tabs
   $("workloadTabs").innerHTML = Object.entries(WORKLOADS).map(([k,w]) =>
     `<button class="wl-tab ${k===state.wl?"active":""}" data-wl="${k}">${k==="all"?"All workloads":w.name}</button>`
@@ -2282,7 +2639,8 @@ function init() {
     render();
   });
 
-  // View toggle
+  // View toggle (sync initial active state to hydrated state)
+  document.querySelectorAll(".view-btn[data-view]").forEach(x => x.classList.toggle("active", x.dataset.view === state.view));
   document.querySelectorAll(".view-btn[data-view]").forEach(b => b.addEventListener("click", () => {
     if (window.innerWidth <= 760) return; // force cards on mobile
     state.view = b.dataset.view;
@@ -2349,7 +2707,8 @@ function init() {
     render();
   });
 
-  // Search
+  // Search (sync initial value to hydrated state)
+  if (state.q) $("search").value = state.q;
   $("search").addEventListener("input", e => { state.q = e.target.value.toLowerCase(); render(); });
 
   // Filter summary — remove single filter
@@ -2386,6 +2745,8 @@ function init() {
   $("cards").addEventListener("click", e => {
     if (e.target.closest("a")) return;
     if (e.target.closest(".dd-query")) return;
+    if (e.target.closest(".task-check")) return;
+    if (e.target.closest(".kql-copy")) return;
     const card = e.target.closest(".task-card.has-deep-dive");
     if (!card) return;
     toggleExpanded(card);
@@ -2393,16 +2754,29 @@ function init() {
   $("cards").addEventListener("keydown", e => {
     if (e.key !== "Enter" && e.key !== " ") return;
     if (e.target.closest(".dd-query")) return;
+    if (e.target.closest(".task-check")) return;
+    if (e.target.closest(".kql-copy")) return;
     const card = e.target.closest(".task-card.has-deep-dive");
     if (!card) return;
     e.preventDefault();
     toggleExpanded(card);
   });
 
+  // Checklist — card checkbox
+  $("cards").addEventListener("change", e => {
+    const cb = e.target.closest(".task-check"); if (!cb) return;
+    const idx = parseInt(cb.dataset.taskIdx, 10);
+    if (Number.isNaN(idx)) return;
+    toggleTaskDone(TASKS[idx]);
+    render();
+  });
+
   // Table row click + keyboard activation — same toggle semantics as cards
   $("tableBody").addEventListener("click", e => {
     if (e.target.closest("a")) return;
     if (e.target.closest(".dd-query")) return;
+    if (e.target.closest(".row-check")) return;
+    if (e.target.closest(".kql-copy")) return;
     const row = e.target.closest("tr[data-task-idx]");
     if (!row) return;
     toggleExpanded(row);
@@ -2410,10 +2784,107 @@ function init() {
   $("tableBody").addEventListener("keydown", e => {
     if (e.key !== "Enter" && e.key !== " ") return;
     if (e.target.closest(".dd-query")) return;
+    if (e.target.closest(".row-check")) return;
+    if (e.target.closest(".kql-copy")) return;
     const row = e.target.closest("tr[data-task-idx]");
     if (!row) return;
     e.preventDefault();
     toggleExpanded(row);
+  });
+
+  // Checklist — table row checkbox
+  $("tableBody").addEventListener("change", e => {
+    const cb = e.target.closest(".row-check"); if (!cb) return;
+    const idx = parseInt(cb.dataset.taskIdx, 10);
+    if (Number.isNaN(idx)) return;
+    toggleTaskDone(TASKS[idx]);
+    render();
+  });
+
+  // Progress strip — cadence reset
+  $("progressStrip").addEventListener("click", e => {
+    const btn = e.target.closest("[data-reset-cad]"); if (!btn) return;
+    resetCadence(btn.dataset.resetCad, filteredTasks);
+    render();
+  });
+
+  // Copy-link button — copies current URL with filter state
+  $("btnCopyLink").addEventListener("click", () => {
+    pushUrl();
+    const btn = $("btnCopyLink");
+    const lbl = btn.querySelector(".btn-label");
+    const orig = lbl.textContent;
+    const flash = () => {
+      btn.classList.add("is-copied"); lbl.textContent = "Copied";
+      setTimeout(() => { btn.classList.remove("is-copied"); lbl.textContent = orig; }, 1200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(window.location.href).then(flash).catch(() => {
+        // Fallback: legacy execCommand
+        const ta = document.createElement("textarea");
+        ta.value = window.location.href;
+        ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); flash(); } catch(e) {}
+        document.body.removeChild(ta);
+      });
+    } else {
+      const ta = document.createElement("textarea");
+      ta.value = window.location.href;
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); flash(); } catch(e) {}
+      document.body.removeChild(ta);
+    }
+  });
+
+  // Export menu — open/close
+  $("btnExport").addEventListener("click", e => {
+    e.stopPropagation();
+    const menu = $("exportMenu");
+    const open = menu.classList.toggle("open");
+    $("btnExport").setAttribute("aria-expanded", String(open));
+  });
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".export-wrap")) {
+      $("exportMenu").classList.remove("open");
+      $("btnExport").setAttribute("aria-expanded", "false");
+    }
+  });
+  $("exportMenu").addEventListener("click", e => {
+    const btn = e.target.closest("[data-export]"); if (!btn) return;
+    $("exportMenu").classList.remove("open");
+    $("btnExport").setAttribute("aria-expanded", "false");
+    const kind = btn.dataset.export;
+    if (kind === "print") { window.print(); return; }
+    if (kind === "csv") { exportCsv(filteredTasks); return; }
+    if (kind === "json") { exportJson(filteredTasks); return; }
+  });
+
+  // KQL copy — delegated to document (deep-dives render dynamically inside both cards and table)
+  document.addEventListener("click", e => {
+    const btn = e.target.closest(".kql-copy"); if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const code = btn.parentElement.querySelector("code"); if (!code) return;
+    const text = code.textContent;
+    const flash = () => {
+      btn.classList.add("is-copied"); btn.textContent = "Copied";
+      setTimeout(() => { btn.classList.remove("is-copied"); btn.textContent = "Copy"; }, 1200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(flash).catch(() => {
+        const range = document.createRange(); range.selectNodeContents(code);
+        const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+        btn.textContent = "Press Ctrl+C";
+        setTimeout(() => { btn.textContent = "Copy"; }, 1800);
+      });
+    } else {
+      const range = document.createRange(); range.selectNodeContents(code);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      btn.textContent = "Press Ctrl+C";
+      setTimeout(() => { btn.textContent = "Copy"; }, 1800);
+    }
   });
 
   // Anchor chips — sole control for the anchor-only filter
@@ -2479,7 +2950,7 @@ function colorFor(wl) { return WORKLOADS[wl]?.color || "#0b1220"; }
 function deepDiveInlineHTML(t) {
   const dd = t.deepDive || {};
   const steps = (dd.steps || []).map(s => `<li>${esc(s)}</li>`).join("");
-  const queries = (dd.queries || []).map(q => `<details class="dd-query"><summary>${esc(q.title)}<span class="kql-tag">KQL</span></summary><pre><code>${esc(q.kql)}</code></pre></details>`).join("");
+  const queries = (dd.queries || []).map(q => `<details class="dd-query"><summary>${esc(q.title)}<span class="kql-tag">KQL</span></summary><pre><button type="button" class="kql-copy" aria-label="Copy KQL to clipboard">Copy</button><code>${esc(q.kql)}</code></pre></details>`).join("");
   const sharedNote = (t.wl !== "xdr" && SHARED_PORTALS[t.portalHref]) ? SHARED_PORTALS[t.portalHref] : "";
   return `<div class="deep-dive-body">
     ${sharedNote ? `<div class="dd-shared-portal">Shared portal · ${esc(sharedNote)}</div>` : ""}
@@ -2497,18 +2968,19 @@ function deepDivePanelHTML(t, idx) {
 function cardHTML(t, idx) {
   const hasDeep = !!t.deepDive;
   const isExpanded = hasDeep && state.expanded.has(idx);
+  const done = isTaskDone(t);
   let titleHTML;
   if (hasDeep) {
     const words = t.title.split(" ");
     const lastWord = words.pop();
     const head = words.length ? esc(words.join(" ")) + " " : "";
-    titleHTML = `${head}<span class="title-tail">${esc(lastWord)}<span class="title-chevron" aria-hidden="true">▾</span></span>`;
+    titleHTML = `<span class="title-text">${head}<span class="title-tail">${esc(lastWord)}<span class="title-chevron" aria-hidden="true">▾</span></span></span>`;
   } else {
-    titleHTML = esc(t.title);
+    titleHTML = `<span class="title-text">${esc(t.title)}</span>`;
   }
-  return `<article class="task-card ${t.anchor?"anchor":""} ${hasDeep?"has-deep-dive":""} ${isExpanded?"is-expanded":""}" data-wl="${t.wl}" ${hasDeep?`data-task-idx="${idx}" tabindex="0" role="button" aria-expanded="${isExpanded}" aria-label="${isExpanded?"Collapse":"Expand"} deep dive for ${esc(t.title)}"`:""} style="--wl-color:${colorFor(t.wl)}">
+  return `<article class="task-card ${t.anchor?"anchor":""} ${hasDeep?"has-deep-dive":""} ${isExpanded?"is-expanded":""} ${done?"is-done":""}" data-wl="${t.wl}" ${hasDeep?`data-task-idx="${idx}" tabindex="0" role="button" aria-expanded="${isExpanded}" aria-label="${isExpanded?"Collapse":"Expand"} deep dive for ${esc(t.title)}"`:""} style="--wl-color:${colorFor(t.wl)}">
     <span class="corner-meta">${t.cadence} · ${WORKLOADS[t.wl].short}</span>
-    <h3>${t.anchor ? `<span class="row-anchor-icon" aria-label="Anchor task" title="Anchor task"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></span>` : ""}${titleHTML}</h3>
+    <h3><input class="task-check" type="checkbox" data-task-idx="${idx}" aria-label="Mark complete for this ${t.cadence === 'Ad-hoc' ? 'task' : t.cadence.toLowerCase() + ' cycle'}" ${done?"checked":""}>${t.anchor ? `<span class="row-anchor-icon" aria-label="Anchor task" title="Anchor task"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></span>` : ""}${titleHTML}</h3>
     <p class="desc">${esc(t.desc)}</p>
     <div class="output"><strong>Expected output:</strong> ${esc(t.output)}</div>
     <div class="meta">
@@ -2528,17 +3000,20 @@ function rowHTML(t, idx) {
   const role = t.role === "Access varies by action" ? "Varies by action" : t.role;
   const hasDeep = !!t.deepDive;
   const isExpanded = hasDeep && state.expanded.has(idx);
+  const done = isTaskDone(t);
   const classes = [];
   if (t.anchor) classes.push("is-anchor");
   if (hasDeep) classes.push("has-deep-dive");
   if (isExpanded) classes.push("is-expanded");
+  if (done) classes.push("is-done");
   const classAttr = classes.length ? ` class="${classes.join(" ")}"` : "";
   const styleAttr = ` style="--wl-color:${colorFor(t.wl)}"`;
   const expandAttrs = hasDeep ? ` data-task-idx="${idx}" tabindex="0" role="button" aria-expanded="${isExpanded}"` : "";
   const chevron = hasDeep ? `<span class="row-chevron" aria-hidden="true">▾</span>` : "";
   const anchorIcon = t.anchor ? `<span class="row-anchor-icon" aria-label="Anchor task" title="Anchor task"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></span>` : "";
+  const checkbox = `<input class="row-check" type="checkbox" data-task-idx="${idx}" aria-label="Mark complete" ${done?"checked":""}>`;
   const mainRow = `<tr${classAttr} data-wl="${t.wl}"${styleAttr}${expandAttrs}>
-    <td><strong>${chevron}${anchorIcon}${esc(t.title)}</strong>${esc(t.desc)}</td>
+    <td><strong>${checkbox}${chevron}${anchorIcon}${esc(t.title)}</strong>${esc(t.desc)}</td>
     <td>${WORKLOADS[t.wl].short}</td>
     <td>${t.cadence}</td>
     <td><span class="pbadge pb-${t.pattern}">${t.pattern}</span></td>
@@ -2602,6 +3077,7 @@ function reorderForExpansion(filtered) {
 
 function render() {
   const filtered = TASKS.filter(matches);
+  filteredTasks = filtered;
   const w = WORKLOADS[state.wl];
 
   // Header
@@ -2609,8 +3085,9 @@ function render() {
   $("sectionSubtitle").textContent = w.sub;
   $("resultCount").textContent = `${filtered.length} task${filtered.length===1?"":"s"}`;
 
-  // Filter summary
+  // Filter summary + progress strip
   renderFilterSummary();
+  updateProgressStrip(filtered);
 
   // View show/hide
   $("cardsView").style.display = state.view === "cards" ? "block" : "none";
@@ -2630,6 +3107,9 @@ function render() {
   // Triage precedence — show only when Defender for Office 365 Daily, cards view, default filters
   const showPrecedence = state.view === "cards" && state.wl === "mdo" && state.cadence === "Daily" && state.pattern === "all" && state.tier === "all" && !state.q && !state.anchor;
   $("precedenceWrap").innerHTML = showPrecedence ? precedenceHTML() : "";
+
+  // Push current filter state to URL (shareable)
+  pushUrl();
 }
 
 init();
