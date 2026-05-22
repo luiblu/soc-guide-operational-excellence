@@ -31,7 +31,7 @@
   --mde: #2563eb; --mde-soft: #eff6ff;
   --mdi: #0ea5e9; --mdi-soft: #f0f9ff;
   --mda: #60a5fa; --mda-soft: #eff6ff;
-  --xdr: #475569; --xdr-soft: #f1f5f9;
+  --xdr: #8661C5; --xdr-soft: color-mix(in srgb, #8661C5 8%, #ffffff);
 
   --p-triage: #dc2626;
   --p-tune:   #d97706;
@@ -62,7 +62,7 @@
   --mde: #60a5fa; --mde-soft: color-mix(in srgb, var(--mde) 14%, var(--surface));
   --mdi: #38bdf8; --mdi-soft: color-mix(in srgb, var(--mdi) 14%, var(--surface));
   --mda: #7dd3fc; --mda-soft: color-mix(in srgb, var(--mda) 14%, var(--surface));
-  --xdr: #94a3b8; --xdr-soft: color-mix(in srgb, var(--xdr) 14%, var(--surface));
+  --xdr: #A88BD9; --xdr-soft: color-mix(in srgb, var(--xdr) 14%, var(--surface));
 
   --p-triage: #f87171;
   --p-tune:   #fbbf24;
@@ -91,7 +91,7 @@
     --mde: #60a5fa; --mde-soft: color-mix(in srgb, var(--mde) 14%, var(--surface));
     --mdi: #38bdf8; --mdi-soft: color-mix(in srgb, var(--mdi) 14%, var(--surface));
     --mda: #7dd3fc; --mda-soft: color-mix(in srgb, var(--mda) 14%, var(--surface));
-    --xdr: #94a3b8; --xdr-soft: color-mix(in srgb, var(--xdr) 14%, var(--surface));
+    --xdr: #A88BD9; --xdr-soft: color-mix(in srgb, var(--xdr) 14%, var(--surface));
 
     --p-triage: #f87171;
     --p-tune:   #fbbf24;
@@ -115,12 +115,28 @@ body {
 }
 a { color: inherit; }
 
+/* ===== Intro region (header + why + where to start) ===== */
+.intro-region {
+  background: linear-gradient(135deg, #E5F2FA 0%, #F2EEF9 100%);
+}
+:root[data-theme="dark"] .intro-region {
+  background:
+    radial-gradient(1200px 320px at 8% -10%, rgba(0,120,212,.16), transparent 60%),
+    radial-gradient(900px 280px at 92% -10%, rgba(134,97,197,.16), transparent 60%),
+    linear-gradient(135deg, var(--surface-2) 0%, var(--surface) 100%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .intro-region {
+    background:
+      radial-gradient(1200px 320px at 8% -10%, rgba(0,120,212,.16), transparent 60%),
+      radial-gradient(900px 280px at 92% -10%, rgba(134,97,197,.16), transparent 60%),
+      linear-gradient(135deg, var(--surface-2) 0%, var(--surface) 100%);
+  }
+}
+
 /* ===== Header ===== */
 header {
-  background:
-    radial-gradient(1200px 320px at 8% -10%, rgba(37,99,235,.06), transparent 60%),
-    radial-gradient(900px 280px at 92% -10%, rgba(124,58,237,.05), transparent 60%),
-    var(--surface);
+  background: transparent;
 }
 .brand-bar { max-width: 1240px; margin: 0 auto; padding: 44px 28px 22px; }
 .kicker {
@@ -130,7 +146,7 @@ header {
 }
 .kicker::before {
   content: ""; width: 28px; height: 2px;
-  background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 50%, #60a5fa 100%);
+  background: linear-gradient(90deg, #0078D4 0%, #8661C5 100%);
   border-radius: 2px;
 }
 h1 {
@@ -138,7 +154,11 @@ h1 {
   letter-spacing: -0.028em; line-height: 1.08; color: var(--text);
 }
 h1 .accent {
-  color: var(--mde);
+  color: #0078D4;
+}
+:root[data-theme="dark"] h1 .accent { color: var(--mde); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) h1 .accent { color: var(--mde); }
 }
 .lede {
   font-size: 15.5px; color: var(--text-muted);
@@ -146,21 +166,53 @@ h1 .accent {
 }
 .how-to-strip {
   margin: 0; padding: 12px 16px;
-  background: color-mix(in srgb, var(--mde) 6%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--mde) 18%, var(--border));
+  background: rgba(255,255,255,.6);
+  border: 1px solid color-mix(in srgb, #0078D4 22%, transparent);
   border-radius: var(--radius);
   font-size: 13.5px; color: var(--text-muted); line-height: 1.55;
+}
+:root[data-theme="dark"] .how-to-strip {
+  background: color-mix(in srgb, var(--mde) 6%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--mde) 18%, var(--border));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .how-to-strip {
+    background: color-mix(in srgb, var(--mde) 6%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--mde) 18%, var(--border));
+  }
 }
 .how-to-label {
   display: inline-block; margin-right: 10px;
   font-size: 10.5px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .08em; color: var(--mde);
+  letter-spacing: .08em; color: #0078D4;
   vertical-align: 1px;
+}
+:root[data-theme="dark"] .how-to-label { color: var(--mde); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .how-to-label { color: var(--mde); }
+}
+.how-to-outcomes {
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid color-mix(in srgb, #0078D4 14%, transparent);
+}
+:root[data-theme="dark"] .how-to-outcomes {
+  border-top: 1px solid color-mix(in srgb, var(--mde) 14%, var(--border));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .how-to-outcomes {
+    border-top: 1px solid color-mix(in srgb, var(--mde) 14%, var(--border));
+  }
 }
 
 /* ===== Why this matters — card-system to match intro cards ===== */
 .value-bar {
-  background: var(--surface);
+  background: transparent;
+}
+:root[data-theme="dark"] .value-bar { background: var(--surface); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .value-bar { background: var(--surface); }
 }
 .value-inner {
   max-width: 1240px; margin: 0 auto;
@@ -168,7 +220,7 @@ h1 .accent {
 }
 .value-head {
   font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .14em; color: var(--text-subtle);
+  letter-spacing: .14em; color: var(--text-muted);
   margin: 0 0 14px 0;
 }
 .value-grid {
@@ -178,32 +230,135 @@ h1 .accent {
 }
 .value-pillar {
   position: relative;
+  background: transparent;
+  border: 0;
+  border-left: 2px solid color-mix(in srgb, #0078D4 55%, var(--border));
+  border-radius: 0;
+  padding: 2px 0 2px 12px;
+  overflow: hidden;
+}
+.value-pillar h5 {
+  font-size: 13px; font-weight: 600; margin: 0 0 4px 0;
+  color: var(--text); letter-spacing: -0.005em;
+}
+.value-pillar p {
+  font-size: 12px; color: var(--text-muted);
+  margin: 0; line-height: 1.5;
+}
+
+/* ===== Where to start (cadence panel) ===== */
+.cadence-bar {
+  background: transparent;
+  border-bottom: 1px solid color-mix(in srgb, #0078D4 18%, transparent);
+}
+:root[data-theme="dark"] .cadence-bar {
+  background: transparent;
+  border-bottom: 1px solid color-mix(in srgb, var(--mde) 22%, var(--border));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cadence-bar {
+    background: transparent;
+    border-bottom: 1px solid color-mix(in srgb, var(--mde) 22%, var(--border));
+  }
+}
+.cadence-inner {
+  max-width: 1240px; margin: 0 auto;
+  padding: 4px 28px 32px;
+}
+.cadence-head {
+  margin-bottom: 14px;
+}
+.cadence-eyebrow {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .14em; color: var(--text-muted);
+  margin: 0 0 6px 0;
+}
+.cadence-sub {
+  margin: 0; font-size: 13px; color: var(--text-muted);
+  line-height: 1.5;
+}
+.cadence-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.cadence-tile {
+  position: relative;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px 18px 16px;
+  padding: 18px 16px 14px;
+  display: flex; flex-direction: column;
+  gap: 6px;
   overflow: hidden;
+  cursor: pointer;
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
-.value-pillar::before {
+.cadence-tile:focus-visible {
+  outline: 2px solid #0078D4;
+  outline-offset: 2px;
+}
+.cadence-tile.is-active {
+  border-color: color-mix(in srgb, #0078D4 55%, var(--border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, #0078D4 45%, transparent) inset;
+}
+.cadence-tile::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: var(--pillar-color, #2563eb);
+  background: #0078D4;
 }
-.value-pillar:hover {
+:root[data-theme="dark"] .cadence-tile::before { background: var(--mde); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cadence-tile::before { background: var(--mde); }
+}
+.cadence-tile:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px color-mix(in srgb, var(--pillar-color, #2563eb) 18%, transparent);
-  border-color: color-mix(in srgb, var(--pillar-color, #2563eb) 35%, var(--border));
+  box-shadow: 0 6px 20px color-mix(in srgb, #0078D4 18%, transparent);
+  border-color: color-mix(in srgb, #0078D4 35%, var(--border));
 }
-.value-pillar h5 {
-  font-size: 14px; font-weight: 600; margin: 0 0 6px 0;
-  color: var(--text); letter-spacing: -0.005em;
+.cadence-tile-head {
+  margin-bottom: 4px;
+  display: flex; align-items: center; gap: 8px;
 }
-.value-pillar p {
+.cadence-label {
+  font-size: 14px; font-weight: 600;
+  color: var(--text); letter-spacing: -.005em;
+}
+.cadence-pill {
+  display: inline-flex; align-items: center;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 999px;
+  color: var(--p-detect);
+  background: color-mix(in srgb, var(--p-detect) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--p-detect) 35%, transparent);
+}
+.cadence-desc {
+  margin: 2px 0 10px;
   font-size: 12.5px; color: var(--text-muted);
-  margin: 0; line-height: 1.55;
+  line-height: 1.45;
+}
+.cadence-progress {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-top: auto;
+}
+.cadence-count {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 12px; color: var(--text-muted);
+}
+.cadence-count strong {
+  font-size: 13px; color: var(--text); font-weight: 700;
+}
+.cadence-bar-track {
+  height: 5px; border-radius: 999px;
+  background: var(--surface-3); overflow: hidden;
+}
+.cadence-bar-fill {
+  height: 100%; background: #0078D4;
+  border-radius: 999px;
+  transition: width .35s ease;
 }
 
 /* ===== Sticky workload + view bar ===== */
@@ -269,13 +424,36 @@ h1 .accent {
 .layout {
   max-width: 1240px; margin: 0 auto;
   padding: 28px 28px 64px;
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 28px;
-  align-items: start;
 }
 
-/* ===== Left rail (filters + legend, sticky as one unit) ===== */
+/* ===== Inline filter toolbar (replaces left rail) ===== */
+.filter-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0 0 12px 0;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  flex-wrap: wrap;
+}
+.filter-toolbar .search-wrap { flex: 0 1 300px; min-width: 220px; margin-right: auto; }
+.filter-toolbar .search-input { height: 40px; font-size: 13px; }
+.filter-toolbar .filter-group {
+  display: flex; align-items: center; gap: 8px;
+}
+.filter-toolbar .filter-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; margin: 0; color: var(--text-subtle);
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .filter-toolbar { gap: 8px; }
+  .filter-toolbar .filter-group { width: 100%; }
+}
+
+/* ===== Left rail (filters, sticky) ===== */
 .left-rail {
   position: sticky;
   top: 69px;
@@ -310,7 +488,7 @@ h1 .accent {
 }
 .filter-card .chip-select { flex-wrap: wrap; gap: 4px; }
 
-/* ===== Sidebar (legend block — sits inside .left-rail) ===== */
+/* ===== Sidebar (side cards inside .left-rail) ===== */
 .sidebar { display: grid; gap: 16px; }
 .side-card {
   background: var(--surface);
@@ -322,19 +500,6 @@ h1 .accent {
   font-size: 11px; font-weight: 700; text-transform: uppercase;
   letter-spacing: .08em; margin: 0 0 12px 0; color: var(--text-subtle);
 }
-.legend-row {
-  display: flex; gap: 10px; align-items: flex-start;
-  padding: 8px 0; border-top: 1px solid var(--border); font-size: 12.5px;
-  color: var(--text-muted); line-height: 1.45;
-}
-.legend-row:first-of-type { border-top: 0; padding-top: 4px; }
-.legend-row .pbadge {
-  flex: 0 0 auto; min-width: 56px; text-align: center; box-sizing: border-box;
-  margin-top: 2px;
-}
-.anchor-desc { margin: 0; color: var(--text-muted); font-size: 12.5px; line-height: 1.55; }
-.anchor-desc strong { color: var(--text); font-weight: 600; }
-
 /* ===== Content ===== */
 main.layout > section { min-width: 0; }
 .results-head {
@@ -397,13 +562,12 @@ main.layout > section { min-width: 0; }
 }
 .chip:not(.active):hover { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
 .chip.active {
-  background: color-mix(in srgb, var(--mdo) 14%, var(--surface));
-  color: var(--mdo); font-weight: 600;
-  border: 1px solid color-mix(in srgb, var(--mdo) 35%, var(--border));
-  padding: 5px 9px;
+  background: var(--surface);
+  color: var(--text); font-weight: 600;
+  box-shadow: var(--shadow-sm);
 }
 .chip.active:hover {
-  background: color-mix(in srgb, var(--mdo) 20%, var(--surface));
+  background: var(--surface);
 }
 
 /* ===== Cards ===== */
@@ -417,15 +581,12 @@ main.layout > section { min-width: 0; }
 .task-card {
   position: relative; background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 16px 16px 12px 20px;
-  box-shadow: var(--shadow-sm), inset 3px 0 0 var(--wl-color, #2563eb);
+  padding: 16px 16px 12px 16px;
+  box-shadow: var(--shadow-sm);
   display: flex; flex-direction: column;
-  min-height: 320px;
+  min-height: 240px;
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   overflow: hidden;
-}
-.task-card.anchor {
-  box-shadow: var(--shadow-sm), inset 4px 0 0 var(--wl-color, #2563eb);
 }
 .task-card.is-expanded {
   border-color: var(--wl-color, #2563eb);
@@ -439,13 +600,80 @@ main.layout > section { min-width: 0; }
 .task-card:hover {
   transform: translateY(-2px);
   border-color: var(--wl-color, #2563eb);
+  box-shadow: var(--shadow-sm), 0 4px 14px color-mix(in srgb, var(--wl-color, #2563eb) 20%, transparent);
+}
+
+/* Big-card deep-dive panel — pinned to the top of the grid, spans full width, occupies ~2 card rows */
+.cards-grid .deep-dive-panel {
+  grid-column: 1 / -1;
+  position: relative;
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--wl-color, #2563eb) 45%, var(--border));
+  border-radius: var(--radius);
+  padding: 22px 26px 22px;
+  box-shadow: var(--shadow-sm), 0 8px 22px color-mix(in srgb, var(--wl-color, #2563eb) 14%, transparent);
+  overflow: hidden;
+  min-height: 480px;
+}
+.cards-grid .deep-dive-panel::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--wl-color, #2563eb);
+}
+.cards-grid .deep-dive-panel .corner-meta {
+  top: 18px; right: 56px;
+}
+.cards-grid .deep-dive-panel .dd-title {
+  font-size: 18px; font-weight: 600; margin: 0 0 6px 0;
+  letter-spacing: -0.01em;
+  padding-right: 180px;
+  color: var(--text);
+}
+.cards-grid .deep-dive-panel .dd-desc {
+  font-size: 13.5px; color: var(--text-muted);
+  margin: 0 0 14px 0;
+  padding-right: 56px;
+}
+.cards-grid .deep-dive-panel .dd-body-wrap { margin: 0 0 14px 0; }
+.cards-grid .deep-dive-panel .deep-dive-body { margin: 0; }
+.cards-grid .deep-dive-panel .dd-footer {
+  display: flex; gap: 14px; align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.cards-grid .deep-dive-panel .dd-close {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 20px; line-height: 1;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.cards-grid .deep-dive-panel .dd-close:hover {
+  background: color-mix(in srgb, var(--wl-color, #2563eb) 10%, var(--surface));
+  border-color: var(--wl-color, #2563eb);
+  color: var(--wl-color, #2563eb);
+}
+.cards-grid .deep-dive-panel .dd-close:focus-visible {
+  outline: 2px solid var(--wl-color, #0078D4);
+  outline-offset: 2px;
 }
 
 .corner-meta {
-  position: absolute; top: 18px; right: 16px;
-  font-size: 10.5px; font-weight: 600;
-  color: var(--text-subtle); text-transform: uppercase;
-  letter-spacing: .06em; white-space: nowrap; line-height: 1.2;
+  position: absolute; top: 14px; right: 14px;
+  font-size: 10.5px; font-weight: 700;
+  color: var(--wl-color, var(--text-subtle));
+  background: color-mix(in srgb, var(--wl-color, #2563eb) 12%, var(--surface));
+  text-transform: uppercase;
+  letter-spacing: .04em; white-space: nowrap; line-height: 1.2;
+  padding: 3px 8px; border-radius: 6px;
 }
 .task-card h3 {
   font-size: 14.5px; font-weight: 600; margin: 0 0 8px 0;
@@ -453,7 +681,6 @@ main.layout > section { min-width: 0; }
   padding-right: 130px;
 }
 .task-card p.desc { font-size: 13px; color: var(--text-muted); margin: 0 0 10px 0; }
-.task-card .row-anchor-icon { margin-right: 5px; transform: translateY(2px); }
 .output {
   background: var(--surface-2); border: 1px solid var(--border);
   border-radius: 8px; padding: 8px 10px;
@@ -461,6 +688,27 @@ main.layout > section { min-width: 0; }
   margin: 0 0 12px 0; line-height: 1.5;
 }
 .output strong { color: var(--text); font-weight: 600; }
+.dd-output {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 10px;
+  font-size: 12px; color: var(--text-muted);
+  margin: 0 0 12px 0; line-height: 1.5;
+}
+.dd-output strong {
+  display: block; color: var(--text); font-weight: 600;
+  font-size: 11px; letter-spacing: .02em;
+  margin-bottom: 2px;
+}
+.dd-access {
+  display: flex; align-items: baseline; gap: 8px;
+  margin: 0 0 12px 0; padding: 0 2px;
+  font-size: 12px; line-height: 1.5;
+}
+.dd-access-label {
+  color: var(--text); font-weight: 600;
+  font-size: 11px; letter-spacing: .02em;
+}
+.dd-access-value { color: var(--text-muted); }
 .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 .badge {
   display: inline-block; font-size: 11px; padding: 2px 8px;
@@ -476,24 +724,12 @@ main.layout > section { min-width: 0; }
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--text-muted); margin-right: 5px; vertical-align: middle;
 }
-.pbadge {
-  display: inline-block; font-size: 10.5px; padding: 2px 8px;
-  border-radius: 6px; font-weight: 700; letter-spacing: .04em;
-  text-transform: uppercase;
-}
-.pb-Triage { color: var(--p-triage); background: color-mix(in srgb, var(--p-triage) 12%, var(--surface)); }
-.pb-Tune   { color: var(--p-tune);   background: color-mix(in srgb, var(--p-tune)   12%, var(--surface)); }
-.pb-Hunt   { color: var(--p-hunt);   background: color-mix(in srgb, var(--p-hunt)   12%, var(--surface)); }
-.pb-Intel  { color: var(--p-intel);  background: color-mix(in srgb, var(--p-intel)  12%, var(--surface)); }
-.pb-Detect { color: var(--p-detect); background: color-mix(in srgb, var(--p-detect) 12%, var(--surface)); }
-.pb-Config { color: var(--p-config); background: color-mix(in srgb, var(--p-config) 12%, var(--surface)); }
-
 .tbadge {
   display: inline-block; font-size: 10.5px; padding: 2px 8px;
   border-radius: 6px; font-weight: 600; letter-spacing: .02em;
   background: var(--surface-2); color: var(--text-muted);
 }
-.tbadge.tb-SecOps   { color: var(--mde);         background: color-mix(in srgb, var(--mde) 12%, var(--surface)); }
+.tbadge.tb-SecOps   { color: var(--text-muted);  background: var(--surface-3); }
 .tbadge.tb-SecAdmin { color: var(--text-muted);  background: var(--surface-3); }
 
 .card-footer {
@@ -715,6 +951,9 @@ main.layout > section { min-width: 0; }
   transition: border-color .15s ease;
 }
 .fs-chip:hover { border-color: var(--border-strong); }
+.fs-empty {
+  font-size: 12px; color: var(--text-muted); font-style: italic;
+}
 .fs-chip:hover .fs-chip-x { color: var(--text); background: var(--surface-3); }
 .fs-chip-x {
   display: inline-flex; align-items: center; justify-content: center;
@@ -778,21 +1017,15 @@ th:last-child, td:last-child { text-align: right; padding-right: 18px; }
 }
 .table-docs-link:hover { color: var(--mdo); text-decoration: underline; }
 .table-wrap-outer { overflow-x: auto; }
-.table-wrap tr.is-anchor td:first-child {
-  box-shadow: inset 3px 0 0 var(--wl-color, var(--mdo));
-}
 .table-wrap td { transition: box-shadow .15s ease; }
 /* === Row hover (non-expanded) === */
 /* Middle cells: top + bottom */
 .table-wrap tbody tr:not(.dd-row):not(.is-expanded):hover > td {
   box-shadow: inset 0 1px 0 var(--wl-color, var(--mdo)), inset 0 -1px 0 var(--wl-color, var(--mdo));
 }
-/* First cell: + left (1px non-anchor, 3px anchor) */
+/* First cell: + left */
 .table-wrap tbody tr:not(.dd-row):not(.is-expanded):hover > td:first-child {
   box-shadow: inset 1px 0 0 var(--wl-color, var(--mdo)), inset 0 1px 0 var(--wl-color, var(--mdo)), inset 0 -1px 0 var(--wl-color, var(--mdo));
-}
-.table-wrap tbody tr.is-anchor:not(.is-expanded):hover > td:first-child {
-  box-shadow: inset 3px 0 0 var(--wl-color, var(--mdo)), inset 0 1px 0 var(--wl-color, var(--mdo)), inset 0 -1px 0 var(--wl-color, var(--mdo));
 }
 /* Last cell: + right */
 .table-wrap tbody tr:not(.dd-row):not(.is-expanded):hover > td:last-child {
@@ -809,10 +1042,6 @@ th:last-child, td:last-child { text-align: right; padding-right: 18px; }
 .table-wrap tbody tr.has-deep-dive.is-expanded:has(+ tr.dd-row:hover) > td:first-child {
   box-shadow: inset 1px 0 0 var(--wl-color, var(--mdo)), inset 0 1px 0 var(--wl-color, var(--mdo));
 }
-.table-wrap tbody tr.has-deep-dive.is-anchor.is-expanded:hover > td:first-child,
-.table-wrap tbody tr.has-deep-dive.is-anchor.is-expanded:has(+ tr.dd-row.dd-row-anchor:hover) > td:first-child {
-  box-shadow: inset 3px 0 0 var(--wl-color, var(--mdo)), inset 0 1px 0 var(--wl-color, var(--mdo));
-}
 .table-wrap tbody tr.has-deep-dive.is-expanded:hover > td:last-child,
 .table-wrap tbody tr.has-deep-dive.is-expanded:has(+ tr.dd-row:hover) > td:last-child {
   box-shadow: inset -1px 0 0 var(--wl-color, var(--mdo)), inset 0 1px 0 var(--wl-color, var(--mdo));
@@ -822,10 +1051,6 @@ th:last-child, td:last-child { text-align: right; padding-right: 18px; }
 .table-wrap tbody tr.has-deep-dive.is-expanded:hover + tr.dd-row > td,
 .table-wrap tbody tr.dd-row:hover > td {
   box-shadow: inset 1px 0 0 var(--wl-color, var(--mdo)), inset -1px 0 0 var(--wl-color, var(--mdo)), inset 0 -1px 0 var(--wl-color, var(--mdo));
-}
-.table-wrap tbody tr.has-deep-dive.is-anchor.is-expanded:hover + tr.dd-row.dd-row-anchor > td,
-.table-wrap tbody tr.dd-row.dd-row-anchor:hover > td {
-  box-shadow: inset 3px 0 0 var(--wl-color, var(--mdo)), inset -1px 0 0 var(--wl-color, var(--mdo)), inset 0 -1px 0 var(--wl-color, var(--mdo));
 }
 
 /* Table row deep-dive */
@@ -842,14 +1067,6 @@ th:last-child, td:last-child { text-align: right; padding-right: 18px; }
   transition: transform .18s ease, color .18s ease;
   transform: translateY(-1px);
 }
-.row-anchor-icon {
-  display: inline-flex; align-items: center;
-  color: var(--wl-color, var(--mdo));
-  margin-right: 6px;
-  vertical-align: middle;
-  transform: translateY(-1px);
-}
-.row-anchor-icon svg { display: block; }
 .table-wrap tr.is-expanded .row-chevron {
   transform: rotate(180deg) translateY(1px);
   color: var(--wl-color, var(--text-subtle));
@@ -863,66 +1080,18 @@ th:last-child, td:last-child { text-align: right; padding-right: 18px; }
   text-align: left;
   color: var(--text);
 }
-.table-wrap tr.dd-row.dd-row-anchor > td {
-  box-shadow: inset 3px 0 0 var(--wl-color, var(--mdo));
-}
 .table-wrap tr.dd-row .deep-dive-body { margin: 0; }
 
-/* ===== Triage precedence staircase ===== */
-.precedence {
-  margin-top: 24px; padding: 20px 22px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--p-triage);
-  border-radius: var(--radius);
+/* Workload pill — mirrors .corner-meta from cards */
+.wl-pill {
+  display: inline-block;
+  font-size: 10.5px; font-weight: 700;
+  color: var(--wl-color, var(--text-subtle));
+  background: color-mix(in srgb, var(--wl-color, #2563eb) 12%, var(--surface));
+  text-transform: uppercase;
+  letter-spacing: .04em; white-space: nowrap; line-height: 1.2;
+  padding: 3px 8px; border-radius: 6px;
 }
-.precedence-head {
-  display: flex; align-items: baseline; justify-content: space-between;
-  margin-bottom: 14px; gap: 12px; flex-wrap: wrap;
-}
-.precedence-head h4 {
-  font-size: 13px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .06em; margin: 0; color: var(--text);
-}
-.precedence-head .hint { font-size: 12px; color: var(--text-subtle); margin: 0; }
-.precedence-list { list-style: none; margin: 0; padding: 0; }
-.precedence-list li {
-  display: grid; grid-template-columns: 28px 1fr;
-  align-items: start; gap: 14px; padding: 8px 0;
-}
-.precedence-list li + li { border-top: 1px solid var(--border); }
-.precedence-list .rank {
-  font-variant-numeric: tabular-nums; text-align: right;
-  color: var(--p-triage); font-weight: 700;
-}
-.precedence-list .body { color: var(--text); }
-.precedence-list .body strong { font-weight: 600; }
-.precedence-list .body .desc { color: var(--text-muted); font-weight: 400; }
-.precedence-list .bar {
-  grid-column: 2; height: 3px; background: var(--p-triage);
-  margin-top: 6px; border-radius: 2px;
-}
-.precedence-list li:nth-child(1) .body { font-size: 15px; font-weight: 600; }
-.precedence-list li:nth-child(2) .body { font-size: 14.5px; font-weight: 600; }
-.precedence-list li:nth-child(3) .body { font-size: 14px; }
-.precedence-list li:nth-child(4) .body { font-size: 13.5px; }
-.precedence-list li:nth-child(5) .body { font-size: 13px; }
-.precedence-list li:nth-child(6) .body { font-size: 12.5px; }
-.precedence-list li:nth-child(7) .body { font-size: 12px; }
-.precedence-list li:nth-child(1) .rank { font-size: 16px; }
-.precedence-list li:nth-child(2) .rank { font-size: 15px; opacity: .92; }
-.precedence-list li:nth-child(3) .rank { font-size: 14px; opacity: .85; }
-.precedence-list li:nth-child(4) .rank { font-size: 13.5px; opacity: .78; }
-.precedence-list li:nth-child(5) .rank { font-size: 13px; opacity: .7; }
-.precedence-list li:nth-child(6) .rank { font-size: 12.5px; opacity: .62; }
-.precedence-list li:nth-child(7) .rank { font-size: 12px; opacity: .55; }
-.precedence-list li:nth-child(1) .bar { width: 100%; }
-.precedence-list li:nth-child(2) .bar { width: 88%; opacity: .92; }
-.precedence-list li:nth-child(3) .bar { width: 76%; opacity: .8; }
-.precedence-list li:nth-child(4) .bar { width: 64%; opacity: .68; }
-.precedence-list li:nth-child(5) .bar { width: 52%; opacity: .55; }
-.precedence-list li:nth-child(6) .bar { width: 40%; opacity: .42; }
-.precedence-list li:nth-child(7) .bar { width: 28%; opacity: .3; }
 
 /* ===== Empty state ===== */
 .empty-state {
@@ -968,41 +1137,31 @@ footer {
 
 /* ===== Responsive ===== */
 @media (max-width: 980px) {
-  .layout { grid-template-columns: 1fr; }
-  .left-rail { position: static; }
-  .sidebar { grid-template-columns: 1fr 1fr; display: grid; }
-  .filter-card .chip-select { flex-wrap: wrap; }
   .value-grid { grid-template-columns: repeat(2, 1fr); }
+  .cadence-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 760px) {
   .workload-inner { padding: 0 16px; }
   .layout {
     padding: 20px 16px 40px;
-    grid-template-columns: 1fr;
-    gap: 20px;
   }
   h1 { font-size: 26px; }
   .brand-bar { padding: 28px 18px 20px; }
   .lede { font-size: 14.5px; }
   .how-to-strip { padding: 10px 12px; font-size: 13px; }
-  .left-rail { position: static; }
-  .filter-card { padding: 12px 14px 14px; }
-  .sidebar {
-    position: static;
-    grid-template-columns: 1fr;
-    display: grid;
-  }
   .cards-grid { grid-template-columns: 1fr; }
   .value-inner { padding: 22px 18px; }
   .value-grid { grid-template-columns: 1fr; gap: 14px; }
+  .cadence-inner { padding: 20px 18px 22px; }
+  .cadence-grid { grid-template-columns: 1fr; gap: 12px; }
   .view-toggle { display: none; }
   #tableView { display: none !important; }
   .wl-tab { padding: 12px 12px; font-size: 12.5px; }
   .wl-tab .tag { display: none; }
   .results-head h2 { font-size: 19px; }
-  .task-card { padding: 14px 14px 12px 18px; }
+  .task-card { padding: 14px; }
   .corner-meta {
-    position: static; display: block; margin: 0 0 4px 0; text-align: left;
+    position: static; display: inline-block; margin: 0 0 8px 0;
   }
   .task-card h3 { padding-right: 0; }
   .card-footer {
@@ -1067,43 +1226,6 @@ footer {
 }
 .export-menu button:hover { background: var(--surface-2); }
 
-/* ===== Progress strip ===== */
-.progress-strip {
-  display: flex; align-items: center; gap: 14px;
-  flex-wrap: wrap;
-  margin: 0 0 12px 0;
-  padding: 8px 12px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-size: 12px;
-}
-.progress-strip-label {
-  font-weight: 700; text-transform: uppercase;
-  font-size: 10.5px; letter-spacing: .06em; color: var(--text-subtle);
-}
-.progress-cad {
-  display: inline-flex; align-items: center; gap: 6px;
-  color: var(--text-muted);
-}
-.progress-cad strong { color: var(--text); font-weight: 600; }
-.progress-cad .reset {
-  border: 0; background: transparent;
-  font-size: 11px; color: var(--text-faint);
-  cursor: pointer; padding: 1px 6px; border-radius: 3px;
-}
-.progress-cad .reset:hover { color: var(--p-triage); background: var(--surface-2); }
-.progress-bar {
-  position: relative; height: 4px; width: 70px;
-  background: var(--surface-3);
-  border-radius: 2px; overflow: hidden;
-}
-.progress-bar .fill {
-  position: absolute; left: 0; top: 0; bottom: 0;
-  background: var(--p-detect);
-  transition: width .2s ease;
-}
-
 /* ===== Task checkbox (cards + table) ===== */
 .task-check {
   width: 15px; height: 15px;
@@ -1164,9 +1286,9 @@ tr.is-done { opacity: 0.72; }
 @media print {
   body { background: #fff; color: #000; }
   .workload-bar, .left-rail, .urbac-disclosure, .filter-summary,
-  .results-toolbar, .progress-strip, .view-toggle, .theme-btn,
-  #emptyMdoMonthly, #emptyResults, #precedenceWrap, footer,
-  .why-section, .brand-bar { display: none !important; }
+  .results-toolbar, .view-toggle, .theme-btn,
+  #emptyMdoMonthly, #emptyResults, footer,
+  .why-section, .brand-bar, .cadence-bar { display: none !important; }
   main.layout { display: block; grid-template-columns: none; padding: 0; }
   main.layout > section { width: 100%; max-width: none; }
   #cardsView { display: none !important; }
@@ -1186,41 +1308,92 @@ tr.is-done { opacity: 0.72; }
 </head>
 <body>
 
+<div class="intro-region">
 <header>
   <div class="brand-bar">
     <div class="kicker">Microsoft Defender XDR · Operational Playbook</div>
     <h1>SOC Guide for <span class="accent">Operational Excellence</span></h1>
-    <p class="lede">A unified operational reference across Defender for Office 365, Endpoint, Identity, and Cloud Apps — organized around the routines analysts use to triage, tune, hunt, validate coverage, and respond.</p>
+    <p class="lede">Recurring SOC work across Office 365, Endpoint, Identity, and Cloud Apps — daily incident triage and queue review, weekly detection tuning and threat hunting, monthly policy audits and posture checks.</p>
     <p class="how-to-strip">
       <span class="how-to-label">How to use</span>
-      Pick a workload up top · Filter by Anchor or Cadence in the side rail · Open the portal or docs from any card, or switch to Table view to compare.
+      Select your workload · Review daily tasks, then progress to Weekly and Monthly · Access the portal page or MS Learn docs from any card · Check off completed tasks.
+      <span class="how-to-outcomes"><span class="how-to-label">Outcomes</span> Rapid Incident Resolution · Improved Protection · Reduced Risk · Optimal Configuration · Scaled Operations · Reduced Complexity.</span>
     </p>
   </div>
 </header>
 
-<section class="value-bar">
-  <div class="value-inner">
-    <p class="value-head">Why this matters</p>
-    <div class="value-grid">
-      <div class="value-pillar" style="--pillar-color: var(--mdo)">
-        <h5>Faster mean-time-to-respond</h5>
-        <p>Daily triage routines turn alerts into decisions: what is urgent, who owns it, what evidence matters, what action comes next. Shorter dwell time on real threats.</p>
+<section class="cadence-bar">
+  <div class="cadence-inner">
+    <div class="cadence-head">
+      <p class="cadence-eyebrow">Where to start</p>
+      <p class="cadence-sub">Build the daily rhythm first. Once those are second nature, layer in weekly tuning, then the monthly reviews.</p>
+    </div>
+    <div class="cadence-grid" id="cadenceOverview">
+      <div class="cadence-tile" data-cad-tile="Daily" role="button" tabindex="0" aria-label="Filter to Daily tasks">
+        <div class="cadence-tile-head">
+          <span class="cadence-label">Daily</span>
+          <span class="cadence-pill">Start here</span>
+        </div>
+        <p class="cadence-desc">The work that keeps the queue moving — incident triage, classification, submissions.</p>
+        <div class="cadence-progress">
+          <div class="cadence-count">
+            <span><strong data-cad-done>0</strong> of <span data-cad-total>0</span> operational</span>
+            <span data-cad-pct>0%</span>
+          </div>
+          <div class="cadence-bar-track">
+            <div class="cadence-bar-fill" data-cad-fill style="width:0%"></div>
+          </div>
+        </div>
       </div>
-      <div class="value-pillar" style="--pillar-color: var(--mde)">
-        <h5>Fewer alerts to chase</h5>
-        <p>False-positive review, classification, tuning, and Microsoft submissions keep recurring low-value alerts out of the queue. More analyst time on real threats, less on noise.</p>
+      <div class="cadence-tile" data-cad-tile="Weekly" role="button" tabindex="0" aria-label="Filter to Weekly tasks">
+        <div class="cadence-tile-head">
+          <span class="cadence-label">Weekly</span>
+        </div>
+        <p class="cadence-desc">Tuning passes — ASR rules, attack-surface review, exposure score follow-up.</p>
+        <div class="cadence-progress">
+          <div class="cadence-count">
+            <span><strong data-cad-done>0</strong> of <span data-cad-total>0</span> operational</span>
+            <span data-cad-pct>0%</span>
+          </div>
+          <div class="cadence-bar-track">
+            <div class="cadence-bar-fill" data-cad-fill style="width:0%"></div>
+          </div>
+        </div>
       </div>
-      <div class="value-pillar" style="--pillar-color: var(--mdi)">
-        <h5>Measurable posture improvement</h5>
-        <p>Routine Secure Score, exposure, and SSPM walks turn standing recommendations into closed gaps. Leadership-visible movement, not just dashboards.</p>
+      <div class="cadence-tile" data-cad-tile="Monthly" role="button" tabindex="0" aria-label="Filter to Monthly tasks">
+        <div class="cadence-tile-head">
+          <span class="cadence-label">Monthly</span>
+        </div>
+        <p class="cadence-desc">Strategic reviews — policy drift, posture trends, cross-workload patterns.</p>
+        <div class="cadence-progress">
+          <div class="cadence-count">
+            <span><strong data-cad-done>0</strong> of <span data-cad-total>0</span> operational</span>
+            <span data-cad-pct>0%</span>
+          </div>
+          <div class="cadence-bar-track">
+            <div class="cadence-bar-fill" data-cad-fill style="width:0%"></div>
+          </div>
+        </div>
       </div>
-      <div class="value-pillar" style="--pillar-color: var(--mda)">
-        <h5>Audit-ready operations</h5>
-        <p>Tuning audits, policy reviews, and posture artifacts give security leaders defensible answers when audit, incident review, or board reporting comes calling.</p>
+      <div class="cadence-tile" data-cad-tile="Ad-hoc" role="button" tabindex="0" aria-label="Filter to Ad-hoc tasks">
+        <div class="cadence-tile-head">
+          <span class="cadence-label">Ad-hoc</span>
+        </div>
+        <p class="cadence-desc">Reference, not routine. Pull these in when an incident, audit, or change request calls for it.</p>
+        <div class="cadence-progress">
+          <div class="cadence-count">
+            <span><strong data-cad-done>0</strong> of <span data-cad-total>0</span> operational</span>
+            <span data-cad-pct>0%</span>
+          </div>
+          <div class="cadence-bar-track">
+            <div class="cadence-bar-fill" data-cad-fill style="width:0%"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+</div><!-- /.intro-region -->
 
 <nav class="workload-bar">
   <div class="workload-inner">
@@ -1237,37 +1410,6 @@ tr.is-done { opacity: 0.72; }
 </nav>
 
 <main class="layout">
-  <aside class="left-rail">
-    <div class="filter-card">
-      <div class="search-wrap">
-        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="search" class="search-input" type="search" placeholder="Search tasks, portals, owners…" />
-      </div>
-      <div class="filter-group">
-        <p class="filter-label">Anchor</p>
-        <div class="chip-select" id="anchorChips"></div>
-        <p class="filter-helper">Foundational routines for each workload — start here if you're new.</p>
-      </div>
-      <div class="filter-group">
-        <p class="filter-label">Cadence</p>
-        <div class="chip-select" id="cadenceChips"></div>
-      </div>
-      <div class="filter-group">
-        <p class="filter-label">Pattern</p>
-        <div class="chip-select" id="patternChips"></div>
-      </div>
-      <div class="filter-group">
-        <p class="filter-label">Owner</p>
-        <div class="chip-select" id="tierChips"></div>
-      </div>
-    </div>
-
-    <div class="side-card">
-      <h4>Pattern legend</h4>
-      <div id="legend"></div>
-    </div>
-  </aside>
-
   <section>
     <div class="results-head">
       <div>
@@ -1275,7 +1417,6 @@ tr.is-done { opacity: 0.72; }
         <p class="sub" id="sectionSubtitle">Recurring SOC routines across Defender for Office 365, Endpoint, Identity, and Cloud Apps — sourced from Microsoft Learn ops guides.</p>
       </div>
       <div class="head-actions">
-        <div class="count-pill" id="resultCount">0 tasks</div>
         <button class="toolbar-btn" id="btnCopyLink" type="button" title="Copy a link to this filtered view">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           <span class="btn-label">Copy link</span>
@@ -1294,6 +1435,21 @@ tr.is-done { opacity: 0.72; }
       </div>
     </div>
 
+    <div class="filter-toolbar">
+      <div class="search-wrap">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="search" class="search-input" type="search" placeholder="Search tasks, portals, owners…" />
+      </div>
+      <div class="filter-group">
+        <p class="filter-label">Cadence</p>
+        <div class="chip-select" id="cadenceChips"></div>
+      </div>
+      <div class="filter-group">
+        <p class="filter-label">Owner</p>
+        <div class="chip-select" id="tierChips"></div>
+      </div>
+    </div>
+
     <details class="urbac-disclosure">
       <summary>
         <svg class="urbac-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
@@ -1303,21 +1459,11 @@ tr.is-done { opacity: 0.72; }
       <div class="urbac-content"><strong>Access needed</strong> shows the minimum Microsoft Entra built-in role for each task. Global Administrator and Security Administrator are not repeated where a narrower role suffices. If your tenant has activated <strong>Microsoft Defender XDR Unified RBAC (URBAC)</strong>, those custom roles override Entra permissions inside the Defender portal — map each Entra role to the equivalent permissions in the <a href="https://learn.microsoft.com/defender-xdr/custom-permissions-details" target="_blank" rel="noopener">Defender unified RBAC permissions reference<span class="ext"> ↗</span></a>.</div>
     </details>
 
-    <details class="urbac-disclosure">
-      <summary>
-        <svg class="urbac-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
-        <span>What anchor tasks are</span>
-        <svg class="disclosure-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-      </summary>
-      <div class="urbac-content"><strong>Anchor tasks</strong> are the highest-leverage routines in each workload — the ones to adopt first if you're building a baseline cadence. Each workload has one anchor per cadence (Daily, Weekly, Monthly, Ad-hoc), marked with the <span class="row-anchor-icon" aria-hidden="true" style="display:inline-flex;vertical-align:-1px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></span> icon next to the task title. Use the <strong>Anchor</strong> filter in the rail to narrow the view to only these tasks — the fastest way to establish a working rhythm before layering in the rest.</div>
-    </details>
-
-    <div class="progress-strip" id="progressStrip" style="display:none;"></div>
-
-    <div class="filter-summary" id="filterSummary" style="display:none;">
-      <span class="filter-summary-label">Active filters</span>
+    <div class="filter-summary" id="filterSummary">
+      <span class="filter-summary-label" id="filterSummaryLabel">Showing</span>
       <span class="filter-summary-chips" id="filterSummaryChips"></span>
-      <button class="filter-summary-clear" id="filterSummaryClear" type="button">Clear all</button>
+      <div class="count-pill" id="resultCount">0 tasks</div>
+      <button class="filter-summary-clear" id="filterSummaryClear" type="button" style="display:none;">Clear all</button>
     </div>
 
     <div id="cardsView">
@@ -1334,25 +1480,23 @@ tr.is-done { opacity: 0.72; }
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         </div>
         <h3>No tasks match your filters</h3>
-        <p>Try clearing the search box or relaxing one of the cadence / pattern filters.</p>
+        <p>Try clearing the search box or relaxing one of the cadence / owner filters.</p>
       </div>
-      <div id="precedenceWrap"></div>
     </div>
 
     <div id="tableView" style="display:none;">
       <div class="table-wrap">
         <table>
           <colgroup>
-            <col style="width:26%">
-            <col style="width:9%">
-            <col style="width:9%">
-            <col style="width:9%">
-            <col style="width:9%">
-            <col style="width:11%">
-            <col style="width:19%">
+            <col style="width:28%">
+            <col style="width:10%">
+            <col style="width:10%">
+            <col style="width:10%">
+            <col style="width:13%">
+            <col style="width:21%">
             <col style="width:8%">
           </colgroup>
-          <thead><tr><th>Task</th><th>Workload</th><th>Cadence</th><th>Pattern</th><th>Owner</th><th>Access needed</th><th>Expected output</th><th>Portal</th></tr></thead>
+          <thead><tr><th>Task</th><th>Workload</th><th>Cadence</th><th>Owner</th><th>Access needed</th><th>Expected output</th><th>Portal</th></tr></thead>
           <tbody id="tableBody"></tbody>
         </table>
       </div>
@@ -1372,7 +1516,7 @@ tr.is-done { opacity: 0.72; }
         <a href="https://learn.microsoft.com/defender-xdr/integrate-microsoft-365-defender-secops-tasks" target="_blank" rel="noopener">Defender XDR SOC ops</a>
       </div>
     </div>
-    <p class="about-note"><strong>About this guide.</strong> Tasks, portals, and docs trace to Microsoft's published Defender XDR SOC ops guides. The categorization framework (patterns, anchor-task highlighting) is editorial framing to aid navigation. Owner roles are consolidated to <strong>SecOps</strong> and <strong>SecAdmin</strong> for clarity; the source guides use more granular role names. For authoritative guidance, follow the Learn links on each task.</p>
+    <p class="about-note"><strong>About this guide.</strong> Tasks, portals, and docs trace to Microsoft's published Defender XDR SOC ops guides. Owner roles are consolidated to <strong>SecOps</strong> and <strong>SecAdmin</strong> for clarity; the source guides use more granular role names. For authoritative guidance, follow the Learn links on each task.</p>
     <p class="about-note" style="opacity:.7;">Last updated 2026-05-11.</p>
   </div>
 </footer>
@@ -1380,38 +1524,18 @@ tr.is-done { opacity: 0.72; }
 <script>
 const TASKS = [
   // ===== Defender for Office 365 Daily =====
-  {wl:"mdo",cadence:"Daily",pattern:"Triage",anchor:true,title:"Triage incidents in the queue",desc:"Work the email-related incidents queue. Sort by severity, claim ownership, and ensure all user-reported phish is acknowledged.",output:"Acknowledged queue, claimed ownership, and severity-sorted incidents.",owner:"SecOps",role:"Security Operator",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide#daily-activities",
+  {wl:"mdo",cadence:"Daily",pattern:"Triage",title:"Triage and resolve email incidents end-to-end",desc:"Drive each email-related incident from queue to closure in one pass — claim, investigate via AIR, approve actions, validate remediation, and close with a documented disposition.",output:"Closed incidents with owner, approved AIR actions, remediation summary, and disposition recorded.",owner:"SecOps",role:"Security Operator",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide#daily-activities",
     deepDive:{
       steps:[
-        "Sort the Incidents queue by severity, then by time. Filter to email-related sources (Defender for Office 365, user-reported) so this routine isn't competing with endpoint or identity work.",
-        "Claim ownership on each high/medium incident before opening it — keeps two analysts from duplicating work and makes handoffs traceable.",
-        "Pivot from the incident to Email Explorer or the Email entity page to see delivery status, recipients, and cluster size before deciding the action.",
-        "If the cluster is still landing, trigger ZAP or soft-delete from Threat Explorer; otherwise document and move to the next."
+        "Sort and claim from the Incidents queue. Filter to email-related sources (Defender for Office 365, user-reported), order by severity then time, and claim ownership on each high/medium incident before opening it — keeps two analysts from duplicating work and makes handoffs traceable.",
+        "Pivot from the incident to Email Explorer or the Email entity page to see delivery status, recipients, and cluster size — that's what sets the blast radius and shapes urgency.",
+        "Open the Investigations blade and read the AIR verdict and evidence chain end-to-end before approving anything — AIR's recommendation is a starting point, not authorization.",
+        "Approve pending soft-delete or move-to-junk actions in the Action Center. Reject any action where AIR misclassified the cluster — rare, but it happens with internal-to-internal mail. Record disposition rationale back on the parent incident.",
+        "If the cluster is still landing, trigger ZAP or soft-delete from Threat Explorer. Then validate: re-check Threat Explorer for late-arriving messages with the same sender, subject, or payload hash, and confirm every recommended action is in a completed state in the Action Center, not just queued.",
+        "Update the incident with a one-paragraph remediation summary — what was removed, who was notified, and any follow-up filed elsewhere (TABL, custom detection) — and close with the right disposition. Don't leave incidents in In Progress past shift handoff."
       ],
-      goodLooksLike:"Every high/medium incident has an owner, a disposition, and an SLA-bound next action by end of shift.",
-      pitfalls:"Don't auto-dismiss anything tagged \"Bulk\" without checking the recipients — exec-targeted bulk has been a real BEC vector. Verify before closing."
-    }},
-  {wl:"mdo",cadence:"Daily",pattern:"Triage",title:"Investigate and take response actions",desc:"Pivot through the Investigations blade for AIR evidence — email cluster, recipient impact, and recommended actions. Approve or reject pending AIR actions in the Action Center.",output:"Approved/rejected AIR actions in the Action Center and updated investigation notes.",owner:"SecOps",role:"Security Administrator",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide#daily-activities",
-    deepDive:{
-      steps:[
-        "Open the Investigations blade from the incident page. Read the AIR verdict and evidence chain end-to-end before approving anything — AIR's recommendation is a starting point, not authorization.",
-        "Inspect the email cluster: message count, recipient count, and delivery status (delivered / inbox / junk / quarantine). The cluster size sets the blast radius and shapes urgency.",
-        "Approve pending soft-delete or move-to-junk actions in the Action Center. Reject any action where AIR misclassified the cluster — rare, but it happens with internal-to-internal mail.",
-        "Record the disposition (approved / rejected, with one-line rationale) back on the parent incident so the audit trail survives an analyst handoff."
-      ],
-      goodLooksLike:"All AIR-pending actions are dispositioned by end of shift, with rationale captured on the parent incident.",
-      pitfalls:"AIR doesn't always cluster correctly when senders rotate. Confirm the cluster matches the incident scope before approving a tenant-wide action."
-    }},
-  {wl:"mdo",cadence:"Daily",pattern:"Triage",title:"Resolve incidents",desc:"Confirm remediation completed, document findings, and close the incident with the appropriate disposition.",output:"Closed incident with documented disposition and remediation summary.",owner:"SecOps",role:"Security Operator",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide#daily-activities",
-    deepDive:{
-      steps:[
-        "Confirm every recommended action — soft-delete, ZAP, user notification — is in a completed state in the Action Center, not just queued.",
-        "Verify the cluster is no longer landing: re-check Threat Explorer for late-arriving messages with the same sender, subject, or payload hash.",
-        "Update the incident notes with a one-paragraph remediation summary — what was removed, who was notified, and any follow-up filed elsewhere (TABL, custom detection).",
-        "Close with the right disposition. Don't leave incidents in In Progress past shift handoff — it skews queue metrics and hides ownership gaps."
-      ],
-      goodLooksLike:"Closed incidents have a remediation summary, all recommended actions completed, and a disposition that matches the classification.",
-      pitfalls:"Don't close while AIR investigations are still running — the action timeline isn't final, and you'll miss late-stage approval requirements."
+      goodLooksLike:"Every high/medium email incident is owned, dispositioned, remediated, and closed by end of shift — with AIR actions approved, cluster verified clear, and a remediation summary on the parent incident.",
+      pitfalls:"Don't close while AIR investigations are still running — the action timeline isn't final, and you'll miss late-stage approval requirements. Don't auto-dismiss anything tagged \"Bulk\" without checking the recipients — exec-targeted bulk has been a real BEC vector. AIR doesn't always cluster correctly when senders rotate; confirm the cluster matches the incident scope before approving a tenant-wide action."
     }},
   {wl:"mdo",cadence:"Daily",pattern:"Tune",title:"Classify incidents",desc:"Tag each incident as true positive, false positive, or benign true positive. This drives detection-quality metrics.",output:"Classification tag (TP / FP / BTP) recorded on every closed incident.",owner:"SecOps",role:"Security Operator",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide#daily-activities",
     deepDive:{
@@ -1492,7 +1616,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Office 365 Weekly =====
-  {wl:"mdo",cadence:"Weekly",pattern:"Hunt",anchor:true,title:"Review email detection trends",desc:"Pivot Threat Explorer on top targeted users, top sender domains, and top campaigns. Note shifts week-over-week.",output:"Week-over-week trend report with notable shifts and follow-up hunts.",owner:"SecOps",role:"Security Reader",portal:"Open Threat Explorer",portalHref:"https://security.microsoft.com/reports/TPSAggregateReportATP",docsHref:"https://learn.microsoft.com/en-us/defender-office-365/reports-email-security#threat-protection-status-report",
+  {wl:"mdo",cadence:"Weekly",pattern:"Hunt",title:"Review email detection trends",desc:"Pivot Threat Explorer on top targeted users, top sender domains, and top campaigns. Note shifts week-over-week.",output:"Week-over-week trend report with notable shifts and follow-up hunts.",owner:"SecOps",role:"Security Reader",portal:"Open Threat Explorer",portalHref:"https://security.microsoft.com/reports/TPSAggregateReportATP",docsHref:"https://learn.microsoft.com/en-us/defender-office-365/reports-email-security#threat-protection-status-report",
     deepDive:{
       steps:[
         "Open Threat Explorer with a 7-day window. Pivot first by Targeted users — sustained week-over-week growth on the same names usually signals a directed campaign that policy isn't catching.",
@@ -1540,7 +1664,7 @@ const TASKS = [
   // ===== Defender for Office 365 Monthly: intentionally empty (per Microsoft SecOps guide) =====
 
   // ===== Defender for Office 365 Ad-hoc =====
-  {wl:"mdo",cadence:"Ad-hoc",pattern:"Hunt",anchor:true,title:"Hunt for active campaigns",desc:"On threat-intel signal, sweep Email Explorer and Advanced Hunting for indicators across the tenant.",output:"Indicator sweep results and any incident or detection follow-up.",owner:"SecOps",role:"Security Reader",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide#proactively-hunt-for-threats",
+  {wl:"mdo",cadence:"Ad-hoc",pattern:"Hunt",title:"Hunt for active campaigns",desc:"On threat-intel signal, sweep Email Explorer and Advanced Hunting for indicators across the tenant.",output:"Indicator sweep results and any incident or detection follow-up.",owner:"SecOps",role:"Security Reader",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide#proactively-hunt-for-threats",
     deepDive:{
       steps:[
         "Translate the threat-intel signal into concrete indicators: sender domains, URL patterns, payload hashes, subject keywords. A vague \"watch for X\" without indicators isn't a hunt.",
@@ -1636,7 +1760,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Endpoint Daily =====
-  {wl:"mde",cadence:"Daily",pattern:"Triage",anchor:true,title:"Review actions in the Action center",desc:"Approve or reject pending isolation, file quarantine, and live-response actions. Confirm completed remediations.",output:"Approved/rejected actions logged and completed remediations confirmed.",owner:"SecOps",role:"Security Administrator",portal:"Open Action Center",portalHref:"https://security.microsoft.com/action-center/pending",docsHref:"https://learn.microsoft.com/en-us/defender-endpoint/auto-investigation-action-center",
+  {wl:"mde",cadence:"Daily",pattern:"Triage",title:"Review actions in the Action center",desc:"Approve or reject pending isolation, file quarantine, and live-response actions. Confirm completed remediations.",output:"Approved/rejected actions logged and completed remediations confirmed.",owner:"SecOps",role:"Security Administrator",portal:"Open Action Center",portalHref:"https://security.microsoft.com/action-center/pending",docsHref:"https://learn.microsoft.com/en-us/defender-endpoint/auto-investigation-action-center",
     deepDive:{
       steps:[
         "Open the Action Center and filter to Pending. Sort by detection time so the freshest actions surface first — stale pending actions usually mean the previous shift rolled off without dispositioning.",
@@ -1715,7 +1839,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Endpoint Weekly =====
-  {wl:"mde",cadence:"Weekly",pattern:"Config",anchor:true,title:"Review the Defender Vulnerability Management exposure score",desc:"Top remediation opportunities and recommendations. Open tickets with IT for high-impact fixes.",output:"Prioritized fix list with tickets opened against IT.",owner:"SecAdmin",role:"Security Reader",portal:"Open Exposure Score",portalHref:"https://security.microsoft.com/tvm_dashboard/Endpoint",docsHref:"https://learn.microsoft.com/en-us/defender-vulnerability-management/tvm-dashboard-insights?tabs=preview-customers%2Cpreview-customers-elements",
+  {wl:"mde",cadence:"Weekly",pattern:"Config",title:"Review the Defender Vulnerability Management exposure score",desc:"Top remediation opportunities and recommendations. Open tickets with IT for high-impact fixes.",output:"Prioritized fix list with tickets opened against IT.",owner:"SecAdmin",role:"Security Reader",portal:"Open Exposure Score",portalHref:"https://security.microsoft.com/tvm_dashboard/Endpoint",docsHref:"https://learn.microsoft.com/en-us/defender-vulnerability-management/tvm-dashboard-insights?tabs=preview-customers%2Cpreview-customers-elements",
     deepDive:{
       steps:[
         "Open the Exposure Score dashboard and look at the trend over the last 4 weeks, not just today's number. A flat score with steady remediation activity means new vulnerabilities are landing as fast as old ones close.",
@@ -1794,7 +1918,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Endpoint Monthly =====
-  {wl:"mde",cadence:"Monthly",pattern:"Config",anchor:true,title:"Review devices excluded from policy",desc:"Audit devices that have policy exclusions. Confirm exclusions are still justified and time-bound.",output:"Exclusion audit log with justified, expired, and removed entries.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Device Groups",portalHref:"https://security.microsoft.com/policy-inventory",docsHref:"https://learn.microsoft.com/defender-endpoint/machine-groups",
+  {wl:"mde",cadence:"Monthly",pattern:"Config",title:"Review devices excluded from policy",desc:"Audit devices that have policy exclusions. Confirm exclusions are still justified and time-bound.",output:"Exclusion audit log with justified, expired, and removed entries.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Device Groups",portalHref:"https://security.microsoft.com/policy-inventory",docsHref:"https://learn.microsoft.com/defender-endpoint/machine-groups",
     deepDive:{
       steps:[
         "Pull the device-group exclusion list with the original ticket reference, owner, and stated expiration on each entry. Entries without those three fields are the first ones to question.",
@@ -1818,7 +1942,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Endpoint Ad-hoc =====
-  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",anchor:true,title:"Review AV/EDR exclusions",desc:"Audit AV and EDR exclusions. Remove stale entries; ensure remaining ones are documented and justified.",output:"Stale-entry removals and refreshed exclusion documentation.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Recommendations",portalHref:"https://security.microsoft.com/policy-inventory",docsHref:"https://learn.microsoft.com/defender-endpoint/configure-exclusions-microsoft-defender-antivirus",
+  {wl:"mde",cadence:"Ad-hoc",pattern:"Tune",title:"Review AV/EDR exclusions",desc:"Audit AV and EDR exclusions. Remove stale entries; ensure remaining ones are documented and justified.",output:"Stale-entry removals and refreshed exclusion documentation.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Recommendations",portalHref:"https://security.microsoft.com/policy-inventory",docsHref:"https://learn.microsoft.com/defender-endpoint/configure-exclusions-microsoft-defender-antivirus",
     deepDive:{
       steps:[
         "Pull AV exclusions and EDR exclusions separately — they're managed in different places and tuning them as one list misses scope mistakes specific to each.",
@@ -1892,7 +2016,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Identity Daily =====
-  {wl:"mdi",cadence:"Daily",pattern:"Triage",anchor:true,title:"Review the ITDR dashboard",desc:"Start the day on the Identity Threat Detection & Response dashboard. Note posture changes and unresolved alerts.",output:"Posture-change notes and unresolved alert ownership.",owner:"SecOps",role:"Security Reader",portal:"Open ITDR Dashboard",portalHref:"https://security.microsoft.com/identities/dashboard",docsHref:"https://learn.microsoft.com/en-us/defender-for-identity/ops-guide/ops-guide-daily#review-the-itdr-dashboard",
+  {wl:"mdi",cadence:"Daily",pattern:"Triage",title:"Review the ITDR dashboard",desc:"Start the day on the Identity Threat Detection & Response dashboard. Note posture changes and unresolved alerts.",output:"Posture-change notes and unresolved alert ownership.",owner:"SecOps",role:"Security Reader",portal:"Open ITDR Dashboard",portalHref:"https://security.microsoft.com/identities/dashboard",docsHref:"https://learn.microsoft.com/en-us/defender-for-identity/ops-guide/ops-guide-daily#review-the-itdr-dashboard",
     deepDive:{
       steps:[
         "Open the ITDR dashboard and walk the Top insights widget first — posture changes here usually telegraph what the rest of the day will look like (newly exposed sensitive accounts, drift in identity infrastructure).",
@@ -1960,7 +2084,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Identity Weekly =====
-  {wl:"mdi",cadence:"Weekly",pattern:"Config",anchor:true,title:"Review Secure Score recommendations",desc:"Walk Defender for Identity ITDR posture recommendations. Prioritize high-impact issues with IAM owners.",output:"Prioritized posture-fix list with IAM owner assignments.",owner:"SecAdmin",role:"Security Reader",portal:"Open Secure Score",portalHref:"https://security.microsoft.com/securescore",docsHref:"https://learn.microsoft.com/en-us/defender-for-identity/ops-guide/ops-guide-weekly#review-secure-score-recommendations",
+  {wl:"mdi",cadence:"Weekly",pattern:"Config",title:"Review Secure Score recommendations",desc:"Walk Defender for Identity ITDR posture recommendations. Prioritize high-impact issues with IAM owners.",output:"Prioritized posture-fix list with IAM owner assignments.",owner:"SecAdmin",role:"Security Reader",portal:"Open Secure Score",portalHref:"https://security.microsoft.com/securescore",docsHref:"https://learn.microsoft.com/en-us/defender-for-identity/ops-guide/ops-guide-weekly#review-secure-score-recommendations",
     deepDive:{
       steps:[
         "Open Secure Score and filter Recommended actions to Product = Defender for Identity. The identity-specific recommendations are the work for this routine; tenant-wide hygiene rolls up under separate cadences.",
@@ -2006,7 +2130,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Identity Monthly =====
-  {wl:"mdi",cadence:"Monthly",pattern:"Tune",anchor:true,title:"Review tuned alerts and adjust tuning",desc:"Audit Defender for Identity tuning rules. Confirm they still match current activity and adjust as benign patterns shift.",output:"Audit results with adjusted, retired, or extended tuning rules.",owner:"SecOps",role:"Security Administrator",portal:"Open Alerts",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/en-us/defender-for-identity/ops-guide/ops-guide-monthly#review-tuned-alerts-and-adjust-tuning-if-needed",
+  {wl:"mdi",cadence:"Monthly",pattern:"Tune",title:"Review tuned alerts and adjust tuning",desc:"Audit Defender for Identity tuning rules. Confirm they still match current activity and adjust as benign patterns shift.",output:"Audit results with adjusted, retired, or extended tuning rules.",owner:"SecOps",role:"Security Administrator",portal:"Open Alerts",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/en-us/defender-for-identity/ops-guide/ops-guide-monthly#review-tuned-alerts-and-adjust-tuning-if-needed",
     deepDive:{
       steps:[
         "Pull the full tuning rule list with creation date, owner, and last-match timestamp. Rules with no matches in 30+ days are the first cleanup candidates — they're either solving for a one-off or the underlying activity has shifted.",
@@ -2019,7 +2143,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Identity Ad-hoc =====
-  {wl:"mdi",cadence:"Ad-hoc",pattern:"Config",anchor:true,title:"Review server setup process to include sensors",desc:"Refresh DC / AD FS sensor onboarding runbook. Validate new servers are picked up automatically.",output:"Updated runbook and validated automatic onboarding flow.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/en-us/defender-for-identity/ops-guide/ops-guide-quarterly#review-server-setup-process-to-include-sensors",
+  {wl:"mdi",cadence:"Ad-hoc",pattern:"Config",title:"Review server setup process to include sensors",desc:"Refresh DC / AD FS sensor onboarding runbook. Validate new servers are picked up automatically.",output:"Updated runbook and validated automatic onboarding flow.",owner:"SecAdmin",role:"Security Administrator",portal:"Open Identity Settings",portalHref:"https://security.microsoft.com/settings/identities",docsHref:"https://learn.microsoft.com/en-us/defender-for-identity/ops-guide/ops-guide-quarterly#review-server-setup-process-to-include-sensors",
     deepDive:{
       steps:[
         "Walk the current server-build runbook with the AD/IAM team. Confirm DC, AD FS, and AD CS provisioning all include the sensor install step — gaps here are how new servers ship into production with no identity telemetry.",
@@ -2060,7 +2184,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Cloud Apps Daily =====
-  {wl:"mda",cadence:"Daily",pattern:"Triage",anchor:true,title:"Review alerts and incidents",desc:"Work impossible travel, mass download, and unusual admin activity alerts. Confirm or dismiss with rationale.",output:"Confirm/dismiss decision with rationale on each alert.",owner:"SecOps",role:"Security Operator",portal:"Open Cloud Apps Alerts",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/en-us/defender-cloud-apps/ops-guide/ops-guide-daily#review-alerts-and-incidents",
+  {wl:"mda",cadence:"Daily",pattern:"Triage",title:"Review alerts and incidents",desc:"Work impossible travel, mass download, and unusual admin activity alerts. Confirm or dismiss with rationale.",output:"Confirm/dismiss decision with rationale on each alert.",owner:"SecOps",role:"Security Operator",portal:"Open Cloud Apps Alerts",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/en-us/defender-cloud-apps/ops-guide/ops-guide-daily#review-alerts-and-incidents",
     deepDive:{
       steps:[
         "Filter the Cloud Apps alerts queue to Open status and sort by severity. Cluster by alert policy — impossible travel, mass download, and unusual admin activity each route to different investigation paths.",
@@ -2139,7 +2263,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Cloud Apps Weekly =====
-  {wl:"mda",cadence:"Weekly",pattern:"Config",anchor:true,title:"Review SaaS Security Posture Management",desc:"Walk SSPM recommendations across connected SaaS apps. Prioritize high-impact misconfigurations with app owners.",output:"Prioritized SSPM fix list with app-owner assignments.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open SSPM",portalHref:"https://security.microsoft.com/exposure-secure-score",docsHref:"https://learn.microsoft.com/en-us/defender-cloud-apps/ops-guide/ops-guide-weekly#review-saas-security-posture-management",
+  {wl:"mda",cadence:"Weekly",pattern:"Config",title:"Review SaaS Security Posture Management",desc:"Walk SSPM recommendations across connected SaaS apps. Prioritize high-impact misconfigurations with app owners.",output:"Prioritized SSPM fix list with app-owner assignments.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open SSPM",portalHref:"https://security.microsoft.com/exposure-secure-score",docsHref:"https://learn.microsoft.com/en-us/defender-cloud-apps/ops-guide/ops-guide-weekly#review-saas-security-posture-management",
     deepDive:{
       steps:[
         "Open SSPM and walk recommendations grouped by connected app. Prioritize by impact and exploitability, not by raw count — a single missing-MFA recommendation on an admin role outweighs ten low-severity hardening tweaks.",
@@ -2174,7 +2298,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Cloud Apps Monthly =====
-  {wl:"mda",cadence:"Monthly",pattern:"Tune",anchor:true,title:"Review policy assessments",desc:"Audit anomaly, activity, file, and OAuth policies. Retire low-value, refine noisy ones.",output:"Per-policy retire/refine/keep decision with rationale.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Policies",portalHref:"https://security.microsoft.com/cloudapps/policies/management",docsHref:"https://learn.microsoft.com/en-us/defender-cloud-apps/ops-guide/ops-guide-monthly#review-policy-assessments",
+  {wl:"mda",cadence:"Monthly",pattern:"Tune",title:"Review policy assessments",desc:"Audit anomaly, activity, file, and OAuth policies. Retire low-value, refine noisy ones.",output:"Per-policy retire/refine/keep decision with rationale.",owner:"SecAdmin",role:"Cloud App Security Administrator",portal:"Open Policies",portalHref:"https://security.microsoft.com/cloudapps/policies/management",docsHref:"https://learn.microsoft.com/en-us/defender-cloud-apps/ops-guide/ops-guide-monthly#review-policy-assessments",
     deepDive:{
       steps:[
         "Pull the full policy inventory grouped by type — anomaly detection, activity, file, OAuth app, session, and access policies. Each type tunes through a different path; reviewing them as one list misses scope mistakes specific to each.",
@@ -2198,7 +2322,7 @@ const TASKS = [
     }},
 
   // ===== Defender for Cloud Apps Ad-hoc =====
-  {wl:"mda",cadence:"Ad-hoc",pattern:"Hunt",anchor:true,title:"Run advanced hunting queries",desc:"Sweep CloudAppEvents on threat-intel triggers. Govern affected sessions and review user impact.",output:"Sweep results with session governance and user-impact summary.",owner:"SecOps",role:"Security Reader",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/en-us/defender-cloud-apps/ops-guide/ops-guide-ad-hoc#run-advanced-hunting-queries",
+  {wl:"mda",cadence:"Ad-hoc",pattern:"Hunt",title:"Run advanced hunting queries",desc:"Sweep CloudAppEvents on threat-intel triggers. Govern affected sessions and review user impact.",output:"Sweep results with session governance and user-impact summary.",owner:"SecOps",role:"Security Reader",portal:"Open Advanced Hunting",portalHref:"https://security.microsoft.com/v2/advanced-hunting",docsHref:"https://learn.microsoft.com/en-us/defender-cloud-apps/ops-guide/ops-guide-ad-hoc#run-advanced-hunting-queries",
     deepDive:{
       steps:[
         "Translate the threat-intel trigger into concrete pivots: app names, IP ranges, user-agent patterns, OAuth client IDs. A vague \"watch for SaaS abuse\" without indicators isn't a hunt.",
@@ -2316,7 +2440,7 @@ const TASKS = [
       goodLooksLike:"Service incidents affecting your tenant are tracked across every Defender workload, analysts know which signals to distrust during the window, and post-resolution gaps get backfilled with hunts where appropriate.",
       pitfalls:"Don't assume a closed service incident means your tenant is fully recovered — sensor re-sync, connector backfill, and re-ingestion can lag. Confirm a clean alert sample and healthy data pipelines before closing the analyst-impact note."
     }},
-  {wl:"xdr",cadence:"Daily",pattern:"Triage",anchor:true,title:"Update SOC escalation tickets",desc:"Keep the ITSM record of every active incident current — status, owner, escalation path, handoff notes. Smooth shift transitions and a clean audit trail depend on tickets that reflect reality, not yesterday's reality.",output:"Updated ticket status with documented owner, escalation path, and shift-handoff notes.",owner:"SecOps",role:"Security Operator",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/integrate-microsoft-365-defender-secops-tasks",
+  {wl:"xdr",cadence:"Daily",pattern:"Triage",title:"Update SOC escalation tickets",desc:"Keep the ITSM record of every active incident current — status, owner, escalation path, handoff notes. Smooth shift transitions and a clean audit trail depend on tickets that reflect reality, not yesterday's reality.",output:"Updated ticket status with documented owner, escalation path, and shift-handoff notes.",owner:"SecOps",role:"Security Operator",portal:"Open Incidents",portalHref:"https://security.microsoft.com/incidents",docsHref:"https://learn.microsoft.com/defender-xdr/integrate-microsoft-365-defender-secops-tasks",
     deepDive:{
       steps:[
         "Walk the active incident queue and reconcile each one against your ITSM record — status, owner, severity, last-update timestamp. Tickets that drift from reality are how handoffs go sideways and how leadership briefings get caught out.",
@@ -2417,7 +2541,7 @@ const WORKLOADS = {
          sub: "Identity threat protection across on-prem AD and Entra ID: triage alerts, monitor sensitive accounts, and tune posture." },
   mda: { name: "Defender for Cloud Apps", short: "Cloud Apps", color: "#60a5fa",
          sub: "SaaS app security: triage anomaly alerts, govern OAuth apps, and monitor sanctioned and shadow IT activity." },
-  xdr: { name: "Cross-XDR", short: "Cross-XDR", color: "#475569",
+  xdr: { name: "Cross-XDR", short: "Cross-XDR", color: "#8661C5",
          sub: "Tenant-wide routines that apply across every Defender workload — alert tuning, release tracking, and service-health checks.\nMany cross-XDR activities also run on shared surfaces (Incidents, Advanced Hunting, Custom Detections, Threat Analytics) and appear inside each workload's deep dives." },
 };
 
@@ -2428,30 +2552,10 @@ const SHARED_PORTALS = {
   "https://security.microsoft.com/threatanalytics3":     "Microsoft Defender XDR Threat Analytics — same dashboard across workloads, filtered to relevant reports.",
 };
 
-const PATTERNS = {
-  Triage: "Investigate and respond to active alerts or incidents.",
-  Tune:   "Reduce noise, validate FP/FN, and correct risky overrides.",
-  Hunt:   "Proactively search for threats, indicators, or suspicious behavior.",
-  Intel:  "Review threat, product, or service intelligence that may change operations.",
-  Detect: "Validate telemetry, coverage, sensor health, and visibility.",
-  Config: "Manage posture, policy, exceptions, and control configuration.",
-};
-
-const PRECEDENCE = [
-  { strong: "High-confidence phish delivered to inbox", desc: "credential harvest or payload reaching users." },
-  { strong: "Compromised internal sender", desc: "lateral phishing from a tenant mailbox." },
-  { strong: "BEC / impersonation hits", desc: "display-name or domain impersonation of executives." },
-  { strong: "Malware delivered + ZAP failed", desc: "verify endpoint detonation status." },
-  { strong: "User-reported phish (cluster)", desc: "multiple reports on the same campaign." },
-  { strong: "Spoof intelligence misses", desc: "failed DMARC/SPF that bypassed policy." },
-  { strong: "Bulk / spam complaints", desc: "work last unless exec-flagged." },
-];
-
 const CADENCES = ["all", "Daily", "Weekly", "Monthly", "Ad-hoc"];
-const PATTERN_LIST = Object.keys(PATTERNS);
 const TIERS = ["all", "SecOps", "SecAdmin"];
 
-const state = { wl: "all", cadence: "all", pattern: "all", tier: "all", q: "", anchor: false, view: "cards", expanded: new Set() };
+const state = { wl: "all", cadence: "all", tier: "all", q: "", view: "cards", expanded: new Set() };
 let filteredTasks = [];
 const $ = id => document.getElementById(id);
 const esc = s => String(s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
@@ -2498,32 +2602,30 @@ function toggleTaskDone(t) {
   else progress[k] = t.cadence === "Ad-hoc" ? "adhoc" : periodKey(t.cadence);
   saveProgress();
 }
-function resetCadence(cadence, tasks) {
-  tasks.forEach(t => { if (t.cadence === cadence) delete progress[taskKey(t)]; });
-  saveProgress();
-}
-function updateProgressStrip(tasks) {
+
+function renderCadenceOverview() {
   const order = ["Daily","Weekly","Monthly","Ad-hoc"];
-  const groups = {};
-  order.forEach(c => groups[c] = []);
-  tasks.forEach(t => { if (groups[t.cadence]) groups[t.cadence].push(t); });
-  const segs = order
-    .filter(c => groups[c].length > 0)
-    .map(c => {
-      const total = groups[c].length;
-      const done = groups[c].filter(isTaskDone).length;
-      return { c, done, total, pct: total ? Math.round(done/total*100) : 0 };
-    });
-  const strip = $("progressStrip");
-  if (segs.length === 0 || tasks.length === 0) { strip.style.display = "none"; return; }
-  strip.style.display = "flex";
-  strip.innerHTML = `<span class="progress-strip-label">Progress</span>` +
-    segs.map(s => `<span class="progress-cad" data-cad="${s.c}">
-      <strong>${s.c}</strong>
-      <span>${s.done} of ${s.total}</span>
-      <span class="progress-bar"><span class="fill" style="width:${s.pct}%"></span></span>
-      ${s.done > 0 ? `<button class="reset" data-reset-cad="${s.c}" type="button" aria-label="Reset ${s.c} progress">reset</button>` : ""}
-    </span>`).join("");
+  const groups = { Daily: [], Weekly: [], Monthly: [], "Ad-hoc": [] };
+  const scope = state.wl === "all" ? TASKS : TASKS.filter(t => t.wl === state.wl);
+  scope.forEach(t => { if (groups[t.cadence]) groups[t.cadence].push(t); });
+  order.forEach(cad => {
+    const tile = document.querySelector(`[data-cad-tile="${cad}"]`);
+    if (!tile) return;
+    const list = groups[cad];
+    const total = list.length;
+    const done = list.filter(isTaskDone).length;
+    const pct = total ? Math.round(done/total*100) : 0;
+    const doneEl = tile.querySelector("[data-cad-done]");
+    const totalEl = tile.querySelector("[data-cad-total]");
+    const pctEl = tile.querySelector("[data-cad-pct]");
+    const fillEl = tile.querySelector("[data-cad-fill]");
+    if (doneEl) doneEl.textContent = String(done);
+    if (totalEl) totalEl.textContent = String(total);
+    if (pctEl) pctEl.textContent = `${pct}%`;
+    if (fillEl) fillEl.style.width = `${pct}%`;
+    tile.classList.toggle("is-active", state.cadence === cad);
+    tile.setAttribute("aria-pressed", state.cadence === cad ? "true" : "false");
+  });
 }
 
 // ===== URL deep-linking =====
@@ -2531,9 +2633,7 @@ function serializeUrlQuery() {
   const p = new URLSearchParams();
   if (state.wl !== "all") p.set("w", state.wl);
   if (state.cadence !== "all") p.set("c", state.cadence.toLowerCase());
-  if (state.pattern !== "all") p.set("p", state.pattern.toLowerCase());
   if (state.tier !== "all") p.set("o", state.tier.toLowerCase());
-  if (state.anchor) p.set("a", "1");
   if (state.q) p.set("q", state.q);
   if (state.view === "table") p.set("v", "table");
   return p.toString();
@@ -2554,17 +2654,11 @@ function hydrateFromUrl() {
       const m = CADENCES.find(c => c.toLowerCase() === v);
       if (m) state.cadence = m;
     }
-    if (p.has("p")) {
-      const v = p.get("p").toLowerCase();
-      const m = ["all", ...PATTERN_LIST].find(x => x.toLowerCase() === v);
-      if (m) state.pattern = m;
-    }
     if (p.has("o")) {
       const v = p.get("o").toLowerCase();
       const m = TIERS.find(t => t.toLowerCase() === v);
       if (m) state.tier = m;
     }
-    if (p.get("a") === "1") state.anchor = true;
     if (p.has("q")) state.q = p.get("q").toLowerCase();
     if (p.get("v") === "table" && window.innerWidth > 760) state.view = "table";
   } catch(e) {}
@@ -2588,10 +2682,10 @@ function downloadBlob(filename, mime, content) {
   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 100);
 }
 function exportCsv(tasks) {
-  const header = ["title","workload","cadence","pattern","owner","anchor","expected_output","access","portal_url","docs_url"];
+  const header = ["title","workload","cadence","pattern","owner","expected_output","access","portal_url","docs_url"];
   const rows = tasks.map(t => [
     t.title, WORKLOADS[t.wl].name, t.cadence, t.pattern, t.owner,
-    t.anchor ? "yes" : "", t.output, t.role || "",
+    t.output, t.role || "",
     t.portalHref || "", t.docsHref || ""
   ]);
   const body = [header, ...rows].map(r => r.map(csvEscape).join(",")).join("\r\n");
@@ -2602,8 +2696,8 @@ function exportJson(tasks) {
     exportedAt: new Date().toISOString(),
     source: "Microsoft Defender XDR SOC Guide",
     filters: {
-      workload: state.wl, cadence: state.cadence, pattern: state.pattern,
-      owner: state.tier, anchorOnly: state.anchor, search: state.q || null
+      workload: state.wl, cadence: state.cadence,
+      owner: state.tier, search: state.q || null
     },
     count: tasks.length,
     tasks: tasks.map(t => ({
@@ -2613,7 +2707,6 @@ function exportJson(tasks) {
       cadence: t.cadence,
       pattern: t.pattern,
       owner: t.owner,
-      anchor: !!t.anchor,
       description: t.desc,
       expectedOutput: t.output,
       access: t.role || null,
@@ -2685,16 +2778,33 @@ function init() {
     render();
   });
 
-  // Pattern chips
-  $("patternChips").innerHTML = ["all", ...PATTERN_LIST].map(p =>
-    `<button class="chip ${p===state.pattern?"active":""}" data-p="${p}">${p==="all"?"All patterns":p}</button>`
-  ).join("");
-  $("patternChips").addEventListener("click", e => {
-    const b = e.target.closest(".chip"); if (!b) return;
-    state.pattern = b.dataset.p;
-    $("patternChips").querySelectorAll(".chip").forEach(x => x.classList.toggle("active", x === b));
-    render();
-  });
+  // Cadence overview tiles act as filter shortcuts
+  const cadenceOverview = $("cadenceOverview");
+  if (cadenceOverview) {
+    const applyTileFilter = tile => {
+      const cad = tile.dataset.cadTile;
+      if (!cad) return;
+      state.cadence = (state.cadence === cad) ? "all" : cad;
+      syncFilterUIs();
+      render();
+      const wb = document.querySelector(".workload-bar");
+      if (wb && typeof wb.scrollIntoView === "function") {
+        wb.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+    cadenceOverview.addEventListener("click", e => {
+      const tile = e.target.closest(".cadence-tile");
+      if (!tile) return;
+      applyTileFilter(tile);
+    });
+    cadenceOverview.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const tile = e.target.closest(".cadence-tile");
+      if (!tile) return;
+      e.preventDefault();
+      applyTileFilter(tile);
+    });
+  }
 
   // Tier chips (Analyst / Admin / Shared)
   $("tierChips").innerHTML = TIERS.map(t =>
@@ -2717,9 +2827,7 @@ function init() {
     const key = btn.dataset.fs;
     if (key === "wl") state.wl = "all";
     else if (key === "cadence") state.cadence = "all";
-    else if (key === "pattern") state.pattern = "all";
     else if (key === "tier") state.tier = "all";
-    else if (key === "anchor") state.anchor = false;
     else if (key === "q") { state.q = ""; $("search").value = ""; }
     syncFilterUIs();
     render();
@@ -2727,19 +2835,41 @@ function init() {
 
   // Filter summary — clear all
   $("filterSummaryClear").addEventListener("click", () => {
-    state.wl = "all"; state.cadence = "all"; state.pattern = "all";
-    state.tier = "all"; state.anchor = false; state.q = "";
+    state.wl = "all"; state.cadence = "all";
+    state.tier = "all"; state.q = "";
     $("search").value = "";
     syncFilterUIs();
     render();
   });
 
+  // Smooth-scroll the deep-dive panel into view, accounting for the sticky workload bar (~50px).
+  const scrollDeepDiveIntoView = () => {
+    requestAnimationFrame(() => {
+      const panel = document.querySelector(".cards-grid .deep-dive-panel");
+      if (!panel) return;
+      const STICKY_OFFSET = 60;
+      const targetY = panel.getBoundingClientRect().top + window.scrollY - STICKY_OFFSET;
+      if (targetY < window.scrollY) {
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+      }
+    });
+  };
   // Card click + keyboard activation — toggle inline deep dive
   const toggleExpanded = card => {
     const idx = parseInt(card.dataset.taskIdx, 10);
     if (Number.isNaN(idx)) return;
+    let justExpanded = false;
     if (state.expanded.has(idx)) state.expanded.delete(idx);
-    else state.expanded.add(idx);
+    else {
+      if (state.view === "cards") state.expanded.clear();
+      state.expanded.add(idx);
+      justExpanded = true;
+    }
+    render();
+    if (justExpanded && state.view === "cards") scrollDeepDiveIntoView();
+  };
+  const collapseExpanded = () => {
+    state.expanded.clear();
     render();
   };
   $("cards").addEventListener("click", e => {
@@ -2747,6 +2877,9 @@ function init() {
     if (e.target.closest(".dd-query")) return;
     if (e.target.closest(".task-check")) return;
     if (e.target.closest(".kql-copy")) return;
+    if (e.target.closest(".dd-close")) { collapseExpanded(); return; }
+    // Clicks inside the deep-dive panel body do NOT collapse — only the X button does.
+    if (e.target.closest(".deep-dive-panel")) return;
     const card = e.target.closest(".task-card.has-deep-dive");
     if (!card) return;
     toggleExpanded(card);
@@ -2756,6 +2889,8 @@ function init() {
     if (e.target.closest(".dd-query")) return;
     if (e.target.closest(".task-check")) return;
     if (e.target.closest(".kql-copy")) return;
+    if (e.target.closest(".dd-close")) { e.preventDefault(); collapseExpanded(); return; }
+    if (e.target.closest(".deep-dive-panel")) return;
     const card = e.target.closest(".task-card.has-deep-dive");
     if (!card) return;
     e.preventDefault();
@@ -2798,13 +2933,6 @@ function init() {
     const idx = parseInt(cb.dataset.taskIdx, 10);
     if (Number.isNaN(idx)) return;
     toggleTaskDone(TASKS[idx]);
-    render();
-  });
-
-  // Progress strip — cadence reset
-  $("progressStrip").addEventListener("click", e => {
-    const btn = e.target.closest("[data-reset-cad]"); if (!btn) return;
-    resetCadence(btn.dataset.resetCad, filteredTasks);
     render();
   });
 
@@ -2887,57 +3015,37 @@ function init() {
     }
   });
 
-  // Anchor chips — sole control for the anchor-only filter
-  $("anchorChips").innerHTML = [
-    `<button class="chip ${!state.anchor?"active":""}" data-a="0">All tasks</button>`,
-    `<button class="chip ${state.anchor?"active":""}" data-a="1">Anchor only</button>`
-  ].join("");
-  $("anchorChips").addEventListener("click", e => {
-    const b = e.target.closest(".chip"); if (!b) return;
-    state.anchor = b.dataset.a === "1";
-    $("anchorChips").querySelectorAll(".chip").forEach(x => x.classList.toggle("active", x === b));
-    render();
-  });
-
-  // Legend
-  $("legend").innerHTML = Object.entries(PATTERNS).map(([p,d]) =>
-    `<div class="legend-row"><span class="pbadge pb-${p}">${p}</span><span>${d}</span></div>`
-  ).join("");
-
   render();
 }
 
 function syncFilterUIs() {
   $("workloadTabs").querySelectorAll(".wl-tab").forEach(t => t.classList.toggle("active", t.dataset.wl === state.wl));
   $("cadenceChips").querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.dataset.c === state.cadence));
-  $("patternChips").querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.dataset.p === state.pattern));
   $("tierChips").querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.dataset.t === state.tier));
-  $("anchorChips").querySelectorAll(".chip").forEach(c => c.classList.toggle("active", (c.dataset.a === "1") === state.anchor));
 }
 
 function renderFilterSummary() {
   const chips = [];
   if (state.wl !== "all") chips.push({ key: "wl", label: WORKLOADS[state.wl].short });
   if (state.cadence !== "all") chips.push({ key: "cadence", label: state.cadence });
-  if (state.pattern !== "all") chips.push({ key: "pattern", label: state.pattern });
   if (state.tier !== "all") chips.push({ key: "tier", label: state.tier });
-  if (state.anchor) chips.push({ key: "anchor", label: "Anchor only" });
   if (state.q) chips.push({ key: "q", label: `"${state.q}"` });
 
   const wrap = $("filterSummary");
-  if (chips.length === 0) { wrap.style.display = "none"; return; }
   wrap.style.display = "flex";
-  $("filterSummaryChips").innerHTML = chips.map(c =>
-    `<span class="fs-chip">${esc(c.label)}<button class="fs-chip-x" data-fs="${c.key}" type="button" aria-label="Remove ${esc(c.label)} filter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span>`
-  ).join("");
+  $("filterSummaryLabel").textContent = chips.length === 0 ? "Showing" : "Active filters";
+  $("filterSummaryChips").innerHTML = chips.length === 0
+    ? `<span class="fs-empty">All tasks</span>`
+    : chips.map(c =>
+        `<span class="fs-chip">${esc(c.label)}<button class="fs-chip-x" data-fs="${c.key}" type="button" aria-label="Remove ${esc(c.label)} filter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span>`
+      ).join("");
+  $("filterSummaryClear").style.display = chips.length === 0 ? "none" : "";
 }
 
 function matches(t) {
   if (state.wl !== "all" && t.wl !== state.wl && t.wl !== "xdr") return false;
   if (state.cadence !== "all" && t.cadence !== state.cadence) return false;
-  if (state.pattern !== "all" && t.pattern !== state.pattern) return false;
   if (state.tier !== "all" && t.owner !== state.tier) return false;
-  if (state.anchor && !t.anchor) return false;
   if (state.q) {
     const blob = [t.title, t.desc, t.output, t.owner, t.role, t.portal, WORKLOADS[t.wl].name].join(" ").toLowerCase();
     if (!blob.includes(state.q)) return false;
@@ -2945,15 +3053,22 @@ function matches(t) {
   return true;
 }
 
-function colorFor(wl) { return WORKLOADS[wl]?.color || "#0b1220"; }
+function colorFor(wl) {
+  const vars = { mdo: "var(--mdo)", mde: "var(--mde)", mdi: "var(--mdi)", mda: "var(--mda)", xdr: "var(--xdr)" };
+  return vars[wl] || WORKLOADS[wl]?.color || "#0b1220";
+}
 
-function deepDiveInlineHTML(t) {
+function deepDiveInlineHTML(t, opts) {
   const dd = t.deepDive || {};
   const steps = (dd.steps || []).map(s => `<li>${esc(s)}</li>`).join("");
   const queries = (dd.queries || []).map(q => `<details class="dd-query"><summary>${esc(q.title)}<span class="kql-tag">KQL</span></summary><pre><button type="button" class="kql-copy" aria-label="Copy KQL to clipboard">Copy</button><code>${esc(q.kql)}</code></pre></details>`).join("");
   const sharedNote = (t.wl !== "xdr" && SHARED_PORTALS[t.portalHref]) ? SHARED_PORTALS[t.portalHref] : "";
+  const includeOutput = opts && opts.includeOutput && t.output;
+  const includeAccess = opts && opts.includeOutput && t.role;
   return `<div class="deep-dive-body">
     ${sharedNote ? `<div class="dd-shared-portal">Shared portal · ${esc(sharedNote)}</div>` : ""}
+    ${includeOutput ? `<div class="dd-output"><strong>Expected output</strong>${esc(t.output)}</div>` : ""}
+    ${includeAccess ? `<div class="dd-access"><span class="dd-access-label">Access required</span><span class="dd-access-value">${esc(t.role)}</span></div>` : ""}
     ${steps ? `<div class="dd-section"><h6>How to work it</h6><ol class="dd-steps">${steps}</ol></div>` : ""}
     ${queries ? `<div class="dd-section"><h6>Starter queries</h6><div class="dd-queries">${queries}</div><p class="dd-query-note">Adapted from internal Defender XDR custom-detection examples — tune scope, time windows, and exclusions before promoting.</p></div>` : ""}
     ${dd.goodLooksLike ? `<div class="dd-callout good"><strong>What good looks like</strong>${esc(dd.goodLooksLike)}</div>` : ""}
@@ -2962,7 +3077,32 @@ function deepDiveInlineHTML(t) {
 }
 
 function deepDivePanelHTML(t, idx) {
-  return `<article class="deep-dive-panel ${t.anchor?"anchor":""}" data-wl="${t.wl}" data-task-idx="${idx}" tabindex="0" role="button" aria-label="Collapse deep dive for ${esc(t.title)}" style="--wl-color:${colorFor(t.wl)}">${deepDiveInlineHTML(t)}</article>`;
+  return `<article class="deep-dive-panel" data-wl="${t.wl}" data-task-idx="${idx}" style="--wl-color:${colorFor(t.wl)}">
+    <button class="dd-close" type="button" aria-label="Close deep dive">×</button>
+    <span class="corner-meta">${t.cadence} · ${WORKLOADS[t.wl].short}</span>
+    <h3 class="dd-title">${esc(t.title)}</h3>
+    <p class="dd-desc">${esc(t.desc)}</p>
+    <div class="dd-body-wrap">${deepDiveInlineHTML(t, {includeOutput:true})}</div>
+    <div class="dd-footer">
+      <a class="portal-link" href="${esc(t.portalHref)}" target="_blank" rel="noopener">Open portal <span class="ext">↗</span></a>
+      <a class="docs-link" href="${esc(t.docsHref)}" target="_blank" rel="noopener">View docs <span class="ext">↗</span></a>
+    </div>
+  </article>`;
+}
+
+// Build the cards grid HTML — expanded deep-dive (if any) always sits at the top.
+// The source card is removed from the grid while expanded (it has been "promoted" to the big card).
+function buildCardsHTML(filtered) {
+  const out = [];
+  const expandedTask = filtered.find(t => state.expanded.has(TASKS.indexOf(t)) && t.deepDive);
+  if (expandedTask) {
+    out.push(deepDivePanelHTML(expandedTask, TASKS.indexOf(expandedTask)));
+  }
+  filtered.forEach(t => {
+    if (expandedTask && t === expandedTask) return;
+    out.push(cardHTML(t, TASKS.indexOf(t)));
+  });
+  return out.join("");
 }
 
 function cardHTML(t, idx) {
@@ -2978,21 +3118,17 @@ function cardHTML(t, idx) {
   } else {
     titleHTML = `<span class="title-text">${esc(t.title)}</span>`;
   }
-  return `<article class="task-card ${t.anchor?"anchor":""} ${hasDeep?"has-deep-dive":""} ${isExpanded?"is-expanded":""} ${done?"is-done":""}" data-wl="${t.wl}" ${hasDeep?`data-task-idx="${idx}" tabindex="0" role="button" aria-expanded="${isExpanded}" aria-label="${isExpanded?"Collapse":"Expand"} deep dive for ${esc(t.title)}"`:""} style="--wl-color:${colorFor(t.wl)}">
+  return `<article class="task-card ${hasDeep?"has-deep-dive":""} ${isExpanded?"is-expanded":""} ${done?"is-done":""}" data-wl="${t.wl}" ${hasDeep?`data-task-idx="${idx}" tabindex="0" role="button" aria-expanded="${isExpanded}" aria-label="${isExpanded?"Collapse":"Expand"} deep dive for ${esc(t.title)}"`:""} style="--wl-color:${colorFor(t.wl)}">
     <span class="corner-meta">${t.cadence} · ${WORKLOADS[t.wl].short}</span>
-    <h3><input class="task-check" type="checkbox" data-task-idx="${idx}" aria-label="Mark complete for this ${t.cadence === 'Ad-hoc' ? 'task' : t.cadence.toLowerCase() + ' cycle'}" ${done?"checked":""}>${t.anchor ? `<span class="row-anchor-icon" aria-label="Anchor task" title="Anchor task"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></span>` : ""}${titleHTML}</h3>
+    <h3><input class="task-check" type="checkbox" data-task-idx="${idx}" aria-label="Mark complete for this ${t.cadence === 'Ad-hoc' ? 'task' : t.cadence.toLowerCase() + ' cycle'}" ${done?"checked":""}>${titleHTML}</h3>
     <p class="desc">${esc(t.desc)}</p>
-    <div class="output"><strong>Expected output:</strong> ${esc(t.output)}</div>
     <div class="meta">
       <span class="tbadge tb-${t.owner}">${esc(t.owner)}</span>
-      ${t.role && t.role !== "Access varies by action" ? `<span class="badge perm">Access: ${esc(t.role)}</span>` : ""}
-      <span class="pbadge pb-${t.pattern}">${t.pattern}</span>
     </div>
     <div class="card-footer">
       <a class="portal-link" href="${esc(t.portalHref)}" target="_blank" rel="noopener">Open portal <span class="ext">↗</span></a>
       <a class="docs-link" href="${esc(t.docsHref)}" target="_blank" rel="noopener">View docs <span class="ext">↗</span></a>
     </div>
-    ${isExpanded ? `<div class="card-deep-dive">${deepDiveInlineHTML(t)}</div>` : ""}
   </article>`;
 }
 
@@ -3002,7 +3138,6 @@ function rowHTML(t, idx) {
   const isExpanded = hasDeep && state.expanded.has(idx);
   const done = isTaskDone(t);
   const classes = [];
-  if (t.anchor) classes.push("is-anchor");
   if (hasDeep) classes.push("has-deep-dive");
   if (isExpanded) classes.push("is-expanded");
   if (done) classes.push("is-done");
@@ -3010,38 +3145,20 @@ function rowHTML(t, idx) {
   const styleAttr = ` style="--wl-color:${colorFor(t.wl)}"`;
   const expandAttrs = hasDeep ? ` data-task-idx="${idx}" tabindex="0" role="button" aria-expanded="${isExpanded}"` : "";
   const chevron = hasDeep ? `<span class="row-chevron" aria-hidden="true">▾</span>` : "";
-  const anchorIcon = t.anchor ? `<span class="row-anchor-icon" aria-label="Anchor task" title="Anchor task"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></span>` : "";
   const checkbox = `<input class="row-check" type="checkbox" data-task-idx="${idx}" aria-label="Mark complete" ${done?"checked":""}>`;
   const mainRow = `<tr${classAttr} data-wl="${t.wl}"${styleAttr}${expandAttrs}>
-    <td><strong>${checkbox}${chevron}${anchorIcon}${esc(t.title)}</strong>${esc(t.desc)}</td>
-    <td>${WORKLOADS[t.wl].short}</td>
+    <td><strong>${checkbox}${chevron}${esc(t.title)}</strong>${esc(t.desc)}</td>
+    <td><span class="wl-pill">${WORKLOADS[t.wl].short}</span></td>
     <td>${t.cadence}</td>
-    <td><span class="pbadge pb-${t.pattern}">${t.pattern}</span></td>
     <td>${esc(t.owner)}</td>
     <td>${esc(role)}</td>
     <td>${esc(t.output)}</td>
     <td><span class="table-links"><a class="table-link" href="${esc(t.portalHref)}" target="_blank" rel="noopener">Open</a><a class="table-docs-link" href="${esc(t.docsHref)}" target="_blank" rel="noopener">View docs</a></span></td>
   </tr>`;
   const ddRow = isExpanded
-    ? `<tr class="dd-row${t.anchor ? ' dd-row-anchor' : ''}" data-wl="${t.wl}"${styleAttr} data-task-idx="${idx}"><td colspan="8">${deepDiveInlineHTML(t)}</td></tr>`
+    ? `<tr class="dd-row" data-wl="${t.wl}"${styleAttr} data-task-idx="${idx}"><td colspan="7">${deepDiveInlineHTML(t)}</td></tr>`
     : "";
   return mainRow + ddRow;
-}
-
-function precedenceHTML() {
-  return `<div class="precedence">
-    <div class="precedence-head">
-      <h4>Email triage precedence</h4>
-      <p class="hint">Top-down: highest impact first. Visual weight reflects severity.</p>
-    </div>
-    <ol class="precedence-list">
-      ${PRECEDENCE.map((p,i) => `<li>
-        <span class="rank">${i+1}</span>
-        <span class="body"><strong>${esc(p.strong)}</strong> — <span class="desc">${esc(p.desc)}</span></span>
-        <span class="bar"></span>
-      </li>`).join("")}
-    </ol>
-  </div>`;
 }
 
 function getCurrentColumnCount() {
@@ -3085,28 +3202,24 @@ function render() {
   $("sectionSubtitle").textContent = w.sub;
   $("resultCount").textContent = `${filtered.length} task${filtered.length===1?"":"s"}`;
 
-  // Filter summary + progress strip
+  // Filter summary + global cadence overview
   renderFilterSummary();
-  updateProgressStrip(filtered);
+  renderCadenceOverview();
 
   // View show/hide
   $("cardsView").style.display = state.view === "cards" ? "block" : "none";
   $("tableView").style.display = state.view === "table" ? "block" : "none";
 
   // Defender for Office 365 Monthly empty state
-  const isMdoMonthlyEmpty = state.wl === "mdo" && state.cadence === "Monthly" && filtered.length === 0 && !state.q && !state.anchor && state.pattern === "all" && state.tier === "all";
+  const isMdoMonthlyEmpty = state.wl === "mdo" && state.cadence === "Monthly" && filtered.length === 0 && !state.q && state.tier === "all";
   $("emptyMdoMonthly").style.display = (state.view === "cards" && isMdoMonthlyEmpty) ? "block" : "none";
 
   // Generic empty state
   $("emptyResults").style.display = (filtered.length === 0 && !isMdoMonthlyEmpty && state.view === "cards") ? "block" : "none";
 
   // Render content
-  $("cards").innerHTML = filtered.map(t => cardHTML(t, TASKS.indexOf(t))).join("");
+  $("cards").innerHTML = buildCardsHTML(filtered);
   $("tableBody").innerHTML = filtered.map(t => rowHTML(t, TASKS.indexOf(t))).join("");
-
-  // Triage precedence — show only when Defender for Office 365 Daily, cards view, default filters
-  const showPrecedence = state.view === "cards" && state.wl === "mdo" && state.cadence === "Daily" && state.pattern === "all" && state.tier === "all" && !state.q && !state.anchor;
-  $("precedenceWrap").innerHTML = showPrecedence ? precedenceHTML() : "";
 
   // Push current filter state to URL (shareable)
   pushUrl();
