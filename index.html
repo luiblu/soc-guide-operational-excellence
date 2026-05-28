@@ -114,12 +114,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; }
-:root[data-theme="dark"] a:not([class]) {
-  color: var(--mdi);
+a:not([class]) {
+  color: var(--mde);
   text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--mdi) 45%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--mde) 35%, transparent);
   text-underline-offset: 3px;
   transition: text-decoration-color .15s ease, color .15s ease;
+}
+a:not([class]):hover {
+  text-decoration-color: var(--mde);
+}
+:root[data-theme="dark"] a:not([class]) {
+  color: var(--mdi);
+  text-decoration-color: color-mix(in srgb, var(--mdi) 45%, transparent);
 }
 :root[data-theme="dark"] a:not([class]):hover {
   text-decoration-color: var(--mdi);
@@ -1650,7 +1657,7 @@ tr.is-done { opacity: 0.72; }
       </div>
     </div>
     <p class="about-note"><strong>About this guide.</strong> Tasks, portals, and docs trace to Microsoft's published Defender XDR SOC ops guides. Owner roles are consolidated to <strong>SecOps</strong> and <strong>SecAdmin</strong> for clarity; the source guides use more granular role names. For authoritative guidance, follow the Learn links on each task.</p>
-    <p class="about-note" style="opacity:.7;">Last updated 2026-05-11.</p>
+    <p class="about-note" style="opacity:.7;">Last updated 2026-05-28.</p>
   </div>
 </footer>
 
